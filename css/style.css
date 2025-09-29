@@ -45,21 +45,24 @@ body {
   	background-size: 55px 55px; /* ukuran grid kecil */
 }
 .circle {
-	width: 4000px;
-	height: 4000px;
-	bottom: 0px;
-	border-radius: 50%;
-	background: radial-gradient(
-		circle,
-		#161616,
-		#161616,
-		#161616,
-		rgba(15, 188, 109, 1)
-	);
-	/* border: 5px solid rgba(15, 188, 109, 0.2); */
-	position: absolute;
-	/* filter: blur(10px); */
+  width: 1000px;
+  height: 1000px;
+  left: 50%;
+  top: 50%; /* ganti dari bottom ke top */
+  transform: translate(-50%, -50%); /* center X & Y */
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #161616,
+    #161616,
+    #161616,
+    rgba(15, 188, 109, 1)
+  );
+  position: absolute;
+  z-index: -1;
+  opacity: 0.5;
 }
+
 .circle2 {
 	width: 400px;
 	height: 400px;

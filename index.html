@@ -1,238 +1,623 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>HMTE Unsoed</title>
-		<meta
-			name="description"
-			content="Website resmi HMTE Unsoed. Temukan informasi tentang Himpunan Mahasiswa Teknik Elektro Universitas Soedirman, kegiatan, dan berita terbaru."
-		/>
 
-		<link rel="stylesheet" href="css/style.css" />
-		<link rel="stylesheet" href="css/satoshi.css" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HMTE Unsoed</title>
+  <meta name="description"
+    content="Website resmi HMTE Unsoed. Temukan informasi tentang Himpunan Mahasiswa Teknik Elektro Universitas Soedirman, kegiatan, dan berita terbaru.">
 
-		<!-- ICON -->
-		<link
-			href="https://cdn.jsdelivr.net/npm/zremixicon@4.5.0/fonts/remixicon.css"
-			rel="stylesheet"
-		/>
-		<link rel="icon" type="image/png" href="img/hmte-icon.png" />
+  <!-- Styling -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/satoshi.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Great+Vibes&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/zremixicon@4.5.0/fonts/remixicon.css">
+  <link rel="icon" type="image/png" href="img/hmte-icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
 
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-			integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-			crossorigin="anonymous"
-			referrerpolicy="no-referrer"
-		/>
-		<!-- Google tag (gtag.js) -->
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=G-GWPL5RWLH5"
-		></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() {
-				dataLayer.push(arguments);
-			}
-			gtag("js", new Date());
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GWPL5RWLH5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-GWPL5RWLH5");
+  </script>
 
-			gtag("config", "G-GWPL5RWLH5");
-		</script>
-		<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <style></style>
 
-	</head>
-	<body>
-		<header id="header">
-			<div class="header">
-				<a href="#home" class="nav-brand">
-					<img src="img/logohmte.png" alt="Logo HMTE" class="logo-navbar" />
-					<h2 class="nav-text-white-left">HMTE | UNSOED</h2>
-				</a>
-				<nav class="nav-contain">
-					<div class="navbar">
-						<ul id="nav_list">
-							<li><a href="#home" class="nav-link nav-text-white">Home</a></li>
-							<li class="dropdown">
-								<a href="#berita" class="nav-drop nav-berita nav-text-white">Information <i class="fas fa-chevron-down"></i></a>
-								<ul class="dropdown-menu">
-									<li><a href="#" class="nav-link"target="_blank">Resource</a></li>
-									<li><a href="https://drive.google.com/drive/folders/1oueuRbrxhSpVH_7HQCoyHCRbyxKBhVY1?usp=sharing"class="nav-link"target="_blank">Database</a></li>
-									<li><a href="https://drive.google.com/drive/folders/1-DIdaGIVp7G0B-XE_9Hh1BG38qgScb6R"class="nav-link"target="_blank">Gallery</a></li>
-									<!-- <li><a href="#"class="nav-link"target="_blank">Events</a></li> -->
-								</ul>
-							</li>
-							<li><a href="kepengurusan.html" class="nav-link nav-text-white">Profil Kabinet</a></li>
-							<li><a href="#" class="nav-link nav-text-white">Contact Us</a></li>
-						</ul>
-					</div>
-				</nav>
-				<button class="nav-toggle">
-					<div class="line"></div>
-					<div class="linee"></div>
-					<div class="lineee"></div>
-				</button>
-			</div>
-		</header>
-		<main id="main" class="main">
-			<div class="circle"></div>
-			<!-- <div class="circle2"></div> -->
-			<section id="home" class="fade-in">
-				<div>
-					<h1 class="heading1 home-text-white">
-						Himpunan Mahasiswa Teknik Elektro Unsoed
-					</h1>
-					<p class="news-paragraph home-text-white">
-						Website resmi Himpunan Mahasiswa Teknik Elektro Universitas Jenderal
-						Soedirman
-					</p>
-					<p class="news-paragraph text-green">Tentang kami</p>
-					<i class="ri-arrow-right-line"></i>
-				</div>
-				<img src="img/logohmte.webp" alt="Logo Kabinet" />
-			</section>
-			<section id="berita">
-				<div class="fade-in">
-					<h1 class="heading1 home-text-white border-bottom">Berita</h1>
-					<p class="news-paragraph home-text-white" style="margin-top: 10px">
-						Informasi terbaru seputar Teknik Elektro Unsoed
-					</p>
-				</div>
-				<div class="card_container">
-					<a href="page/news-detail/graduation.html" class="fade-in">
-						<article class="card">
-							<img
-								src="img/news/NewsCover-Graduation.webp"
-								alt="Electrical Graduation"
-							/>
-							<h1 class="home-text-white">Electrical Graduation</h1>
-							<p class="text-limit home-text-white">
-								HMTE Unsoed kembali melaksanakan Electrical Graduation untuk
-								periode Februari 2025, mengawal 16 wisudawan dan wisudawati dari
-								angkatan 2020 dan 2021. Selamat dan sukses untuk para wisudawan!
-							</p>
-						</article>
-					</a>
-					<a href="page/news-detail/efs.html" class="fade-in">
-						<article class="card">
-							<img
-								src="img/news/NewsCover-EFS.webp"
-								alt="Electrical for Society"
-							/>
-							<h1 class="home-text-white">Electrical for Society</h1>
-							<p class="text-limit home-text-white">
-								Himpunan Mahasiswa Teknik Elektro (HMTE) telah berhasil
-								melaksanakan salah satu program kerja unggulannya, yaitu
-								Electrical for Society (EFS). Program ini merupakan inisiatif
-								dari divisi Humas HMTE yang bertujuan untuk
-							</p>
-						</article>
-					</a>
-					<a href="#" class="fade-in">
-						<article class="card">
-							<img src="img/news/NewsCover-SosPKM.webp" alt="Sosialisasi PKM" />
-							<h1 class="home-text-white">Sosialisasi PKM</h1>
-							<p class="text-limit home-text-white">
-								Sebagai salah satu rangkaian program kerja PKM Center,
-								sosialisasi dilakukan untuk membekali KBTE sebelum mengikuti
-								Program Kreativitas Mahasiswa yang diadakan setiap tahunnya.
-							</p>
-						</article>
-					</a>
-				</div>
-			</section>
-			<section id="emagz" class="emagz">
-				<!-- <div class="circle-emagz"></div> -->
-				<div class="fade-in">
-					<h1
-						class="heading1 home-text-white border-bottom"
-						style="padding-bottom: 5px"
-					>
-						E-Magz
-					</h1>
-					<p class="news-paragraph home-text-white" style="margin-top: 10px">
-						Electrical Magazine Edisi 7 Vol. 3
-					</p>
-				</div>
-				<div class="emagz-slide fade-in">
-					<div class="container-gambar">
-						<a class="prev home-text-white" onclick="plusSlides(-1)">❮</a>
+  <link rel="stylesheet" href="css/satoshi.css">
+  </link>
 
-						<img src="img/emagz/page1.webp" class="gambar" />
-						<img src="img/emagz/page2.webp" class="gambar" />
-						<img src="img/emagz/page3.webp" class="gambar" />
-						<img src="img/emagz/page4.webp" class="gambar" />
-						<img src="img/emagz/page5.webp" class="gambar" />
-						<img src="img/emagz/page6.webp" class="gambar" />
-						<img src="img/emagz/page7.webp" class="gambar" />
-						<img src="img/emagz/page8.webp" class="gambar" />
-						<img src="img/emagz/page9.webp" class="gambar" />
-						<img src="img/emagz/page10.webp" class="gambar" />
 
-						<a class="next home-text-white" onclick="plusSlides(1)">❯</a>
-					</div>
+  <!-- icon -->
 
-					<div id="halamanAktif" class="home-text-white"></div>
-				</div>
-			</section>
-			<section class="potek">
-				<div class="fade-in">
-					<h1 class="heading1 home-text-white border-bottom">POTEK</h1>
-					<p class="news-paragraph home-home-text-white" style="margin-top: 10px">
-						Podcast Teknik Elektro
-					</p>
-				</div>
-				<div class="video-container">
-					<iframe
-						class="fade-in"
-						width="560"
-						height="315"
-						src="https://youtube.com/embed/XP8CRGv1M0M?si=s22EWf411EIAOD97"
-						title="YouTube video player"
-						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					>
-					</iframe>
-					<iframe
-						class="fade-in"
-						src="https://youtube.com/embed/1GBO5N_IrXw?si=6o9IOTZNVqMyoDRG"
-						title="YouTube video player"
-						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					>
-					</iframe>
-					<iframe
-						class="fade-in"
-						src="https://youtube.com/embed/fcpD-oA4bqM?si=KUlqWgPJWbACwIIf"
-						title="YouTube video player"
-						frameborder="0"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-						allowfullscreen
-					>
-					</iframe>
-				</div>
-			</section>
-			<!-- <aside>
-				<img src="img/Profile.png" alt="Profile Amin" />
-				<div class="text-aside">
-					<h1>Build by</h1>
-					<div>
-						<p>Amin Bagus Pawitran</p>
-						<p>Front-end Web Developer</p>
-						<p>Universitas Jenderal Soedirman</p>
-					</div>
-				</div>
-			</aside> -->
-		</main>
-		<footer>
-			<p class="home-text-white">
-				Copyright &copy; HMTE Unsoed 2024 | Kabinet Ethera Mosaika
+  <link href="https://cdn.jsdelivr.net/npm/zremixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+  </link>
+
+  <link rel="icon" type="image/png" href="img/hmte-icon.png">
+  </link>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  </link>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-GWPL5RWLH5"></script>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-GWPL5RWLH5");
+  </script>
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header id="header">
+    <div class="header">
+      <a href="index.html" class="flex items-center space-x-2">
+        <img src="img/logohmte.png" alt="Logo HMTE" class="logo-navbar">
+
+        <h2 class="nav-text-white font-bold text-[1.2em]">HMTE | UNSOED</h2>
+      </a>
+
+      <nav class="nav-contain">
+        <div class="navbar">
+          <ul id="nav_list">
+            <li>
+              <a href="index.html" class="nav-link nav-text-white">Home</a>
+            </li>
+
+            <li class="dropdown">
+              <a href="#berita" class="nav-drop nav-berita nav-text-white">
+                Information
+
+                <i class="fas fa-chevron-down"></i>
+              </a>
+
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#" class="nav-link" target="_blank">Resource</a>
+                </li>
+
+                <li>
+                  <a href="https://drive.google.com/drive/folders/1oueuRbrxhSpVH_7HQCoyHCRbyxKBhVY1?usp=sharing"
+                    class="nav-link" target="_blank">Database</a>
+                </li>
+
+                <li>
+                  <a href="https://drive.google.com/drive/folders/1-DIdaGIVp7G0B-XE_9Hh1BG38qgScb6R" class="nav-link"
+                    target="_blank">Gallery</a>
+                </li>
+
+                <!-- <li><a href="#"class="nav-link"target="_blank">Events</a></li> -->
+              </ul>
+            </li>
+
+            <li>
+              <a href="kepengurusan.html" class="nav-link nav-text-white">Profil Kabinet</a>
+            </li>
+
+            <li>
+              <a href="#" class="nav-link nav-text-white">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <button class="nav-toggle">
+        <div class="line"></div>
+        <div class="linee"></div>
+        <div class="lineee"></div>
+      </button>
+    </div>
+  </header>
+
+  <!-- Page Wrapper with Wider Horizontal Padding -->
+  <div class="container mx-auto px-20">
+    <!-- 1. Hero Section -->
+	<main id="main" class="">
+	<section id="home" class="fade-in justify-center">
+		<div>
+			<h1 class="heading1 nav-text-white-left">
+				Himpunan Mahasiswa Teknik Elektro Unsoed
+			</h1>
+			<p class="news-paragraph text-white">
+				Website resmi Himpunan Mahasiswa Teknik Elektro Universitas Jenderal
+				Soedirman
 			</p>
-		</footer>
-	</body>
-	<script src="js/script.js"></script>
-	<script src="js/emagz.js"></script>
+			<a href="kepengurusan.html" class="news-paragraph text-green-500 hover:text-green-400 transition duration-300">Tentang kami</a>
+			<i class="ri-arrow-right-line"></i>
+		</div>
+		<img src="img/logohmte.webp" alt="Logo Kabinet" />
+		</section>
+	</main>
+
+<!-- BERITA TERBARU -->
+<section class="py-16">
+  <div class="fade-in mx-auto px-6">
+    <h2 class="text-2xl font-bold text-center text-white mb-8">Berita Terbaru</h2>
+
+    <!-- Flex berita -->
+    <div class="flex flex-wrap gap-8 justify-center">
+
+      <!-- Card 1 -->
+	<div class="flex flex-col w-full sm:w-1/2 md:w-1/3
+				rounded-xl overflow-hidden
+				border border-transparent
+				transition-all duration-500
+				hover:border-green-500 hover:shadow-lg hover:shadow-green-500/40
+				cursor-pointer"
+		onclick="window.location.href='page/news-detail/efs.html'">
+
+	<!-- Gambar full utuh -->
+	<div class="w-full aspect-[16/9] overflow-hidden rounded-xl shadow-lg flex items-center justify-center bg-black">
+		<img src="img/news/NewsCover-Graduation.webp" 
+			alt="Electrical Graduation" 
+			class="w-full h-full object-contain transition-transform duration-500 hover:scale-105" />
+	</div>
+
+	<!-- Isi -->
+	<div class="mt-4 flex flex-col flex-1 p-4">
+		<p class="text-xs font-semibold text-cyan-400 mb-1">
+		Feb 22, 2025 • Graduation
+		</p>
+		<h3 class="font-bold text-white text-lg mb-2">Electrical Graduation</h3>
+		<p class="text-gray-300 text-sm leading-relaxed">
+		HMTE Unsoed kembali melaksanakan Electrical Graduation periode Februari 2025,
+		mengawal 16 wisudawan dan wisudawati dari angkatan 2020 dan 2021.
+		</p>
+	</div>
+	</div>
+
+      <!-- Card 2 -->
+	<div class="flex flex-col w-full sm:w-1/2 md:w-1/3
+				rounded-xl overflow-hidden
+				border border-transparent
+				transition-all duration-500
+				hover:border-green-500 hover:shadow-lg hover:shadow-green-500/40
+				cursor-pointer"
+		onclick="window.location.href='page/news-detail/efs.html'">
+
+        <div class="w-full aspect-[16/9] overflow-hidden rounded-xl shadow-lg flex items-center justify-center bg-black">
+          <img src="img/news/NewsCover-EFS.webp" 
+               alt="Electrical for Society" 
+               class="w-full h-full object-contain transition-transform duration-500 hover:scale-105" />
+        </div>
+
+        <div class="mt-4 flex flex-col flex-1 p-4">
+          <p class="text-xs font-semibold text-cyan-400 mb-1">
+            Mar 12, 2025 • Humas
+          </p>
+          <h3 class="font-bold text-white text-lg mb-2">Electrical for Society</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            Himpunan Mahasiswa Teknik Elektro (HMTE) telah berhasil melaksanakan program kerja unggulannya, Electrical for Society (EFS).
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+	<div class="flex flex-col w-full sm:w-1/2 md:w-1/3
+				rounded-xl overflow-hidden
+				border border-transparent
+				transition-all duration-500
+				hover:border-green-500 hover:shadow-lg hover:shadow-green-500/40
+				cursor-pointer"
+		onclick="window.location.href='page/news-detail/efs.html'">
+
+        <div class="w-full aspect-[16/9] overflow-hidden rounded-xl shadow-lg flex items-center justify-center bg-black">
+          <img src="img/news/NewsCover-SosPKM.webp" 
+               alt="Sosialisasi PKM" 
+               class="w-full h-full object-contain transition-transform duration-500 hover:scale-105" />
+        </div>
+
+        <div class="mt-4 flex flex-col flex-1 p-4">
+          <p class="text-xs font-semibold text-cyan-400 mb-1">
+            Apr 5, 2025 • PKM Center
+          </p>
+          <h3 class="font-bold text-white text-lg mb-2">Sosialisasi PKM</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">
+            Sosialisasi dilakukan untuk membekali KBTE sebelum mengikuti Program Kreativitas Mahasiswa yang diadakan setiap tahunnya.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tombol lihat berita lainnya -->
+    <div class="mt-10 text-center">
+      <button class="px-6 py-2 bg-white text-black font-medium rounded-lg hover:bg-gray-200 transition">
+        Lihat berita lainnya
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ACARA Berjalan -->
+<section class="py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-bold text-center text-white mb-8">Acara On-going</h2>
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-center">
+
+		<!-- Card 1 kecil -->
+		<div class="flex flex-col rounded-xl overflow-hidden
+					border border-emerald-500
+					transition-all duration-500
+					hover:border-green-500 hover:shadow-lg hover:shadow-green-500/40
+					cursor-pointer bg-transparent max-w-xs mx-auto">
+
+			<!-- Poster -->
+			<div class="w-full aspect-[16/9] flex items-center justify-center bg-black">
+			<img src="img/Asset Feed/PSDM/1.webp" 
+				alt="Acara 1" 
+				class="object-contain w-auto max-h-full transition-transform duration-500 hover:scale-105"
+				onclick="openImageModal(this.src)" />
+			</div>
+
+			<!-- Info -->
+			<div class="p-4 flex flex-col flex-1">
+			<h3 class="text-md font-bold text-white mb-1">Workshop Elektrikal</h3>
+			<p class="text-gray-300 text-xs mb-3">
+				28 Sep 2025 • 09:00 - 12:00 WIB • Aula Teknik Elektro
+			</p>
+			<button class="mt-auto px-3 py-1 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition text-sm">
+				Daftar Sekarang
+			</button>
+			</div>
+		</div>
+
+		<!-- Card 2 kecil -->
+		<div class="flex flex-col rounded-xl overflow-hidden
+					border border-emerald-500
+					transition-all duration-500
+					hover:border-green-500 hover:shadow-lg hover:shadow-green-500/40
+					cursor-pointer bg-transparent max-w-xs mx-auto">
+
+			<!-- Poster -->
+			<div class="w-full aspect-[16/9] flex items-center justify-center bg-black">
+			<img src="img/Asset Feed/PSDM/1.webp" 
+				alt="Acara 2" 
+				class="object-contain w-auto max-h-full transition-transform duration-500 hover:scale-105"
+				onclick="openImageModal(this.src)" />
+			</div>
+
+			<!-- Info -->
+			<div class="p-4 flex flex-col flex-1">
+			<h3 class="text-md font-bold text-white mb-1">Sosialisasi PKM</h3>
+			<p class="text-gray-300 text-xs mb-3">
+				30 Sep 2025 • 13:00 - 15:00 WIB • Lab PKM Center
+			</p>
+			<button class="mt-auto px-3 py-1 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition text-sm">
+				Daftar Sekarang
+			</button>
+			</div>
+		</div>
+
+		</div>
+  </div>
+</section>
+
+<!-- TIMELINE KEGIATAN -->
+<section class="py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-bold text-center text-white mb-8">Timeline Kegiatan</h2>
+    
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Card Kegiatan -->
+      <div class="relative group bg-gray-800 rounded-lg overflow-hidden shadow">
+        <img src="img/Asset Feed/PSDM/1.webp" alt="Poster 1" class="w-full h-48 object-cover">
+        
+        <!-- Overlay status untuk desktop -->
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+          Upcoming
+        </div>
+
+        <!-- Status untuk mobile -->
+        <div class="md:hidden bg-gray-900 text-white text-center py-2 font-semibold">
+          Upcoming
+        </div>
+
+        <!-- Konten tambahan -->
+        <div class="p-4 text-white">
+          <h3 class="text-lg font-bold mb-2">Kegiatan 1</h3>
+          <p class="text-sm">Deskripsi singkat kegiatan 1.</p>
+        </div>
+      </div>
+
+      <div class="relative group bg-gray-800 rounded-lg overflow-hidden shadow">
+        <img src="img/Asset Feed/PSDM/1.webp" alt="Poster 2" class="w-full h-48 object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+          On-going
+        </div>
+        <div class="md:hidden bg-gray-900 text-white text-center py-2 font-semibold">
+          On-going
+        </div>
+        <div class="p-4 text-white">
+          <h3 class="text-lg font-bold mb-2">Kegiatan 2</h3>
+          <p class="text-sm">Deskripsi singkat kegiatan 2.</p>
+        </div>
+      </div>
+
+      <div class="relative group bg-gray-800 rounded-lg overflow-hidden shadow">
+        <img src="img/Asset Feed/PSDM/1.webp" alt="Poster 3" class="w-full h-48 object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+          Finished
+        </div>
+        <div class="md:hidden bg-gray-900 text-white text-center py-2 font-semibold">
+          Finished
+        </div>
+        <div class="p-4 text-white">
+          <h3 class="text-lg font-bold mb-2">Kegiatan 3</h3>
+          <p class="text-sm">Deskripsi singkat kegiatan 3.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tombol lihat kegiatan lainnya -->
+    <div class="mt-6 text-right">
+      <a href="#" class="inline-block px-6 py-2 bg-white text-black font-medium rounded-lg hover:bg-gray-200 transition">
+        Lihat Kegiatan lainnya
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM KERJA INTERAKTIF -->
+<section class="py-16 z-0">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-bold text-center text-white mb-8">
+      Program Kerja Kami
+    </h2>
+
+    <div class="flex flex-wrap justify-center gap-6">
+      
+      <!-- Card Template -->
+      <a href="/proker1.html" class="relative w-[280px] h-[180px] overflow-hidden rounded-xl shadow-lg group cursor-pointer">
+        <!-- Gambar -->
+        <img src="images/proker1.jpg" alt="Program 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+        
+        <!-- Overlay Gradient -->
+        <div class="absolute inset-0 bg-gradient-to-b from-green-900 to-black/70 z-10"></div>
+        
+        <!-- Judul -->
+        <div class="absolute inset-0 flex items-center justify-center text-white text-lg font-bold z-20">
+          Program 1
+        </div>
+        
+        <!-- Deskripsi muncul saat hover -->
+        <div class="absolute bottom-0 left-0 w-full h-full bg-black/80 text-white p-4 transform translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 z-30">
+          <p class="text-sm">Deskripsi singkat tentang program kerja 1. Bisa berupa tujuan, kegiatan, atau manfaatnya.</p>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="/proker2.html" class="relative w-[280px] h-[180px] overflow-hidden rounded-xl shadow-lg group cursor-pointer">
+        <img src="images/proker2.jpg" alt="Program 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+        <div class="absolute inset-0 bg-gradient-to-b from-green-900 to-black/70 z-10"></div>
+        <div class="absolute inset-0 flex items-center justify-center text-white text-lg font-bold z-20">
+          Program 2
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-full bg-black/80 text-white p-4 transform translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 z-30">
+          <p class="text-sm">Deskripsi singkat tentang program kerja 2.</p>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="/proker3.html" class="relative w-[280px] h-[180px] overflow-hidden rounded-xl shadow-lg group cursor-pointer">
+        <img src="images/proker3.jpg" alt="Program 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+        <div class="absolute inset-0 bg-gradient-to-b from-green-900 to-black/70 z-10"></div>
+        <div class="absolute inset-0 flex items-center justify-center text-white text-lg font-bold z-20">
+          Program 3
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-full bg-black/80 text-white p-4 transform translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 z-30">
+          <p class="text-sm">Deskripsi singkat tentang program kerja 3.</p>
+        </div>
+      </a>
+
+      <!-- Tambahkan card lain sesuai kebutuhan -->
+      
+    </div>
+  </div>
+</section>
+
+<!-- ELEKTRO MAGAZINE -->
+<section class="py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-bold text-center text-white mb-8">Elektro Magazine</h2>
+
+    <div class="flex flex-wrap justify-center gap-10">
+
+      <!-- Card 1 -->
+      <a href="https://apps.bem-unsoed.com/komik-9/" target="_blank" 
+         class="border-2 border-green-800 w-[220px] md:w-[240px] rounded-lg overflow-hidden shadow-lg bg-black hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] transition-shadow duration-300 cursor-pointer flex flex-col">
+        
+        <!-- Container gambar dengan padding -->
+        <div class="p-3 bg-gray-800 flex justify-center items-center">
+          <img src="https://apps.bem-unsoed.com/wp-content/uploads/2023/08/IMG_1799.png" 
+               alt="Arti Kemerdekaan" 
+               class="w-full h-auto object-contain">
+        </div>
+
+        <!-- Konten judul & deskripsi -->
+        <div class="p-4 bg-gray-800 flex-1">
+          <h3 class="text-white font-semibold text-lg mb-1">Arti Kemerdekaan</h3>
+          <p class="text-gray-300 text-sm">Komik 2.0 karya Salsabila Miftahusy Syifa – Kimia</p>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="/magazine2.html" target="_blank" 
+         class="border-2 border-green-800 w-[220px] md:w-[240px] rounded-lg overflow-hidden shadow-lg bg-black hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] transition-shadow duration-300 cursor-pointer flex flex-col">
+        <div class="p-3 bg-gray-800 flex justify-center items-center">
+          <img src="img/emagz/page2.webp" alt="Judul 2" class="w-full h-auto object-contain">
+        </div>
+        <div class="p-4 bg-gray-800 flex-1">
+          <h3 class="text-white font-semibold text-lg mb-1">Judul 2</h3>
+          <p class="text-gray-300 text-sm">Deskripsi singkat artikel 2.</p>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="/magazine3.html" target="_blank" 
+         class="border-2 border-green-800 w-[220px] md:w-[240px] rounded-lg overflow-hidden shadow-lg bg-black hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] transition-shadow duration-300 cursor-pointer flex flex-col">
+        <div class="p-3 bg-gray-800 flex justify-center items-center">
+          <img src="img/emagz/page3.webp" alt="Judul 3" class="w-full h-auto object-contain">
+        </div>
+        <div class="p-4 bg-gray-800 flex-1">
+          <h3 class="text-white font-semibold text-lg mb-1">Judul 3</h3>
+          <p class="text-gray-300 text-sm">Deskripsi singkat artikel 3.</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- PODCAST -->
+<section class="py-16">
+  <div class="max-w-6xl mx-auto px-6">
+    <h2 class="text-2xl font-bold text-center text-white mb-8">Podcast</h2>
+
+    <div class="flex flex-wrap justify-center gap-6">
+
+      <!-- Card Podcast 1 -->
+      <a href="https://www.youtube.com/watch?v=Ofzory4hRsg" target="_blank" 
+         class="relative w-[320px] md:w-[360px] h-[200px] md:h-[220px] rounded-lg overflow-hidden shadow-lg group cursor-pointer border-2 border-transparent hover:border-green-800 hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] bg-black flex items-center justify-center">
+        
+        <!-- Video iframe -->
+        <iframe class="w-full h-full" 
+                src="https://www.youtube.com/embed/Ofzory4hRsg?controls=1&rel=0&modestbranding=1" 
+                title="BINGGO! (Bisa dienggo) Level 4" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+        </iframe>
+
+        <!-- Overlay title -->
+        <div class="absolute inset-0 bg-black/30 flex items-end p-3 text-white font-semibold text-sm z-10">
+          BINGGO! Level 4
+        </div>
+      </a>
+
+      <!-- Tambahkan card lain -->
+      <a href="https://www.youtube.com/watch?v=Ofzory4hRsg" target="_blank" 
+         class="relative w-[320px] md:w-[360px] h-[200px] md:h-[220px] rounded-lg overflow-hidden shadow-lg group cursor-pointer border-2 border-transparent hover:border-green-800 hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] bg-black flex items-center justify-center">
+        <iframe class="w-full h-full" 
+                src="https://www.youtube.com/embed/Ofzory4hRsg?controls=1&rel=0&modestbranding=1" 
+                title="Podcast 2" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+        </iframe>
+        <div class="absolute inset-0 bg-black/30 flex items-end p-3 text-white font-semibold text-sm z-10">
+          Podcast 2
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+  </div>
+
+  <!-- /Page Wrapper -->
+</body>
+<footer class="text-white block border-t border-gray-600">
+  <div
+    class="max-w-7xl mx-auto px-10 lg:px-20 py-8 grid grid-cols-1 md:grid-cols-3 justify-items-center text-left md:text-left">
+
+    <!-- Bagian 1: Identitas & Deskripsi -->
+    <div class="max-w-sm">
+      <div class="flex items-center mb-4 justify-center md:justify-start space-x-2">
+        <img src="img/logohmte.webp" alt="Logo HMTE" class="w-14 h-14 rounded-full object-cover" />
+        <div>
+          <h1 class="text-2xl font-bold">HMTE</h1>
+          <p class="text-sm text-gray-300">Himpunan Mahasiswa Teknik Elektro</p>
+        </div>
+      </div>
+      <p class="text-gray-400 text-sm leading-relaxed md:text-left lg:text-left text-center">
+        Mewujudkan komunitas Teknik Elektro yang solid, berintegritas, dan berkontribusi nyata dalam kemajuan teknologi
+        nasional.
+      </p>
+      <div class="flex justify-center md:justify-start lg:text-left text-center space-x-3 mt-5">
+        <a href="#"
+          class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
+          <i class="fab fa-linkedin-in text-sm text-white group-hover:text-[#00ff88]"></i>
+        </a>
+        <a href="#"
+          class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
+          <i class="fab fa-instagram text-base text-white group-hover:text-[#00ff88]"></i>
+        </a>
+        <a href="#"
+          class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
+          <i class="fab fa-twitter text-base text-white group-hover:text-[#00ff88]"></i>
+        </a>
+        <a href="#"
+          class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
+          <i class="fas fa-globe text-base text-white group-hover:text-[#00ff88]"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bagian 2: Tautan Cepat -->
+    <div class="mt-10 md:mt-0">
+      <h5 class="text-green-400 font-semibold text-lg mb-4 flex items-center justify-center md:justify-start">
+        <i class="fas fa-link mr-2"></i> Tautan Cepat
+      </h5>
+      <ul class="space-y-2 text-sm text-gray-300">
+        <li><a href="#" class="hover:text-[#00ff88] transition">Berita</a></li>
+        <li><a href="#" class="hover:text-[#00ff88] transition">Profil Kabinet</a></li>
+        <li><a href="#" class="hover:text-[#00ff88] transition">Alumni</a></li>
+        <li><a href="#" class="hover:text-[#00ff88] transition">Kontak</a></li>
+      </ul>
+    </div>
+
+    <!-- Bagian 3: Kontak -->
+    <div class="mt-10 md:mt-0">
+      <h5 class="text-green-400 font-semibold text-lg mb-4 flex items-center justify-center md:justify-start">
+        <i class="fas fa-envelope mr-2"></i> Kontak
+      </h5>
+      <ul class="space-y-2 text-sm text-gray-300">
+        <li class="flex items-center justify-center md:justify-start">
+          <i class="fas fa-envelope mr-2"></i> hmtehmte@gmial.com
+        </li>
+        <li class="flex items-center justify-center md:justify-start">
+          <i class="fas fa-phone mr-2"></i> +62 21 1234 5678
+        </li>
+        <li class="flex items-center justify-center md:justify-start">
+          <i class="fas fa-comment mr-2"></i> +62 812 3456 7890
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="border-t border-gray-700 mt-2 mx-32">
+    <div class="w-[80%] mx-auto px-4 py-4 text-sm text-center text-gray-400">
+      © 2025 HMTE. Semua hak cipta dilindungi.
+    </div>
+  </div>
+</footer>
+
 </html>
+
+<script src="js/script.js"></script>
+<script src="js/emagz.js"></script>
+
