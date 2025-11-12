@@ -13,51 +13,73 @@
 <script src="js/data/news.js"></script>
 
 <script>
+  // Fungsi baru untuk mengubah YYYY-MM-DD menjadi format cantik (Mar 12, 2025)
+  function formatDate(dateString) {
+    // Gunakan Intl.DateTimeFormat untuk konversi standar dan aman
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("en-US", options);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     const newsContainer = document.getElementById("latest-news-container");
 
-    // Guard Clause: Cek data
     if (typeof newsData === "undefined" || !Array.isArray(newsData) || newsData.length === 0) {
       newsContainer.innerHTML = '<p class="text-white text-center">Data berita tidak ditemukan!</p>';
       return;
     }
 
-    // Ambil hanya 3 berita pertama (terbaru)
-    const latestNews = newsData.slice(0, 3);
+    // ⭐️ FIX: JALANKAN SORTING SEBELUM SLICE ⭐️
+    const sortedNews = newsData.slice().sort((a, b) => {
+      // Mengkonversi string tanggal (format ISO YYYY-MM-DD)
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+
+      // Urutan: Terbaru (Date B) - Terlama (Date A)
+      // Ini adalah logika yang memaksa Maret di depan Februari.
+      return dateB - dateA;
+    });
+
+    // 🚨 DEBUGGING 🚨
+    console.log("--- DEBUG SORTING BERITA ---");
+    sortedNews.forEach((news, index) => {
+      console.log(`${index + 1}. [${news.date}] - ${news.title}`);
+    });
+    console.log("--- AKHIR DEBUG ---");
+    // 🚨 DEBUGGING 🚨
+
+    // AMBIL 3 TERATAS DARI ARRAY YANG SUDAH DIURUTKAN
+    const latestNews = sortedNews.slice(0, 3);
 
     let newsCardsHTML = "";
 
     latestNews.forEach((news) => {
-      // Pastikan path untuk news-detail.html disesuaikan, dan menggunakan ID
       const detailLink = `page/news/news-detail.html?id=${news.id}`;
 
-      // Struktur Card HTML persis seperti yang Anda berikan, hanya isi datanya yang dinamis
       const newsCard = `
-        <div
-          class="flex flex-col rounded-xl overflow-hidden border border-transparent transition-all duration-500 hover:border-green-500 hover:shadow-lg hover:shadow-green-500/40 cursor-pointer"
-          onclick="window.location.href='${detailLink}'"
-          style="max-width: 300px;" 
-        >
-          <div class="overflow-hidden rounded-xl shadow-lg flex items-center justify-center bg-black" style="width: 100%; height: 220px; flex-shrink: 0">
-            <img 
-              src="${news.imgSrc}" 
-              alt="${news.title}" 
-              style="width: 100%; height: 100%; object-fit: cover" 
-              class="transition-transform duration-500 hover:scale-105" 
-            />
-          </div>
+                <div
+                    class="flex flex-col rounded-xl overflow-hidden border border-transparent transition-all duration-500 hover:border-green-500 hover:shadow-lg hover:shadow-green-500/40 cursor-pointer"
+                    onclick="window.location.href='${detailLink}'"
+                    style="max-width: 300px;" 
+                >
+                    <div class="overflow-hidden rounded-xl shadow-lg flex items-center justify-center bg-black" style="width: 100%; height: 220px; flex-shrink: 0">
+                        <img 
+                            src="${news.imgSrc}" 
+                            alt="${news.title}" 
+                            style="width: 100%; height: 100%; object-fit: cover" 
+                            class="transition-transform duration-500 hover:scale-105" 
+                        />
+                    </div>
 
-          <div class="mt-4 flex flex-col flex-1 p-4">
-            <p class="text-xs font-semibold text-cyan-400 mb-1">${news.date} • ${news.category}</p>
-            <h3 class="font-bold text-white text-lg mb-2">${news.title}</h3>
-            <p class="text-gray-300 text-sm leading-relaxed">${news.preview}</p>
-          </div>
-        </div>
-      `;
+                    <div class="mt-4 flex flex-col flex-1 p-4">
+                        <p class="text-xs font-semibold text-cyan-400 mb-1">${formatDate(news.date)} • ${news.category}</p>
+                        <h3 class="font-bold text-white text-lg mb-2">${news.title}</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed">${news.preview}</p>
+                    </div>
+                </div>
+            `;
       newsCardsHTML += newsCard;
     });
 
-    // Suntikkan semua card yang sudah dibuat ke dalam container HTML
     newsContainer.innerHTML = newsCardsHTML;
   });
 </script>
