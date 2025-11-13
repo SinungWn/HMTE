@@ -1,123 +1,48 @@
 <!DOCTYPE html>
 <html lang="id">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Berita - HMTE Unsoed</title>
-    <meta name="description" content="Berita terbaru seputar kegiatan dan informasi HMTE Unsoed" />
-
-    <!-- Icon -->
-    <link rel="icon" type="image/png" href="img/hmte-icon.png" />
-
-    <!-- Styling -->
-    <link rel="stylesheet" href="css/satoshi.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/section-fixes.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Great+Vibes&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" />
+    <link rel="icon" type="image/png" href="../../img/hmte-icon.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/satoshi.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GWPL5RWLH5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-GWPL5RWLH5");
-    </script>
   </head>
 
-  <body>
-    <!-- Header -->
+  <body class="min-h-screen">
     <div id="header-placeholder"></div>
 
-    <!-- Main Content -->
-    <main id="main" class="main">
-      <!-- Hero Banner Section -->
-      <section class="py-12 fade-in">
-        <div class="mx-auto px-6 text-center">
-          <h1 class="text-5xl md:text-6xl font-bold gradient-text mb-4">Latest News</h1>
-          <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto">You stay sound for sprint trends and insight.</p>
-
-          <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <button id="readMoreBtn" class="px-8 py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition">Read More</button>
-            <button id="subscribeBtn" class="px-8 py-3 bg-gray-800 text-white font-semibold rounded-lg border border-gray-600 hover:bg-gray-700 transition">Subscribe Now</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Trending Stories Section -->
+    <main>
       <section class="py-16 fade-in">
-        <div class="mx-auto px-6">
-          <h2 class="text-3xl font-bold text-white mb-8">Trending Stories</h2>
+        <div class="mx-auto px-6 max-w-7xl">
+          <h1 class="text-5xl md:text-6xl font-bold gradient-text text-center mb-4">Berita Terbaru</h1>
+          <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto text-center mb-10">Informasi, liputan event, dan pengumuman resmi HMTE.</p>
 
-          <div id="trending-stories-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Trending stories akan di-render oleh JavaScript -->
-          </div>
-        </div>
-      </section>
+          <h2 class="text-3xl font-bold text-white mb-6 border-b border-gray-700 pb-2">🔥 Berita Pilihan</h2>
+          <div id="top-news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"></div>
 
-      <!-- Must-Read Articles Section -->
-      <section class="py-16 fade-in">
-        <div class="mx-auto px-6">
-          <h2 class="text-3xl font-bold text-white mb-4">Must-Read Articles</h2>
-          <p class="text-gray-400 mb-8">Expose are current list of must-read articles.</p>
-
-          <div id="must-read-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Must-read articles akan di-render oleh JavaScript -->
-          </div>
-        </div>
-      </section>
-
-      <!-- All News Section -->
-      <section class="py-16 fade-in">
-        <div class="mx-auto px-6">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
-            <h2 class="text-3xl font-bold text-white">Semua Berita</h2>
-
-            <!-- Filter & Search -->
-            <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-              <select id="categoryFilter" class="px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-600 focus:border-green-500 outline-none">
-                <option value="all">Semua Kategori</option>
-                <option value="graduation">Graduation</option>
-                <option value="humas">Humas</option>
-                <option value="pkm">PKM Center</option>
-                <option value="event">Event</option>
-              </select>
-
-              <input type="text" id="searchInput" placeholder="Cari berita..." class="px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-600 focus:border-green-500 outline-none w-full sm:w-64" />
-            </div>
+          <h2 class="text-3xl font-bold text-white mb-6 border-b border-gray-700 pb-2">📣 Jangan Lewatkan! (Event Promosi)</h2>
+          <div id="event-promo-container" class="bg-gray-800 p-6 rounded-xl shadow-lg border-l-4 border-yellow-500 mb-16">
+            <p class="text-gray-400">Memuat event yang akan datang...</p>
           </div>
 
-          <div id="all-news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- All news akan di-render oleh JavaScript -->
-          </div>
-
-          <!-- Pagination -->
-          <div id="pagination" class="flex justify-center items-center gap-2 mt-12">
-            <!-- Pagination akan di-render oleh JavaScript -->
-          </div>
+          <h2 class="text-3xl font-bold text-white mb-6 border-b border-gray-700 pb-2">📰 Berita Lainnya</h2>
+          <div id="archive-news-container" class="space-y-4"></div>
         </div>
       </section>
     </main>
 
-    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    <!-- Scripts -->
-    <script src="js/loader.js"></script>
-    <script src="js/pages/berita.js"></script>
+    <script src="../../js/loader.js"></script>
+    <script src="../../js/data/news.js"></script>
+    <script src="../../js/data/calendar.js"></script>
+    <script src="../../js/data/news-generator.js"></script>
   </body>
 </html>

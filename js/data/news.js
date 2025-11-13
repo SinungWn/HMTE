@@ -1,7 +1,7 @@
 const newsData = [
   {
     id: "graduation-feb25",
-    date: "2025-02-22",
+    date: "Feb 22, 2025",
     category: "Graduation",
     title: "Electrical Graduation",
 
@@ -19,7 +19,7 @@ const newsData = [
   },
   {
     id: "efs-mar25",
-    date: "2025-03-12",
+    date: "Mar 12, 2025",
     category: "Humas",
     title: "Electrical for Society",
 
