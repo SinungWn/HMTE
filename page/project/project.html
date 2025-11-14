@@ -1,46 +1,38 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Program Kerja HMTE - Projects</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Program Kerja | HMTE</title>
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="../../css/satoshi.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
   <body class="bg-gray-900 min-h-screen">
     <div id="header-placeholder"></div>
 
-    <main id="main" class="main">
-      <section class="py-16 fade-in">
-        <div class="mx-auto px-6 max-w-7xl">
-          <h1 class="text-5xl md:text-6xl font-bold gradient-text text-center mb-4">Program Kerja HMTE</h1>
-          <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto text-center mb-10">Proyek Inovatif, Agenda Rutin, dan Prestasi Kami.</p>
+    <main id="main" class="main py-16">
+      <div class="max-w-6xl mx-auto px-6">
+        <h1 class="text-4xl font-extrabold text-white text-center mb-4">Daftar Program Kerja</h1>
+        <p class="text-gray-400 text-center mb-12">Lihat semua proyek dan kegiatan yang sedang atau akan kami jalankan.</p>
 
-          <h2 class="text-3xl font-bold text-white mb-6 border-b border-gray-700 pb-2">🚀 Proyek Sedang Berjalan (Ongoing)</h2>
-          <div id="ongoing-projects" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"></div>
-
-          <h2 class="text-3xl font-bold text-white mb-6 border-b border-gray-700 pb-2">🗓️ Akan Datang (Upcoming)</h2>
-          <div id="upcoming-projects" class="space-y-4 mb-16"></div>
-
-          <h2 class="text-3xl font-bold text-white mb-6 border-b border-gray-700 pb-2">✅ Sudah Terlaksana (Completed)</h2>
-          <div id="completed-projects" class="space-y-4"></div>
+        <div class="flex justify-center border-b border-gray-700 mb-8">
+          <button data-filter="all" class="tab-button px-4 py-2 text-white font-semibold border-b-2 border-green-500 hover:text-green-400 transition" onclick="changeFilter('all')">Semua Proyek</button>
+          <button data-filter="ongoing" class="tab-button px-4 py-2 text-gray-400 font-semibold border-b-2 border-transparent hover:text-green-400 transition" onclick="changeFilter('ongoing')">Sedang Berjalan</button>
+          <button data-filter="upcoming" class="tab-button px-4 py-2 text-gray-400 font-semibold border-b-2 border-transparent hover:text-green-400 transition" onclick="changeFilter('upcoming')">Mendatang</button>
         </div>
-      </section>
+
+        <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+
+        <div id="no-projects-message" class="hidden text-center text-gray-400 py-10">Tidak ada proyek yang ditemukan untuk kategori ini.</div>
+      </div>
     </main>
 
     <div id="footer-placeholder"></div>
 
     <script src="../../js/loader.js"></script>
-    <script src="../../js/data/projects.js"></script>
+    <script src="../../js/data/project.js"></script>
     <script src="../../js/pages/project.js"></script>
   </body>
 </html>

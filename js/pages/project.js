@@ -1,58 +1,116 @@
 // js/pages/project.js
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Berikan sedikit waktu agar loader.js selesai (pola yang sudah Anda gunakan)
-  setTimeout(() => {
-    if (window.location.pathname.includes("project.html")) {
-      renderProjects();
-    }
-  }, 100);
-});
+// Fungsi untuk menggabungkan dan melabeli semua proyek
+function getAllProjects() {
+  const all = [];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
-/**
- * Fungsi utama untuk merender ketiga divisi proyek.
- */
-function renderProjects() {
-  // Pastikan data dan elemen ada
-  if (typeof ongoingProjects === "undefined" || !document.getElementById("ongoing-projects")) return;
+  // 1. Ongoing Projects
+  if (typeof ongoingProjects !== "undefined") {
+    ongoingProjects.forEach((project) => {
+      all.push({
+        ...project,
+        category: "ongoing",
+        statusText: `Status: ${project.status}`,
+        emoji: "🚀",
+        date: project.date || "2050-01-01", // Beri tanggal jauh di masa depan agar Ongoing selalu di atas saat sorting
+      });
+    });
+  }
 
-  renderOngoingProjects();
-  renderUpcomingProjects();
-  renderCompletedProjects();
+  // 2. Upcoming & Completed Projects
+  if (typeof upcomingProjects !== "undefined") {
+    upcomingProjects.forEach((project) => {
+      const projectDate = new Date(project.date);
+      projectDate.setHours(0, 0, 0, 0);
+
+      let category = "upcoming";
+      let statusText = `Tgl: ${projectDate.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}`;
+      let emoji = "🗓️";
+
+      if (projectDate < today) {
+        category = "completed";
+        statusText = `Selesai: ${projectDate.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}`;
+        emoji = "✅";
+      }
+
+      all.push({
+        ...project,
+        category: category,
+        statusText: statusText,
+        emoji: emoji,
+      });
+    });
+  }
+
+  return all;
 }
 
-/**
- * Render Divisi 1: Ongoing Projects (Grid Card)
- */
-function renderOngoingProjects() {
-  const container = document.getElementById("ongoing-projects");
+// Fungsi utama untuk merender proyek
+function renderProjects(filter = "all") {
+  const container = document.getElementById("projects-container");
+  const noMessage = document.getElementById("no-projects-message");
+
   if (!container) return;
 
-  const projectsHTML = ongoingProjects
+  const allProjects = getAllProjects();
+
+  // 1. Filter data
+  const filteredProjects = allProjects.filter((project) => {
+    if (filter === "all") return true;
+    // Hanya tampilkan 'ongoing', 'upcoming', atau 'completed' yang sesuai dengan filter
+    return project.category === filter;
+  });
+
+  // 2. Sortir: Ongoing di atas, lalu Upcoming (tanggal terdekat), lalu Completed (tanggal terbaru)
+  filteredProjects.sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+
+    // Ongoing selalu di depan
+    if (a.category === "ongoing" && b.category !== "ongoing") return -1;
+    if (b.category === "ongoing" && a.category !== "ongoing") return 1;
+
+    // Upcoming diurutkan dari tanggal terdekat (A - B)
+    if (a.category === "upcoming" && b.category === "upcoming") return dateA - dateB;
+
+    // Completed diurutkan dari tanggal terbaru (B - A)
+    if (a.category === "completed" && b.category === "completed") return dateB - dateA;
+
+    // Default sorting
+    return 0;
+  });
+
+  if (filteredProjects.length === 0) {
+    container.innerHTML = "";
+    noMessage.classList.remove("hidden");
+    return;
+  }
+
+  noMessage.classList.add("hidden");
+
+  // 3. Render HTML dengan styling yang konsisten
+  const projectsHTML = filteredProjects
     .map((project) => {
-      const statusColor = project.status.includes("100") ? "bg-green-600" : "bg-cyan-600";
-      const progressWidth = project.status.replace("%", "");
+      const description = project.description.length > 100 ? project.description.substring(0, 100) + "..." : project.description;
+
+      // Penentuan warna border berdasarkan kategori
+      let borderColor = "border-gray-500"; // Completed
+      if (project.category === "ongoing") {
+        borderColor = "border-green-500";
+      } else if (project.category === "upcoming") {
+        borderColor = "border-yellow-500";
+      }
 
       return `
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-xl border border-gray-700 hover:border-green-500 transition duration-300">
-                <img src="../../${project.image}" alt="${project.title}" class="w-full h-40 object-cover" onerror="this.onerror=null;this.src='../../img/logohmte.png';">
-                <div class="p-5">
-                    <h3 class="text-xl font-bold text-white mb-2">${project.title}</h3>
-                    <p class="text-gray-400 text-sm mb-4">${project.description}</p>
-                    
-                    <div class="mb-3">
-                        <p class="text-xs text-gray-500">PIC: ${project.pic}</p>
-                    </div>
-
-                    <div class="mb-2">
-                        <div class="h-2 w-full bg-gray-600 rounded-full">
-                            <div class="h-2 rounded-full ${statusColor}" style="width: ${progressWidth}%"></div>
-                        </div>
-                        <p class="text-xs text-right text-white mt-1">${project.status} Selesai</p>
-                    </div>
-                    
-                    <a href="#" class="text-cyan-400 hover:text-cyan-300 transition text-sm font-semibold mt-3 inline-block">Lihat Update →</a>
-                </div>
+            <div class="bg-gray-800 rounded-lg p-6 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300 border-t-4 ${borderColor}">
+                <div class="text-4xl mb-3">${project.emoji}</div>
+                <span class="inline-block bg-gray-700 text-xs font-medium px-2.5 py-0.5 rounded text-white mb-2">${project.category.toUpperCase()}</span>
+                <h3 class="text-xl font-bold text-white mb-2">${project.title}</h3>
+                <p class="text-gray-400 text-sm mb-3">${description}</p>
+                <p class="text-gray-500 text-xs mb-4">${project.statusText}</p>
+                <a href="./project.html" class="text-green-400 hover:text-green-300 transition text-sm font-semibold"> Lihat Detail → </a>
             </div>
         `;
     })
@@ -61,65 +119,30 @@ function renderOngoingProjects() {
   container.innerHTML = projectsHTML;
 }
 
-/**
- * Render Divisi 2: Upcoming Projects (List Sederhana)
- */
-function renderUpcomingProjects() {
-  const container = document.getElementById("upcoming-projects");
-  if (!container) return;
+// Fungsi untuk mengganti filter dan tampilan tombol (dipanggil dari tombol di project.html)
+function changeFilter(filter) {
+  // 1. Update tampilan tombol
+  document.querySelectorAll(".tab-button").forEach((button) => {
+    if (button.getAttribute("data-filter") === filter) {
+      button.classList.remove("text-gray-400", "border-transparent");
+      button.classList.add("text-white", "border-green-500");
+    } else {
+      button.classList.add("text-gray-400", "border-transparent");
+      button.classList.remove("text-white", "border-green-500");
+    }
+  });
 
-  const projectsHTML = upcomingProjects
-    .map((project) => {
-      const formattedDate = new Date(project.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
-
-      return `
-            <div class="bg-gray-800 rounded-lg p-5 border-l-4 border-yellow-500 flex justify-between items-center hover:bg-gray-700 transition">
-                <div>
-                    <h3 class="text-xl font-bold text-white">${project.title}</h3>
-                    <p class="text-gray-400 text-sm mt-1">${project.description}</p>
-                    <p class="text-xs text-gray-500 mt-2">PIC: ${project.pic}</p>
-                </div>
-                <div class="text-right min-w-[120px]">
-                    <p class="text-green-400 font-semibold">${formattedDate}</p>
-                    <span class="text-xs text-yellow-400">Akan Datang</span>
-                </div>
-            </div>
-        `;
-    })
-    .join("");
-
-  container.innerHTML = projectsHTML || '<p class="text-gray-400">Tidak ada proyek yang akan datang saat ini.</p>';
+  // 2. Render ulang proyek
+  renderProjects(filter);
 }
 
-/**
- * Render Divisi 3: Completed Projects (List dengan Link Dokumentasi)
- */
-function renderCompletedProjects() {
-  const container = document.getElementById("completed-projects");
-  if (!container) return;
+// Eksekusi setelah DOM Content Loaded
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    // Render 'all' (semua proyek) saat halaman dimuat
+    renderProjects("all");
 
-  const projectsHTML = completedProjects
-    .map((project) => {
-      const formattedDate = new Date(project.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
-
-      // Pastikan link valid. Jika link tidak ada, arahkan ke '#'
-      const linkHref = project.link.startsWith("http") ? project.link : `../../${project.link}`;
-      const target = project.link.startsWith("http") ? "_blank" : "_self";
-
-      return `
-            <a href="${linkHref}" target="${target}" class="block bg-gray-800 rounded-lg p-5 border-l-4 border-green-500 flex justify-between items-center hover:bg-gray-700 transition cursor-pointer">
-                <div>
-                    <h3 class="text-xl font-bold text-white">${project.title}</h3>
-                    <p class="text-gray-400 text-sm mt-1">${project.description}</p>
-                </div>
-                <div class="text-right min-w-[150px]">
-                    <p class="text-green-400 font-semibold">${formattedDate}</p>
-                    <span class="text-xs text-green-400 mt-1">Lihat Dokumentasi <i class="fas fa-external-link-alt ml-1"></i></span>
-                </div>
-            </a>
-        `;
-    })
-    .join("");
-
-  container.innerHTML = projectsHTML || '<p class="text-gray-400">Belum ada proyek yang diselesaikan.</p>';
-}
+    // Atur tampilan tombol awal ke 'all'
+    changeFilter("all");
+  }, 100);
+});
