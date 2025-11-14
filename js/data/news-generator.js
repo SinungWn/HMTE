@@ -1,6 +1,10 @@
-// kangj0n0/hmte/HMTE-d084e3f499a90bd56268fedec26d73d3fc9a6de0/js/data/news-generator.js (REVISI LENGKAP)
+// js/data/news-generator.js (MODIFIKASI FINAL UNTUK SINGLE PAGINATED ARCHIVE)
 
-// === Helper Functions (Diperlukan untuk rendering) ===
+// Global state dan constants
+const newsPerPage = 8; // Menampilkan 8 berita per halaman (2 baris x 4 kolom)
+let sortedNewsData = [];
+
+// === Helper Functions (formatDate, getMonthName, generateLatestNews tetap ada untuk Index.html) ===
 
 function formatDate(dateString) {
   const options = { year: "numeric", month: "long", day: "numeric" };
@@ -13,7 +17,7 @@ function getMonthName(month) {
   return months[month];
 }
 
-// === Renderer for Index Page (Homepage Section) ===
+// === Renderer for Index Page (tetap sama) ===
 
 function generateLatestNews() {
   const newsContainer = document.getElementById("latest-news-container");
@@ -22,14 +26,12 @@ function generateLatestNews() {
     return;
   }
 
-  // FIX 1: Sortir berita berdasarkan tanggal terbaru (Newest First)
   const sortedNews = newsData.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const latestNews = sortedNews.slice(0, 3);
   let newsCardsHTML = "";
 
   latestNews.forEach((news) => {
-    // Jalur tautan dari index.html ke news-detail.html di page/news/
     const detailLink = `page/news/news-detail.html?id=${news.id}`;
 
     const newsCard = `
@@ -51,17 +53,62 @@ function generateLatestNews() {
   newsContainer.innerHTML = newsCardsHTML;
 }
 
-// === Renderer for Full News Page (Div 1, 2, 3) ===
+// === Pagination Logic ===
 
-function renderTopNews(news) {
-  const container = document.getElementById("top-news-container");
-  if (!container) return;
+// Helper function untuk merender kontrol pagination
+function renderPaginationControls(container, totalPages, currentPage) {
+  let paginationHTML = "";
 
-  const top4News = news.slice(0, 4);
+  // Tautan klik memanggil fungsi global renderAllPaginatedNews
+  window.goToNewsPage = (page) => renderAllPaginatedNews(window.sortedNewsData, page);
 
-  const newsHTML = top4News
+  // Previous button
+  paginationHTML += `<button class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-green-600 disabled:opacity-50 transition" onclick="window.goToNewsPage(${currentPage - 1})" ${currentPage === 1 ? "disabled" : ""}>Prev</button>`;
+
+  // Page buttons
+  const maxButtons = 5;
+  let startPage = Math.max(1, currentPage - Math.floor(maxButtons / 2));
+  let endPage = Math.min(totalPages, currentPage + Math.floor(maxButtons / 2));
+
+  // Adjust startPage if near the end
+  if (endPage - startPage + 1 < maxButtons) {
+    startPage = Math.max(1, endPage - maxButtons + 1);
+  }
+
+  for (let i = startPage; i <= endPage; i++) {
+    paginationHTML += `<button class="px-3 py-1 rounded transition ${i === currentPage ? "bg-green-500 text-white" : "bg-gray-700 text-gray-300 hover:bg-gray-600"}" onclick="window.goToNewsPage(${i})">${i}</button>`;
+  }
+
+  // Next button
+  paginationHTML += `<button class="px-3 py-1 bg-gray-700 text-white rounded hover:bg-green-600 disabled:opacity-50 transition" onclick="window.goToNewsPage(${currentPage + 1})" ${
+    currentPage === totalPages ? "disabled" : ""
+  }>Next</button>`;
+
+  container.innerHTML = paginationHTML;
+}
+
+// === Renderer for Full News Page (Single Paginated Archive) ===
+
+function renderAllPaginatedNews(news, page = 1) {
+  const container = document.getElementById("all-news-container");
+  const paginationContainer = document.getElementById("news-pagination-container");
+
+  if (!container || !paginationContainer) return;
+
+  const totalPages = Math.ceil(news.length / newsPerPage);
+
+  const start = (page - 1) * newsPerPage;
+  const end = start + newsPerPage;
+  const paginatedNews = news.slice(start, end);
+
+  if (paginatedNews.length === 0) {
+    container.innerHTML = '<p class="text-gray-400 col-span-full text-center">Tidak ada berita yang ditemukan.</p>';
+    paginationContainer.innerHTML = "";
+    return;
+  }
+
+  const newsHTML = paginatedNews
     .map((item) => {
-      // Path link dari page/news/news.html ke news-detail.html di folder yang sama
       const detailLink = `news-detail.html?id=${item.id}`;
 
       return `
@@ -82,97 +129,28 @@ function renderTopNews(news) {
     .join("");
 
   container.innerHTML = newsHTML;
-}
-
-function renderEventPromotion() {
-  const container = document.getElementById("event-promo-container");
-  // Membutuhkan window.eventsData dari calendar.js (harus dimuat sebelumnya)
-  if (!container || typeof eventsData === "undefined") return;
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const upcomingEvents = eventsData
-    .filter((event) => new Date(event.date).setHours(0, 0, 0, 0) >= today.getTime())
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-    .slice(0, 2);
-
-  if (upcomingEvents.length === 0) {
-    container.innerHTML = '<p class="text-white font-semibold">Saat ini tidak ada event besar yang akan datang.</p>';
-    return;
-  }
-
-  const eventHTML = upcomingEvents
-    .map((event) => {
-      // Path link dari page/news/news.html ke event-detail.html di page/event/
-      const detailLink = `../event/event-detail.html?id=${event.id}`;
-      const formattedDate = formatDate(event.date);
-
-      return `
-            <div class="flex items-start gap-4 p-4 border-b border-gray-700 last:border-b-0">
-                <div class="text-center bg-cyan-600 p-2 rounded-lg flex-shrink-0 min-w-[70px]">
-                    <p class="text-lg font-bold text-white">${new Date(event.date).getDate()}</p>
-                    <p class="text-xs text-white">${getMonthName(new Date(event.date).getMonth())}</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-1">${event.title}</h3>
-                    <p class="text-gray-400 text-sm mb-2">${event.description.substring(0, 100)}...</p>
-                    <a href="${detailLink}" class="text-green-400 hover:text-green-300 transition text-sm font-semibold">Lihat Event →</a>
-                </div>
-            </div>
-        `;
-    })
-    .join("");
-
-  container.innerHTML = eventHTML;
-}
-
-function renderArchiveNews(news) {
-  const container = document.getElementById("archive-news-container");
-  if (!container) return;
-
-  const archiveNews = news.slice(4);
-
-  if (archiveNews.length === 0) {
-    container.innerHTML = '<p class="text-gray-400">Tidak ada berita lama yang diarsipkan.</p>';
-    return;
-  }
-
-  const newsHTML = archiveNews
-    .map((item) => {
-      // Path link dari page/news/news.html ke news-detail.html di folder yang sama
-      const detailLink = `news-detail.html?id=${item.id}`;
-
-      return `
-            <a href="${detailLink}" class="block bg-gray-800 rounded-lg p-4 border-l-4 border-gray-700 hover:bg-gray-700 transition cursor-pointer">
-                <div>
-                    <p class="text-xs font-medium text-cyan-400 mb-1">${item.category}</p>
-                    <h3 class="text-lg font-bold text-white">${item.title}</h3>
-                    <p class="text-gray-400 text-sm mt-1">${item.preview.substring(0, 120)}...</p>
-                    <p class="text-gray-400 text-xs mt-2">${formatDate(item.date)}</p>
-                </div>
-            </a>
-        `;
-    })
-    .join("");
-
-  container.innerHTML = newsHTML;
+  renderPaginationControls(paginationContainer, totalPages, page);
 }
 
 // === INIT FUNCTION ===
 
 function generateNewsPage() {
   if (typeof newsData === "undefined" || newsData.length === 0) {
+    const container = document.getElementById("all-news-container");
+    if (container) container.innerHTML = '<p class="text-center text-gray-400">Data berita tidak ditemukan!</p>';
     return;
   }
-  // Sorting dilakukan di sini untuk halaman news.html
+
+  // Sortir semua berita
   const sortedNews = newsData.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
-  renderTopNews(sortedNews);
-  renderArchiveNews(sortedNews);
-  renderEventPromotion();
+  // Simpan data yang sudah disortir ke window agar dapat diakses oleh pagination (onclick)
+  window.sortedNewsData = sortedNews;
+
+  // Render halaman 1 dari semua berita
+  renderAllPaginatedNews(window.sortedNewsData, 1);
 }
 
 // Global initialization functions
-window.generateLatestNews = generateLatestNews; // Untuk index.html (3 berita)
-window.initNewsPage = generateNewsPage; // Untuk page/news/news.html (Penuh)
+window.generateLatestNews = generateLatestNews; // Untuk index.html
+window.initNewsPage = generateNewsPage; // Untuk page/news/news.html
