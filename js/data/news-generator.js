@@ -13,7 +13,7 @@ function getMonthName(month) {
   return months[month];
 }
 
-// === Renderer for Index Page ===
+// === Renderer for Index Page (Homepage Section) ===
 
 function generateLatestNews() {
   const newsContainer = document.getElementById("latest-news-container");
@@ -22,7 +22,10 @@ function generateLatestNews() {
     return;
   }
 
-  const latestNews = newsData.slice(0, 3);
+  // FIX 1: Sortir berita berdasarkan tanggal terbaru (Newest First)
+  const sortedNews = newsData.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const latestNews = sortedNews.slice(0, 3);
   let newsCardsHTML = "";
 
   latestNews.forEach((news) => {
@@ -68,8 +71,9 @@ function renderTopNews(news) {
             >
                 <img src="../../${item.imgSrc}" alt="${item.title}" class="w-full h-32 object-cover" onerror="this.onerror=null;this.src='../../img/logohmte.png';">
                 <div class="p-4">
-                    <p class="text-xs font-medium text-green-400 mb-1">${item.category} • ${item.tagline || item.division || "Umum"}</p>
+                    <p class="text-xs font-medium text-green-400 mb-1">${item.category}</p>
                     <h3 class="text-lg font-bold text-white mb-2 leading-tight">${item.title}</h3>
+                    <p class="text-gray-400 text-sm mb-2">${item.preview.substring(0, 100)}...</p> 
                     <p class="text-gray-400 text-xs">${formatDate(item.date)}</p>
                 </div>
             </div>
@@ -140,13 +144,13 @@ function renderArchiveNews(news) {
       const detailLink = `news-detail.html?id=${item.id}`;
 
       return `
-            <a href="${detailLink}" class="block bg-gray-800 rounded-lg p-4 border-l-4 border-gray-700 hover:bg-gray-700 transition cursor-pointer flex justify-between items-center">
+            <a href="${detailLink}" class="block bg-gray-800 rounded-lg p-4 border-l-4 border-gray-700 hover:bg-gray-700 transition cursor-pointer">
                 <div>
-                    <p class="text-xs font-medium text-cyan-400 mb-1">${item.category} • ${item.tagline || item.division || "Umum"}</p>
+                    <p class="text-xs font-medium text-cyan-400 mb-1">${item.category}</p>
                     <h3 class="text-lg font-bold text-white">${item.title}</h3>
-                    <p class="text-gray-400 text-sm mt-1">${formatDate(item.date)}</p>
+                    <p class="text-gray-400 text-sm mt-1">${item.preview.substring(0, 120)}...</p>
+                    <p class="text-gray-400 text-xs mt-2">${formatDate(item.date)}</p>
                 </div>
-                <i class="fas fa-chevron-right text-gray-500 text-xl hidden sm:block"></i>
             </a>
         `;
     })
@@ -161,6 +165,7 @@ function generateNewsPage() {
   if (typeof newsData === "undefined" || newsData.length === 0) {
     return;
   }
+  // Sorting dilakukan di sini untuk halaman news.html
   const sortedNews = newsData.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
   renderTopNews(sortedNews);
