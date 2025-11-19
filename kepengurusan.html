@@ -21,6 +21,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer">
 
   <!-- Tailwind CSS CDN -->
+  <script src="js/loader.js"
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
@@ -184,65 +185,7 @@
 </head>
 
 <body>
-  <header id="header">
-    <div class="header">
-      <a href="index.html" class="flex items-center space-x-2">
-        <img src="img/logohmte.png" alt="Logo HMTE" class="logo-navbar">
-
-        <h2 class="nav-text-white font-bold text-[1.2em]">HMTE | UNSOED</h2>
-      </a>
-
-      <nav class="nav-contain">
-        <div class="navbar">
-          <ul id="nav_list">
-            <li>
-              <a href="index.html" class="nav-link nav-text-white">Home</a>
-            </li>
-
-            <li class="dropdown">
-              <a href="#berita" class="nav-drop nav-berita nav-text-white">
-                Information
-
-                <i class="fas fa-chevron-down"></i>
-              </a>
-
-              <ul class="dropdown-menu">
-                <li>
-                  <a href="#" class="nav-link" target="_blank">Resource</a>
-                </li>
-
-                <li>
-                  <a href="https://drive.google.com/drive/folders/1oueuRbrxhSpVH_7HQCoyHCRbyxKBhVY1?usp=sharing"
-                    class="nav-link" target="_blank">Database</a>
-                </li>
-
-                <li>
-                  <a href="https://drive.google.com/drive/folders/1-DIdaGIVp7G0B-XE_9Hh1BG38qgScb6R" class="nav-link"
-                    target="_blank">Gallery</a>
-                </li>
-
-                <!-- <li><a href="#"class="nav-link"target="_blank">Events</a></li> -->
-              </ul>
-            </li>
-
-            <li>
-              <a href="kepengurusan.html" class="nav-link nav-text-white">Profil Kabinet</a>
-            </li>
-
-            <li>
-              <a href="#" class="nav-link nav-text-white">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <button class="nav-toggle">
-        <div class="line"></div>
-        <div class="linee"></div>
-        <div class="lineee"></div>
-      </button>
-    </div>
-  </header>
+  <div id="header-placeholder"></div>
 
   <!-- Page Wrapper with Wider Horizontal Padding -->
 
@@ -615,81 +558,7 @@
 
   <!-- /Page Wrapper -->
 </body>
-<footer class="text-white block border-t border-gray-600">
-  <div
-    class="max-w-7xl mx-auto px-10 lg:px-20 py-8 grid grid-cols-1 md:grid-cols-3 justify-items-center text-left md:text-left">
-
-    <!-- Bagian 1: Identitas & Deskripsi -->
-    <div class="max-w-sm">
-      <div class="flex items-center mb-4 justify-center md:justify-start space-x-2">
-        <img src="img/logohmte.webp" alt="Logo HMTE" class="w-14 h-14 rounded-full object-cover" />
-        <div>
-          <h1 class="text-2x1 font-bold justify-start mt-3">HMTE</h1>
-            <p class="text-sm text-gray-300 justify-start">Himpunan Mahasiswa Teknik Elektro</p>
-        </div>
-      </div>
-      <p class="text-gray-400 text-sm leading-relaxed md:text-left lg:text-left text-center">
-        Mewujudkan komunitas Teknik Elektro yang solid, berintegritas, dan berkontribusi nyata dalam kemajuan teknologi
-        nasional.
-      </p>
-      <div class="flex justify-center md:justify-start lg:text-left text-center space-x-3 mt-5">
-        <a href="#"
-          class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
-          <i class="fab fa-linkedin-in text-sm text-white group-hover:text-[#00ff88]"></i>
-        </a>
-        <a href="#"
-          class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
-          <i class="fab fa-instagram text-base text-white group-hover:text-[#00ff88]"></i>
-        </a>
-        <a href="#"
-          class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
-          <i class="fab fa-twitter text-base text-white group-hover:text-[#00ff88]"></i>
-        </a>
-        <a href="#"
-          class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
-          <i class="fas fa-globe text-base text-white group-hover:text-[#00ff88]"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Bagian 2: Tautan Cepat -->
-    <div class="mt-10 md:mt-0">
-      <h5 class="text-green-400 font-semibold text-lg mb-4 flex items-center justify-center md:justify-start">
-        <i class="fas fa-link mr-2"></i> Tautan Cepat
-      </h5>
-      <ul class="space-y-2 text-sm text-gray-300">
-        <li><a href="#" class="hover:text-[#00ff88] transition">Berita</a></li>
-        <li><a href="#" class="hover:text-[#00ff88] transition">Profil Kabinet</a></li>
-        <li><a href="#" class="hover:text-[#00ff88] transition">Alumni</a></li>
-        <li><a href="#" class="hover:text-[#00ff88] transition">Kontak</a></li>
-      </ul>
-    </div>
-
-    <!-- Bagian 3: Kontak -->
-    <div class="mt-10 md:mt-0">
-      <h5 class="text-green-400 font-semibold text-lg mb-4 flex items-center justify-center md:justify-start">
-        <i class="fas fa-envelope mr-2"></i> Kontak
-      </h5>
-      <ul class="space-y-2 text-sm text-gray-300">
-        <li class="flex items-center justify-center md:justify-start">
-          <i class="fas fa-envelope mr-2"></i> hmtehmte@gmial.com
-        </li>
-        <li class="flex items-center justify-center md:justify-start">
-          <i class="fas fa-phone mr-2"></i> +62 21 1234 5678
-        </li>
-        <li class="flex items-center justify-center md:justify-start">
-          <i class="fas fa-comment mr-2"></i> +62 812 3456 7890
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="border-t border-gray-700 mt-2 mx-32">
-    <div class="w-[80%] mx-auto px-4 py-4 text-sm text-center text-gray-400">
-      © 2025 HMTE. Semua hak cipta dilindungi.
-    </div>
-  </div>
-
-</footer>
+<div id="footer-placeholder"></div>
 
 </html>
 

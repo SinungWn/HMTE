@@ -109,7 +109,7 @@ function renderAllPaginatedNews(news, page = 1) {
 
   const newsHTML = paginatedNews
     .map((item) => {
-      const detailLink = `news-detail.html?id=${item.id}`;
+      const detailLink = `page/news/news-detail.html?id=${item.id}`;
 
       return `
             <div 

@@ -246,7 +246,7 @@ function renderCompletedProjects(projects) {
 
   const projectsHTML = projects
     .map((project) => {
-      const detailLink = `project-detail.html?id=${project.id}`;
+      const detailLink = `page/project/project-detail.html?id=${project.id}`;
       const imagePath = project.image ? `../../${project.image}` : "../../img/logohmte.png";
       const borderColor = "border-cyan-500";
       const description = project.description.length > 100 ? project.description.substring(0, 100) + "..." : project.description;
