@@ -35,15 +35,10 @@ function renderHomeOngoingEvents() {
     return;
   }
 
-  const futureEvents = eventsData.filter((event) => {
-    const eventDate = new Date(event.date);
-    eventDate.setHours(0, 0, 0, 0);
-    return eventDate >= today && event.isFeatured;
-  });
+  const futureEvents = eventsData.filter((event) => new Date(event.date).setHours(0, 0, 0, 0) >= today.getTime() && event.isFeatured);
 
   futureEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  // Mengambil hanya 2 acara teratas
   const featuredEvents = futureEvents.slice(0, 2);
 
   if (featuredEvents.length === 0) {
@@ -53,7 +48,6 @@ function renderHomeOngoingEvents() {
 
   const eventsHTML = featuredEvents
     .map((event) => {
-      // FIX: Mengganti link detail dengan link ke Events utama
       const mainEventLink = `./page/event/event.html`;
       let imagePath = event.imgSrc ? event.imgSrc.replace("../../", "") : "img/logohmte.png";
       if (imagePath.startsWith("../")) {
@@ -75,7 +69,6 @@ function renderHomeOngoingEvents() {
 
       const borderColorClass = event.color === "green" ? "border-emerald-500" : event.color === "blue" ? "border-cyan-500" : "border-yellow-500";
 
-      // FIX: Menghapus onclick dari wrapper div
       return `
         <div class="flex flex-col rounded-xl overflow-hidden
                     border ${borderColorClass}
@@ -111,6 +104,7 @@ function renderHomeOngoingEvents() {
 
 /**
  * Fungsi untuk merender Program Kerja unggulan (3 status).
+ * FIX: Logika tautan untuk Completed Projects dipermudah.
  */
 function renderHomeProker() {
   const container = document.getElementById("home-proker-container");
@@ -124,7 +118,6 @@ function renderHomeProker() {
 
   const projectsToShow = [];
 
-  // Existing date setup is needed here since this function runs independently
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -169,7 +162,8 @@ function renderHomeProker() {
       type: "Completed",
       emoji: "✅",
       statusText: new Date(project.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" }),
-      link: project.link || "./page/project/project.html",
+      id: project.id || "fallback_id", // Gunakan ID asli atau fallback
+      link: project.link || null, // Pertahankan link dokumen asli (bisa null)
     });
   }
 
@@ -181,14 +175,32 @@ function renderHomeProker() {
   // --- Render 3 Rich Image Cards ---
   const projectsHTML = projectsToShow
     .map((project) => {
-      const detailLink = "./page/project/project-detail.html?id=" + project.id;
-      const finalLink = project.type === "Completed" && project.link ? project.link : project.type !== "Completed" ? "./page/project/project.html" : detailLink;
+      // Logic Tautan BARU: Prioritaskan project-detail.html untuk Completed
+      let finalLink = "./page/project/project.html"; // Default link ke halaman Proker utama
+      let target = "_self";
+      let linkText = "Lihat Proyek →";
+
+      if (project.type === "Completed") {
+        // FIX: Selalu arahkan ke halaman detail sebagai destinasi utama
+        finalLink = `./page/project/project-detail.html?id=${project.id}`;
+
+        // Tentukan teks tautan berdasarkan ketersediaan dokumen
+        if (project.link) {
+          linkText = "Press Release →";
+        } else {
+          linkText = "";
+        }
+      } else if (project.type !== "Completed") {
+        finalLink = "./page/project/project.html"; // Ongoing/Upcoming tetap ke halaman Proker utama
+        linkText = "";
+      }
+
+      // Logic Tautan END
+
       const description = project.description.length > 70 ? project.description.substring(0, 70) + "..." : project.description;
       const imagePath = project.image ? project.image.replace("../../", "") : "img/logohmte.png";
 
       const borderColor = project.type === "Ongoing" ? "border-green-500" : project.type === "Upcoming" ? "border-yellow-500" : "border-cyan-500";
-
-      const target = project.type === "Completed" && project.link ? "_blank" : "_self";
 
       return `
         <a href="${finalLink}" target="${target}" class="project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform transform hover:scale-[1.02] border-t-4 ${borderColor}">
@@ -208,7 +220,7 @@ function renderHomeProker() {
                 <p class="text-gray-500 text-xs mt-2">${project.type}: ${project.statusText}</p>
                 
                 <span class="text-green-400 mt-2 text-sm font-semibold">
-                    ${project.type === "Completed" ? "Lihat Dokumen →" : "Lihat Proyek →"}
+                    ${linkText}
                 </span>
             </div>
         </a>
