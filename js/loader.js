@@ -127,6 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentPath = window.location.pathname;
   const isIndexPage = currentPath === "/" || currentPath.endsWith("/index.html");
   const isNewsPage = currentPath.includes("/page/news/news.html");
+  const isEmagzArchivePage = currentPath.includes("/page/emagz/emagz.html");
+  const isEmagzReaderPage = currentPath.includes("emagz-reader.html"); // FIX: Tambah deteksi Reader
   // Tambahkan cek untuk halaman baru Anda (Event dan Project)
   const isEventPage = currentPath.includes("/page/event/");
   const isProjectPage = currentPath.includes("/page/project/");
@@ -134,13 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadPromises = [];
 
   // 1. MUAT KOMPONEN GLOBAL (HEADER & FOOTER)
-  // ⭐️ FIX: Menggunakan jalur RELATIF (naik satu tingkat dari js/ ke root) ⭐️
+  // FIX: Menggunakan jalur ABSOLUT
   loadPromises.push(loadComponent("header-placeholder", "/components/header.html"));
   loadPromises.push(loadComponent("footer-placeholder", "/components/footer.html"));
 
   // 2. MUAT KOMPONEN SPESIFIK (HANYA JIKA INI INDEX.HTML)
   if (isIndexPage) {
-    // ⭐️ FIX: Menggunakan jalur RELATIF (naik satu tingkat dari js/ ke sections/) ⭐️
+    // FIX: Menggunakan jalur RELATIF (naik satu tingkat dari js/ ke sections/)
     loadPromises.push(loadComponent("hero-placeholder", "../sections/hero.html"));
     loadPromises.push(loadComponent("news-placeholder", "../sections/news.html"));
     loadPromises.push(loadComponent("emagz-placeholder", "../sections/emagz.html"));
@@ -154,8 +156,6 @@ document.addEventListener("DOMContentLoaded", () => {
   Promise.all(loadPromises)
     .then(() => {
       console.log("Semua komponen berhasil dimuat!");
-
-      // ... (Rest of the code for setTimeout and initializeScripts)
 
       setTimeout(() => {
         // Panggil JS Global (diperlukan untuk Header/Footer)
@@ -180,6 +180,15 @@ document.addEventListener("DOMContentLoaded", () => {
               console.log("✅ Kalender berhasil diinisialisasi!");
             } catch (e) {
               console.error("Gagal menjalankan initCalendar:", e);
+            }
+          }
+          // FIX: Panggil E-MAGZ SECTION DI HOMEPAGE (DITINGKATKAN)
+          if (typeof checkAndRenderEmagzSection === "function") {
+            try {
+              checkAndRenderEmagzSection();
+              console.log("✅ E-Magz Section Index berhasil diinisialisasi!");
+            } catch (e) {
+              console.error("Gagal menjalankan checkAndRenderEmagzSection:", e);
             }
           }
         }
@@ -216,6 +225,29 @@ document.addEventListener("DOMContentLoaded", () => {
               console.log("✅ Halaman Project berhasil diinisialisasi!");
             } catch (e) {
               console.error("Gagal menjalankan renderProjects:", e);
+            }
+          }
+        }
+
+        // 5. Halaman Emagz Archive
+        if (isEmagzArchivePage) {
+          if (typeof loadEmagzArchivePage === "function") {
+            try {
+              loadEmagzArchivePage();
+            } catch (e) {
+              console.error("Gagal menjalankan loadEmagzArchivePage:", e);
+            }
+          }
+        }
+
+        // 6. Halaman Emagz Reader (BARU)
+        if (isEmagzReaderPage) {
+          if (typeof loadEmagzReader === "function") {
+            try {
+              setTimeout(loadEmagzReader, 100); // Memberi waktu DOM load
+              console.log("✅ Halaman Reader E-Magz berhasil diinisialisasi!");
+            } catch (e) {
+              console.error("Gagal menjalankan loadEmagzReader:", e);
             }
           }
         }

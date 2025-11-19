@@ -1,7 +1,6 @@
 // js/emagz.js
 
 /**
- * Data Edisi Emagz: Menentukan data untuk kartu di homepage dan rentang halaman untuk reader.
  */
 const emagzData = [
   {
@@ -9,48 +8,48 @@ const emagzData = [
     title: "Arti Kemerdekaan",
     description: "Komik 2.0 karya Salsabila Miftahusy Syifa – Kimia",
     coverSrc: "https://apps.bem-unsoed.com/wp-content/uploads/2023/08/IMG_1799.png",
-    startPage: 1,
-    endPage: 4,
+
+    pdfLink: "/img/emagz/sample.pdf",
   },
   {
     id: 2,
     title: "Riset Teknologi Terbaru",
     description: "Deskripsi singkat artikel 2 tentang riset.",
-    coverSrc: "img/emagz/page2.webp",
-    startPage: 5,
-    endPage: 7,
+    coverSrc: "/img/emagz/page2.webp",
+
+    pdfLink: "/img/emagz/sample.pdf",
   },
   {
     id: 3,
     title: "Profil Alumni Sukses",
     description: "Deskripsi singkat artikel 3.",
-    coverSrc: "img/emagz/page3.webp",
-    startPage: 8,
-    endPage: 10,
+    coverSrc: "/img/emagz/page3.webp",
+
+    pdfLink: "/img/emagz/sample.pdf",
   },
   {
     id: 4,
     title: "Edisi Khusus Wisuda",
     description: "Perayaan kelulusan angkatan 2020.",
-    coverSrc: "img/emagz/page4.webp",
-    startPage: 1,
-    endPage: 1,
+    coverSrc: "/img/emagz/page4.webp",
+
+    pdfLink: "/img/emagz/sample.pdf",
   },
 ];
 
-// === CARD RENDERING LOGIC (Untuk sections/emagz.html di Homepage) ===
+// === CARD RENDERING LOGIC (Untuk sections/emagz.html di Homepage & Arsip) ===
 
 function createEmagzCardHTML(edition) {
-  const readerLink = `page/emagz/emagz-reader.html?id=${edition.id}`;
+  const readerLink = `/page/emagz/emagz-reader.html?id=${edition.id}`;
   const imagePath = edition.coverSrc;
 
   return `
         <div class="border-2 border-green-800 w-[260px] md:w-[280px] rounded-lg overflow-hidden shadow-lg bg-black hover:shadow-[0_0_15px_rgba(34,197,94,0.6)] transition-shadow duration-300 flex flex-col">
-          <div class="p-3 bg-gray-800 flex justify-center items-center"> 
+          <div class="bg-gray-800 flex justify-center items-center h-64 p-3 relative"> 
             <img src="${imagePath}" 
                  alt="${edition.title}" 
-                 class="w-full h-auto object-contain"
-                 onerror="this.onerror=null;this.src='img/logohmte.png';" />
+                 class="max-w-full max-h-full object-contain"
+                 onerror="this.onerror=null;this.src='/img/logohmte.png';" />
           </div>
 
           <div class="p-4 bg-gray-800 flex-1 flex flex-col">
@@ -62,9 +61,7 @@ function createEmagzCardHTML(edition) {
     `;
 }
 
-/**
- * Render section Emagz di Homepage, menampilkan 3 edisi terbaru.
- */
+// Render section Emagz di Homepage, menampilkan 3 edisi terbaru.
 function renderEmagzSection() {
   const container = document.getElementById("emagz-cards-container");
   const moreLink = document.getElementById("emagz-more-link");
@@ -83,11 +80,15 @@ function renderEmagzSection() {
   container.innerHTML = cardsHTML;
 
   if (moreLink && emagzData.length > 3) {
+    const linkElement = moreLink.querySelector("a");
+    if (linkElement) {
+      linkElement.href = "/page/emagz/emagz.html";
+    }
     moreLink.classList.remove("hidden");
   }
 }
 
-// === FUNGSI CHECK BERULANG (FIX TIMING) ===
+// Fungsi pengecekan (untuk loader.js)
 function checkAndRenderEmagzSection() {
   const container = document.getElementById("emagz-cards-container");
   if (container) {
@@ -97,8 +98,27 @@ function checkAndRenderEmagzSection() {
   }
 }
 
-// === READER LOGIC (Untuk halaman emagz-reader.html) ===
+// ARCHIVE RENDERING LOGIC
+function loadEmagzArchivePage() {
+  const container = document.getElementById("emagz-archive-container");
+  if (!container) return;
 
+  if (emagzData.length === 0) {
+    container.innerHTML = '<p class="text-center text-gray-400">Belum ada edisi E-Magazine yang tersedia dalam arsip.</p>';
+    return;
+  }
+
+  const allCardsHTML = emagzData
+    .sort((a, b) => b.id - a.id)
+    .map(createEmagzCardHTML)
+    .join("");
+
+  container.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 mx-auto";
+  container.innerHTML = allCardsHTML;
+  console.log("✅ Arsip E-Magz berhasil di-render!");
+}
+
+// === READER LOGIC (MENGGUNAKAN IFRAME UNTUK EMBED PDF) ===
 function loadEmagzReader() {
   const readerContainer = document.getElementById("emagz-reader-container");
   if (!readerContainer) return;
@@ -108,11 +128,12 @@ function loadEmagzReader() {
 
   const edition = emagzData.find((e) => e.id === editionId);
 
-  if (!edition || !edition.startPage || !edition.endPage) {
-    readerContainer.innerHTML = '<p class="text-center text-red-400">Error: Edisi Emagz tidak ditemukan atau data halaman tidak lengkap.</p>';
+  if (!edition) {
+    readerContainer.innerHTML = '<p class="text-center text-red-400">Error: Edisi Emagz tidak ditemukan.</p>';
     return;
   }
 
+  // Update Judul Halaman
   const pageTitle = document.getElementById("page-title");
   if (pageTitle) pageTitle.textContent = `Baca Emagz HMTE - Edisi ${editionId}: ${edition.title}`;
 
@@ -121,42 +142,21 @@ function loadEmagzReader() {
   const subTitle = document.querySelector("main p.text-center");
   if (subTitle) subTitle.textContent = `Membaca: ${edition.title}`;
 
-  const totalPagesInEdition = edition.endPage - edition.startPage + 1;
+  // Implementasi Embed PDF
+  if (edition.pdfLink) {
+    const pdfContentHtml = `
+      <div class="shadow-2xl border-4 border-gray-700 bg-gray-200 w-full">
+        <iframe src="${edition.pdfLink}" width="100%" height="800px" style="border: none;"></iframe>
+      </div>
+    `;
 
-  let pagesHTML = "";
-  let currentPageIndex = 1;
+    const fullViewLink = `
+       
+    `;
 
-  for (let i = edition.startPage; i <= edition.endPage; i++) {
-    const imagePath = `../../img/emagz/page${i}.webp`;
-
-    pagesHTML += `
-            <div class="emagz-page mb-4 rounded-lg shadow-2xl border-2 border-gray-700 overflow-hidden">
-                <img 
-                    src="${imagePath}" 
-                    alt="Emagz Page ${i}" 
-                    class="w-full h-auto object-contain" 
-                    onerror="this.onerror=null;this.src='../../img/logohmte.png';">
-                <div class="text-center py-2 text-gray-500 text-sm">Halaman ${currentPageIndex} dari ${totalPagesInEdition}</div>
-            </div>
-        `;
-    currentPageIndex++;
+    readerContainer.innerHTML = fullViewLink + pdfContentHtml;
+  } else {
+    readerContainer.innerHTML = '<p class="text-center text-red-400">Error: Tautan PDF untuk edisi ini tidak ditemukan.</p>';
   }
-
-  readerContainer.innerHTML = pagesHTML;
 }
-
-// === EKSEKUSI DI HOMEPAGE DAN READER ===
-
-document.addEventListener("DOMContentLoaded", () => {
-  const path = window.location.pathname;
-
-  // Check jika berada di homepage
-  if (path === "/" || path.includes("index.html")) {
-    checkAndRenderEmagzSection();
-  }
-
-  // Check jika berada di halaman reader
-  if (path.includes("emagz-reader.html")) {
-    setTimeout(loadEmagzReader, 100);
-  }
-});
+// HAPUS: document.addEventListener("DOMContentLoaded", ...) di sini (sudah di loader.js)
