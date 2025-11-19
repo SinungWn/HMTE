@@ -16,15 +16,16 @@ function formatDate(dateString) {
 
 // === FUNGSI REUSABLE: POSTER CARD MARKUP ===
 function createEventCardHTML(event) {
-  // Detail link dihapus karena tidak digunakan
-  const mainEventLink = `event.html`; // Link fallback
+  // Jalur fallback ke halaman event utama (ABSULUT)
+  const mainEventLink = `/page/event/event.html`;
 
-  // Path correction: Assume path needs ../../ prefix from event.html's perspective
-  let imagePath = event.imgSrc ? `../../${event.imgSrc.replace("../../", "")}` : "../../img/logohmte.png";
+  // Menggunakan jalur ABSOLUT untuk gambar
+  let imagePath = event.imgSrc ? `/${event.imgSrc.replace(/^\//, "")}` : "/img/logohmte.png";
 
   const formattedDate = formatDate(event.date);
 
-  // FIX: Mengubah logika tombol agar fallback ke laman Events utama
+  // FIX: Logika tombol hanya menampilkan 'Daftar Sekarang' jika ada link.
+  // Tombol 'Lihat Detail' atau 'Baca Selengkapnya' dihilangkan.
   const actionButtonHTML = event.registrationLink
     ? `
         <button onclick="window.open('${event.registrationLink}', '_blank')" class="mt-auto px-3 py-1 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition text-sm w-full">
@@ -32,14 +33,11 @@ function createEventCardHTML(event) {
         </button>
         `
     : `
-        <button onclick="window.location.href='${mainEventLink}'" class="mt-auto px-3 py-1 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-700 transition text-sm w-full">
-            Lihat Detail
-        </button>
+        <p class="mt-auto text-center text-gray-500 text-xs italic py-2">Pendaftaran akan dibuka.</p>
         `;
 
   const borderColorClass = event.color === "green" ? "border-emerald-500" : event.color === "blue" ? "border-cyan-500" : "border-yellow-500";
 
-  // FIX: Menghapus onclick dari wrapper div
   return `
       <div class="flex flex-col rounded-xl overflow-hidden
                   border ${borderColorClass}
@@ -53,7 +51,7 @@ function createEventCardHTML(event) {
                   alt="${event.title}" 
                   style="width: 100%; height: 100%; object-fit: cover;"
                   class="transition-transform duration-500 hover:scale-105" 
-                  onerror="this.onerror=null;this.src='../../img/logohmte.png';" />
+                  onerror="this.onerror=null;this.src='/img/logohmte.png';" />
           </div>
 
           <div class="p-3 flex flex-col flex-1 bg-gray-900">
@@ -111,36 +109,35 @@ function loadEventListPage() {
 
 /**
  * Render markup untuk Event yang Sedang Berlangsung (Div 2 di event.html)
- * FIX: Menghapus semua referensi ke detailLink untuk tautan utama/sekunder.
  */
 function renderCurrentEvent(event) {
   const formattedDate = formatDate(event.date);
-  const mainEventLink = `event.html`; // Link fallback
+  const mainEventLink = `/page/event/event.html`;
 
-  const imagePath = event.imgSrc || "../../img/logohmte.png";
+  // FIX 1: HILANGKAN GAMBAR dari card paling atas (untuk kerapian)
+  const imageHTML = "";
 
-  // Tombol aksi utama (Daftar atau Lihat Detail - fallback ke laman Events utama)
-  const primaryButtonHTML = `
-        <a href="${event.registrationLink || mainEventLink}" target="${event.registrationLink ? "_blank" : "_self"}"
-           class="inline-block w-full text-center px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition">
-            <i class="fas fa-edit mr-2"></i> ${event.registrationLink ? "DAFTAR SEKARANG" : "LIHAT DETAIL"}
-        </a>
-    `;
+  // FIX 2: HILANGKAN tombol sekunder "Baca Selengkapnya"
+  const secondaryButtonHTML = "";
 
-  // Tombol sekunder (Hanya ditampilkan jika tombol utama adalah 'Daftar Sekarang')
-  const secondaryButtonHTML = event.registrationLink
-    ? `
-    <a href="${mainEventLink}" class="inline-block w-full text-center mt-2 px-6 py-3 bg-gray-700 text-gray-300 font-semibold rounded-lg hover:bg-gray-600 transition text-sm">
-        Baca Selengkapnya
-    </a>
-  `
-    : "";
+  let primaryButtonHTML = "";
+
+  if (event.registrationLink) {
+    // Tombol aksi utama: DAFTAR SEKARANG
+    primaryButtonHTML = `
+          <a href="${event.registrationLink}" target="_blank"
+             class="inline-block w-full text-center px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition">
+              <i class="fas fa-edit mr-2"></i> DAFTAR SEKARANG
+          </a>
+      `;
+  } else {
+    // Jika tidak ada link daftar, tombol diganti dengan teks info karena tidak ada halaman detail
+    primaryButtonHTML = '<p class="text-center text-gray-500 text-sm italic">Informasi pendaftaran akan segera dibuka.</p>';
+  }
 
   return `
         <div class="bg-gray-900 p-6 rounded-lg shadow-inner">
-            ${event.imgSrc ? `<img src="${imagePath}" alt="${event.title}" class="w-full h-40 object-cover rounded-lg mb-4" onerror="this.onerror=null;this.src='../../img/logohmte.png';">` : ""}
-            
-            <h3 class="text-2xl font-extrabold text-green-400 mb-2">${event.title}</h3>
+            ${imageHTML} <h3 class="text-2xl font-extrabold text-green-400 mb-2">${event.title}</h3>
             <p class="text-gray-300 mb-4">${event.description}</p>
             
             <div class="text-sm space-y-2 mb-6">
@@ -152,8 +149,7 @@ function renderCurrentEvent(event) {
             </div>
             
             ${primaryButtonHTML}
-            ${secondaryButtonHTML}
-        </div>
+            ${secondaryButtonHTML} </div>
     `;
 }
 
@@ -163,7 +159,8 @@ function renderCurrentEvent(event) {
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
-  if (path.includes("event.html") && !path.includes("event-detail.html")) {
+  // Menggunakan jalur ABSOLUT untuk deteksi halaman
+  if (path === "/page/event/event.html") {
     setTimeout(() => {
       loadEventListPage();
     }, 100);
