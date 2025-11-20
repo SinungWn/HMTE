@@ -56,7 +56,7 @@ function getAllProjects() {
   return all.map((p, i) => ({ ...p, id: i + 1 }));
 }
 
-// === LOGIKA HALAMAN DETAIL (MODERN & RAPI) ===
+// === LOGIKA HALAMAN DETAIL ===
 
 function loadProjectDetailPage() {
   const eventId = getQueryParam("id");
@@ -88,11 +88,11 @@ function loadProjectDetailPage() {
 
   // Styling Badge
   if (project.category === "completed") {
-    categoryBadge.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-green-900/50 text-green-400 border border-green-800";
+    categoryBadge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-green-900/50 text-green-400 border border-green-800";
   } else if (project.category === "ongoing") {
-    categoryBadge.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/50 text-blue-400 border border-blue-800";
+    categoryBadge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/50 text-blue-400 border border-blue-800";
   } else {
-    categoryBadge.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-yellow-900/50 text-yellow-400 border border-yellow-800";
+    categoryBadge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-yellow-900/50 text-yellow-400 border border-yellow-800";
   }
 
   // Tanggal
@@ -103,19 +103,14 @@ function loadProjectDetailPage() {
     dateEl.textContent = "-";
   }
 
-  // 2. Render Gambar (RAPI & RESPONSIF)
+  // 2. Render Gambar
   const imgSrc = project.image.startsWith("/") ? project.image : `/${project.image.replace(/^\//, "")}`;
 
   if (imgContainer) {
-    // FIX:
-    // - w-full h-auto: Lebar penuh, tinggi otomatis (tidak gepeng)
-    // - max-h-[600px]: Membatasi tinggi agar tidak terlalu besar di layar PC
-    // - object-contain: Memastikan seluruh gambar terlihat
-    // - mx-auto: Posisi tengah
     imgContainer.innerHTML = `
       <img src="${imgSrc}" 
            alt="${project.title}" 
-           class="w-full h-auto max-h-[600px] object-contain mx-auto block"
+           class="w-full h-auto rounded-lg shadow-lg"
            onerror="this.onerror=null;this.src='/img/logohmte.png';" />
     `;
   }
@@ -132,8 +127,7 @@ function loadProjectDetailPage() {
   }
 }
 
-// === LOGIKA HALAMAN LIST (TETAP SAMA) ===
-// Bagian ini tetap diperlukan agar halaman project.html utama tetap berfungsi
+// === LOGIKA HALAMAN LIST ===
 
 function loadProjectSections() {
   const allProjects = getAllProjects();
@@ -153,21 +147,26 @@ function renderOngoingProjects(projects) {
     container.innerHTML = '<p class="text-gray-400">Tidak ada proyek yang sedang berjalan saat ini.</p>';
     return;
   }
+
   const projectsHTML = projects
     .map((project) => {
       const imagePath = project.image.startsWith("/") ? project.image : `/${project.image}`;
+      // FIX: Tambahkan link detail (Absolut)
+      const detailLink = `/page/project/project-detail.html?id=${project.id}`;
+
+      // FIX: Ubah div menjadi a href, tambah class group dan hover effects
       return `
-            <div class="project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden border-t-4 border-green-500 cursor-default">
+            <a href="${detailLink}" class="group project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden border-t-4 border-green-500 cursor-pointer transition-transform transform hover:scale-[1.02]">
                 <div class="block relative h-72 overflow-hidden"> 
-                    <img src="${imagePath}" alt="${project.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='/img/logohmte.png';">
+                    <img src="${imagePath}" alt="${project.title}" class="w-full h-full object-cover transition duration-300 group-hover:scale-110" onerror="this.onerror=null;this.src='/img/logohmte.png';">
                     <div class="absolute top-0 left-0 bg-gray-900 bg-opacity-70 text-xs text-white px-3 py-1 m-2 rounded-full font-bold">ONGOING</div>
                 </div>
                 <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-white mb-2">${project.title}</h3>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition">${project.title}</h3>
                     <p class="text-gray-400 text-sm mb-3 flex-grow line-clamp-3">${project.description}</p>
                     <p class="text-gray-500 text-xs mt-auto">${project.statusText}</p>
                 </div>
-            </div>`;
+            </a>`;
     })
     .join("");
   container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${projectsHTML}</div>`;
@@ -180,21 +179,25 @@ function renderUpcomingProjects(projects) {
     container.innerHTML = '<p class="text-gray-400">Tidak ada proyek yang dijadwalkan.</p>';
     return;
   }
+
   const projectsHTML = projects
     .map((project) => {
       const imagePath = project.image.startsWith("/") ? project.image : `/${project.image}`;
+      // FIX: Tambahkan link detail
+      const detailLink = `/page/project/project-detail.html?id=${project.id}`;
+
       return `
-            <div class="project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden border-t-4 border-yellow-500 cursor-default">
+            <a href="${detailLink}" class="group project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden border-t-4 border-yellow-500 cursor-pointer transition-transform transform hover:scale-[1.02]">
                 <div class="block relative h-72 overflow-hidden"> 
-                    <img src="${imagePath}" alt="${project.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='/img/logohmte.png';">
+                    <img src="${imagePath}" alt="${project.title}" class="w-full h-full object-cover transition duration-300 group-hover:scale-110" onerror="this.onerror=null;this.src='/img/logohmte.png';">
                     <div class="absolute top-0 left-0 bg-gray-900 bg-opacity-70 text-xs text-white px-3 py-1 m-2 rounded-full font-bold">UPCOMING</div>
                 </div>
                 <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-white mb-2">${project.title}</h3>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition">${project.title}</h3>
                     <p class="text-gray-400 text-sm mb-3 flex-grow line-clamp-3">${project.description}</p>
                     <p class="text-yellow-400 text-xs mt-auto">${project.statusText}</p>
                 </div>
-            </div>`;
+            </a>`;
     })
     .join("");
   container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${projectsHTML}</div>`;
@@ -207,12 +210,15 @@ function renderCompletedProjects(projects) {
     container.innerHTML = '<p class="text-gray-400">Belum ada proyek selesai.</p>';
     return;
   }
+
   const projectsHTML = projects
     .map((project) => {
-      const detailLink = `project-detail.html?id=${project.id}`;
+      // FIX: Gunakan jalur absolut untuk detail link
+      const detailLink = `/page/project/project-detail.html?id=${project.id}`;
       const imagePath = project.image.startsWith("/") ? project.image : `/${project.image}`;
+
       return `
-            <a href="${detailLink}" class="group project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform transform hover:scale-[1.02] border-t-4 border-cyan-500">
+            <a href="${detailLink}" class="group project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform transform hover:scale-[1.02] border-t-4 border-cyan-500 cursor-pointer">
                 <div class="block relative h-72 overflow-hidden"> 
                     <img src="${imagePath}" alt="${project.title}" class="w-full h-full object-cover transition duration-300 ease-in-out group-hover:opacity-80" onerror="this.onerror=null;this.src='/img/logohmte.png';">
                     <div class="absolute top-0 left-0 bg-gray-900 bg-opacity-70 text-xs text-white px-3 py-1 m-2 rounded-full font-bold">COMPLETED</div>
@@ -221,7 +227,7 @@ function renderCompletedProjects(projects) {
                     <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition line-clamp-2">${project.title}</h3>
                     <p class="text-gray-400 text-sm mb-3 flex-grow line-clamp-3">${project.description}</p>
                     <p class="text-gray-500 text-xs mt-auto mb-2">${project.statusText}</p>
-                    ${project.link || project.category === "completed" ? `<span class="text-cyan-400 mt-auto text-sm font-semibold group-hover:underline">Lihat Detail →</span>` : ""}
+                    <span class="text-cyan-400 mt-auto text-sm font-semibold group-hover:underline">Lihat Detail →</span>
                 </div>
             </a>`;
     })

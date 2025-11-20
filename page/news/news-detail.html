@@ -17,39 +17,42 @@
     <div id="header-placeholder"></div>
 
     <main class="flex-grow">
-      <div class="container mx-auto px-4 md:px-8 lg:px-20 py-8">
-        <button onclick="window.history.back()" class="group flex items-center text-gray-400 hover:text-white transition text-sm font-medium">
-          <span class="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center mr-3 group-hover:bg-gray-700 transition">
-            <i class="fas fa-arrow-left text-xs"></i>
+      <div class="container mx-auto px-4 md:px-8 lg:px-12 py-8">
+        <a href="/page/news/news.html" class="group inline-flex items-center text-gray-400 hover:text-white transition text-sm font-medium">
+          <span class="w-10 h-10 rounded-full bg-gray-800 grid place-items-center mr-3 group-hover:bg-gray-700 transition shadow-md border border-gray-700 group-hover:border-gray-600">
+            <i class="fas fa-arrow-left text-sm transform group-hover:-translate-x-1 transition-transform"></i>
           </span>
-          Kembali ke Berita
-        </button>
+          Kembali ke Daftar Berita
+        </a>
       </div>
 
-      <article class="container mx-auto px-4 md:px-8 lg:px-40 pb-20 fade-in">
-        <header class="mb-8 text-center md:text-left max-w-4xl mx-auto">
-          <span id="detail-category" class="inline-block px-3 py-1 bg-cyan-900/50 text-cyan-400 border border-cyan-800 rounded-full text-xs font-bold uppercase tracking-wider mb-4"> ... </span>
+      <article class="container mx-auto px-4 md:px-8 lg:px-12 pb-24 fade-in">
+        <header class="mb-10 text-left max-w-5xl">
+          <span id="detail-category" class="inline-block px-4 py-1.5 bg-cyan-900/50 text-cyan-400 border border-cyan-800 rounded-full text-xs font-bold uppercase tracking-wider mb-5"> Loading... </span>
 
-          <h1 id="detail-title" class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight">Memuat Judul Berita...</h1>
+          <h1 id="detail-title" class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight">Memuat Judul Berita...</h1>
 
-          <div class="flex items-center justify-center md:justify-start text-sm text-gray-400 border-b border-gray-800 pb-8">
-            <i class="far fa-calendar-alt mr-2 text-green-500"></i>
-            <span id="detail-date">...</span>
-            <span class="mx-3 text-gray-600">|</span>
-            <span class="text-gray-500">Tim Redaksi HMTE</span>
+          <div class="flex flex-wrap items-center justify-start text-sm text-gray-400 border-b border-gray-800 pb-8 gap-4">
+            <div class="flex items-center">
+              <i class="far fa-calendar-alt mr-2 text-green-500"></i>
+              <span id="detail-date">...</span>
+            </div>
+            <div class="hidden md:block w-1 h-1 bg-gray-700 rounded-full"></div>
+            <div class="flex items-center">
+              <span class="text-gray-500">Oleh Tim Redaksi HMTE</span>
+            </div>
           </div>
         </header>
 
-        <div class="max-w-5xl mx-auto mb-12">
-          <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 bg-black/50 relative min-h-[200px] flex items-center justify-center">
-            <img id="detail-image" src="" alt="Cover Berita" class="w-full h-auto max-h-[600px] object-contain mx-auto block" onerror="this.style.display='none';" />
+        <div class="max-w-5xl mb-14">
+          <div class="rounded-3xl overflow-hidden shadow-2xl border border-gray-800 bg-black/50 relative min-h-[200px] flex items-center justify-center p-4">
+            <img id="detail-image" src="" alt="Cover Berita" class="w-auto h-auto max-w-full max-h-[800px] object-contain block rounded-lg" />
           </div>
-          <p class="text-center text-xs text-gray-500 mt-3 italic">Dokumentasi Kegiatan</p>
         </div>
 
-        <div class="max-w-3xl mx-auto">
-          <div id="detail-content" class="prose prose-invert prose-lg max-w-none text-gray-300 leading-relaxed">
-            <p>Memuat konten berita...</p>
+        <div class="max-w-4xl">
+          <div id="detail-content" class="prose prose-invert prose-lg md:prose-xl max-w-none text-gray-300 leading-loose">
+            <p class="text-gray-500 italic">Memuat konten berita...</p>
           </div>
         </div>
       </article>
@@ -61,7 +64,6 @@
     <script src="/js/loader.js"></script>
 
     <script>
-      // Logika Detail Berita (Embedded Script untuk Simplicity)
       function loadNewsContent() {
         const urlParams = new URLSearchParams(window.location.search);
         const newsId = urlParams.get("id");
@@ -75,43 +77,38 @@
 
         if (typeof newsData === "undefined") {
           titleEl.textContent = "Error: Data Berita tidak tersedia.";
-          contentEl.innerHTML = "<p class='text-red-400 text-center'>Pastikan file news.js dimuat dengan benar.</p>";
           return;
         }
 
         const newsItem = newsData.find((item) => item.id === newsId);
 
         if (newsItem) {
-          // Set Data
           titleEl.textContent = newsItem.title;
-          dateEl.textContent = newsItem.date; // Asumsi format tanggal sudah cantik dari data, atau bisa diproses lagi
-          categoryEl.textContent = newsItem.category || "Umum";
-          pageTitleEl.textContent = newsItem.title + " | HMTE Unsoed";
+          dateEl.textContent = newsItem.date;
+          categoryEl.textContent = newsItem.category || "Berita Umum";
+          pageTitleEl.textContent = newsItem.title + " - HMTE Unsoed";
 
-          // Fix Gambar (Jalur Absolut)
-          // Cek jika path sudah absolut atau http, jika tidak tambahkan slash
-          const imgSrc = newsItem.imgSrc.startsWith("http") || newsItem.imgSrc.startsWith("/") ? newsItem.imgSrc : `/${newsItem.imgSrc}`;
+          // Logika pembersihan jalur gambar yang aman
+          let imgSrc = newsItem.imgSrc;
+          if (!imgSrc.startsWith("http") && !imgSrc.startsWith("/")) {
+            const cleanPath = imgSrc.replace(/^(\.\.\/|\.\/|\/)+/, "");
+            imgSrc = "/" + cleanPath;
+          }
 
           imageEl.src = imgSrc;
           imageEl.alt = newsItem.title;
-
-          // Set Konten
           contentEl.innerHTML = newsItem.content;
         } else {
-          // 404 Handling
-          titleEl.textContent = "Berita Tidak Ditemukan";
-          categoryEl.style.display = "none";
-          dateEl.parentElement.style.display = "none"; // Sembunyikan baris tanggal
-          contentEl.innerHTML =
-            "<div class='text-center py-10'><p class='text-gray-400 mb-4'>Maaf, artikel berita yang Anda cari tidak ditemukan.</p><a href='/page/news/news.html' class='text-green-500 hover:underline'>Kembali ke Daftar Berita</a></div>";
-          imageEl.parentElement.style.display = "none"; // Sembunyikan container gambar
-          pageTitleEl.textContent = "404 - Tidak Ditemukan";
+          document.querySelector("article").innerHTML = `
+            <div class="flex flex-col items-center justify-center py-20 text-center">
+                <h1 class="text-3xl font-bold text-white mb-4">Berita Tidak Ditemukan</h1>
+                <a href="/page/news/news.html" class="text-green-500 hover:underline font-medium">Kembali ke Daftar Berita</a>
+            </div>
+          `;
         }
       }
 
-      // Eksekusi setelah DOM siap
       document.addEventListener("DOMContentLoaded", () => {
-        // Timeout kecil untuk memastikan dependensi (jika ada) siap
         setTimeout(() => {
           loadNewsContent();
         }, 100);

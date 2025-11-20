@@ -18,8 +18,7 @@ const eventsData = [
     registrationLink: "https://forms.gle/linkgformworkshop", // Link pendaftaran
 
     // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhYW9m0up3UQYsu5arRUR-1G3dxLO4Coeg91ua9SzAPLSJb4BHNi1-Qb4KcWNl4DV-6dLXbUlcBx_PxgNz_3u3e7fZUBpJTzVA11u4bDIhOTapbZBjamZ9k0lsXVCz487YKtjO5Ji3-WZ-cNi-cGZL4iynUsS3J2QeggO_c4xVQFDo7z1VdgG32Dq25NhI/s16000-rw/1001987567.jpg", // Path/link gambar cover event
+    imgSrc: "img/49d9b1a0-ca5b-4e48-99fd-b3b1d1a6c305.jpeg", // Path/link gambar cover event
     locationLink: "https://maps.app.goo.gl/link-ke-aula-teknik", // Link Google Maps lokasi
     content: `
       <h3 class="text-xl font-bold mb-3 text-white">Detail Workshop</h3>
@@ -39,7 +38,7 @@ const eventsData = [
     registrationLink: "https://forms.gle/linkgformseminar",
 
     // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc: "https://pbs.twimg.com/media/G4QReueXwAASe_C.jpg", // Path/link gambar cover event
+    imgSrc: "/img/49d9b1a0-ca5b-4e48-99fd-b3b1d1a6c305.jpeg", // Path/link gambar cover event
     locationLink: "https://maps.app.goo.gl/link-ke-convention-center", // Link Google Maps lokasi
     content: `
       <h3 class="text-xl font-bold mb-3 text-white">Detail Seminar</h3>
@@ -59,7 +58,7 @@ const eventsData = [
     registrationLink: null,
 
     // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc: null,
+    imgSrc: "/img/49d9b1a0-ca5b-4e48-99fd-b3b1d1a6c305.jpeg",
     locationLink: null,
     content: `<p class="text-gray-300">Rapat internal rutin pengurus HMTE.</p>`,
   },
@@ -75,7 +74,7 @@ const eventsData = [
     registrationLink: "https://forms.gle/linkgformkunjungan",
 
     // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc: "../../img/event/kunjungan-pln-cover.webp",
+    imgSrc: "/img/49d9b1a0-ca5b-4e48-99fd-b3b1d1a6c305.jpeg",
     locationLink: "https://maps.app.goo.gl/link-ke-pln-pembangkit",
     content: `<p class="mb-4 text-gray-300">Kesempatan langka untuk melihat langsung operasional pembangkit listrik modern dan berinteraksi dengan insinyur profesional. Bus akan berangkat dari Kampus Teknik jam 07.30 WIB.</p>`,
   },
@@ -91,7 +90,7 @@ const eventsData = [
     registrationLink: "https://forms.gle/linkgformlomba",
 
     // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc: "../../img/event/lomba-pcb-cover.webp",
+    imgSrc: "/img/49d9b1a0-ca5b-4e48-99fd-b3b1d1a6c305.jpeg",
     locationLink: "https://maps.app.goo.gl/link-ke-lab-komputer",
     content: `<p class="mb-4 text-gray-300">Tunjukkan keahlian Anda dalam merancang papan sirkuit tercetak (PCB). Kompetisi ini mengasah kemampuan teknis dan kreativitas. Batas akhir pengiriman desain adalah 10 Desember 2025.</p>`,
   },
