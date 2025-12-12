@@ -33,7 +33,7 @@ const completedProjects = [
     date: "2025-07-10",
     description: "Acara upgrading 1 yang dilaksanakan oleh Internal HMTE 2025.",
     link: "page/project/docs/reuni-akbar-2025.html", // Path ke detail/dokumen
-    image: "img/Project/upgrade1.JPG",
+    image: "img/Project/upgrading1.JPG",
     release: "loreeeem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
@@ -42,7 +42,7 @@ const completedProjects = [
     date: "2025-09-01",
     description: "Acara Upgrading 2 yang dilaksanakan oleh Internal HMTE 2025.",
     link: "page/project/docs/or-2025.html",
-    image: "img/Project/upgrade2.JPG",
+    image: "img/Project/upgrading2.JPG",
     release: "loreeeem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
