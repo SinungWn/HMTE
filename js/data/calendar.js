@@ -27,7 +27,7 @@ const eventsData = [
   },
   {
     id: 2,
-    date: "2025-11-30",
+    date: "2025-12-30",
     title: "Electrical Fun Run",
     description: "Kegiatan Fun Run yang dilaksanakan oleh Dies Natalis Teknik Elektro 2025",
     time: "Pendaftaran 16 Oktober - 31 Oktober",
