@@ -18,7 +18,7 @@ const eventsData = [
     registrationLink: "https://forms.gle/linkgformworkshop", // Link pendaftaran
 
     // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc: "img/event/lts.jpg", // Path/link gambar cover event
+    imgSrc: "img/Event/lts.jpg", // Path/link gambar cover event
     locationLink: "https://maps.app.goo.gl/link-ke-aula-teknik", // Link Google Maps lokasi
     content: `
       <h3 class="text-xl font-bold mb-3 text-white">Detail LTS</h3>
