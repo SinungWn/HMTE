@@ -8,64 +8,50 @@
 const ongoingProjects = [
   {
     id: 1,
-    title: "ELECTRO FESTIVAL 2026 (E-FEST)",
-    description: "Persiapan acara puncak tahunan HMTE, mencakup kompetisi regional dan seminar nasional.",
-    pic: "Divisi HUMAS & KWU",
-    status: "70%",
-    image: "img/Asset Feed/HUMAS/1.jpg", // Ganti dengan path gambar cover
-  },
-  {
-    id: 2,
-    title: "Sistem Informasi Manajemen HMTE (SIM-HMTE)",
-    description: "Pengembangan dan pemeliharaan sistem informasi internal organisasi untuk efisiensi data.",
-    pic: "Divisi RISTEK",
-    status: "45%",
-    image: "img/Asset Feed/RISTEK/2.webp",
-  },
-  {
-    id: 3,
-    title: "Webinar Skill-Up Series: IoT and Embedded Systems",
-    description: "Rangkaian webinar bulanan untuk meningkatkan kemampuan teknis mahasiswa di bidang IoT.",
-    pic: "Divisi RISTEK & INTERNAL",
-    status: "25%",
-    image: "img/Asset Feed/INTERNAL/3.webp",
+    title: "Coming Soon",
+    description: "Coming Soon.",
+    pic: "Divisi Coming Soon",
+    status: "0%",
+    image: "img/", // Ganti dengan path gambar cover
   },
 ];
 
 const upcomingProjects = [
   {
     id: 4,
-    title: "Dies Natalis Teknik Elektro ke-XXV",
-    date: "2026-03-20",
-    description: "Perayaan ulang tahun jurusan Teknik Elektro dengan berbagai lomba dan acara kebersamaan.",
+    title: "DTE Informal",
+    date: "2025-12-27",
+    description: "Perayaan Dies Natalis Electrical Fest 1.0 sebagai acara kebersamaan.",
     image: "img/Asset Feed/INTERNAL/3.webp",
-  },
-  {
-    id: 5,
-    title: "Workshop Laporan Keuangan Organisasi",
-    date: "2026-01-15",
-    description: "Pelatihan wajib bagi seluruh pengurus terkait standar pelaporan keuangan yang akuntabel.",
-    image: "img/Asset Feed/MIKAT/1.jpg",
   },
 ];
 
 const completedProjects = [
   {
-    id: 6,
-    title: "Reuni Akbar Alumni Teknik Elektro 2025",
+    id: 20,
+    title: "Upgrading 1",
     date: "2025-07-10",
-    description: "Acara temu kangen yang berhasil mengumpulkan lebih dari 200 alumni dari berbagai angkatan.",
+    description: "Acara upgrading 1 yang dilaksanakan oleh Internal HMTE 2025.",
     link: "page/project/docs/reuni-akbar-2025.html", // Path ke detail/dokumen
-    image: "img/Asset Feed/MIKAT/1.jpg",
+    image: "img/Project/upgrade1.jpg",
     release: "loreeeem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
-    id: 7,
-    title: "Open Recruitment Pengurus Baru 2025",
+    id: 21,
+    title: "Upgrading 2",
     date: "2025-09-01",
-    description: "Proses rekrutmen anggota baru yang melibatkan seleksi ketat dan mentoring.",
+    description: "Acara Upgrading 2 yang dilaksanakan oleh Internal HMTE 2025.",
     link: "page/project/docs/or-2025.html",
-    image: "img/Asset Feed/PSDM/2.webp",
+    image: "img/Project/upgrade2.jpg",
+    release: "loreeeem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    id: 22,
+    title: "Electrical for Society di Panti Asuhan",
+    date: "2025-11-22",
+    description: "Acara dari teknik elektro yang menghadirkan volunteer untuk acara Bakti Sosial.",
+    link: "page/project/docs/or-2025.html",
+    image: "img/Project/EFS-pan.jpg",
     release: "loreeeem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
 ];
