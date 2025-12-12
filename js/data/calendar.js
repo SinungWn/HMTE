@@ -44,55 +44,7 @@ const eventsData = [
       <p class="mb-4 text-gray-300">Kegiatan ini dilaksanakan di sekitar Fakultas Teknik yang diikuti oleh berbagai kalangan baik mahasiswa maupun masyarakat Umum.</p>
       <p class="text-gray-300">Peserta akan mendapatkan Jersey, Medal, dan Doorprize.</p>
     `,
-  },
-  {
-    id: 3,
-    date: "2025-11-25",
-    title: "Rapat Koordinasi Pengurus",
-    description: "Rapat koordinasi internal pengurus HMTE, tertutup untuk umum.",
-    time: "19:00 - 21:00 WIB",
-    location: "Sekretariat HMTE",
-    color: "yellow",
-    isFeatured: false, // Event internal, tidak ditampilkan di Div 1/2
-    registrationLink: null,
-
-    // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc: "/img/49d9b1a0-ca5b-4e48-99fd-b3b1d1a6c305.jpeg",
-    locationLink: null,
-    content: `<p class="text-gray-300">Rapat internal rutin pengurus HMTE.</p>`,
-  },
-  {
-    id: 4,
-    date: "2025-12-05",
-    title: "Kunjungan Industri: PLN Pembangkit",
-    description: "Kunjungan ke pembangkit listrik untuk melihat langsung proses kerja dan teknologi yang digunakan.",
-    time: "08:00 - 17:00 WIB",
-    location: "PLN Unit Pembangkit XXX",
-    color: "green",
-    isFeatured: true,
-    registrationLink: "https://forms.gle/linkgformkunjungan",
-
-    // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc: "/img/49d9b1a0-ca5b-4e48-99fd-b3b1d1a6c305.jpeg",
-    locationLink: "https://maps.app.goo.gl/link-ke-pln-pembangkit",
-    content: `<p class="mb-4 text-gray-300">Kesempatan langka untuk melihat langsung operasional pembangkit listrik modern dan berinteraksi dengan insinyur profesional. Bus akan berangkat dari Kampus Teknik jam 07.30 WIB.</p>`,
-  },
-  {
-    id: 5,
-    date: "2025-12-15",
-    title: "Lomba Desain PCB Mahasiswa",
-    description: "Kompetisi desain PCB tingkat universitas dengan hadiah menarik.",
-    time: "Sepanjang Hari",
-    location: "Lab Komputer",
-    color: "blue",
-    isFeatured: true,
-    registrationLink: "https://forms.gle/linkgformlomba",
-
-    // --- TAMBAHAN: Properti untuk Halaman Detail ---
-    imgSrc: "/img/49d9b1a0-ca5b-4e48-99fd-b3b1d1a6c305.jpeg",
-    locationLink: "https://maps.app.goo.gl/link-ke-lab-komputer",
-    content: `<p class="mb-4 text-gray-300">Tunjukkan keahlian Anda dalam merancang papan sirkuit tercetak (PCB). Kompetisi ini mengasah kemampuan teknis dan kreativitas. Batas akhir pengiriman desain adalah 10 Desember 2025.</p>`,
-  },
+  }
 ];
 
 /**
