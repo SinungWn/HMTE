@@ -14,13 +14,235 @@
 
     <script src="/js/loader.js" defer></script>
     <script src="/js/emagz.js" defer></script>
+
+    <style>
+      /* ══════════════════════════════════════════
+         EMAGZ PAGE — PREMIUM DARK OVERRIDE
+      ══════════════════════════════════════════ */
+
+      /* KUNCI BACKGROUND TETAP HITAM GELAP */
+      body {
+        background-color: #0a0e14 !important;
+        color: #ffffff !important;
+      }
+
+      /* ── PAGE HEADER ── */
+      .gradient-text {
+        background: linear-gradient(135deg, #fff 0%, #0fbc6d 60%, #22c55e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: clamp(2rem, 7vw, 4rem) !important;
+        line-height: 1.3 !important; 
+        padding-bottom: 0.1em !important; 
+      }
+
+      /* Jarak Aman Fixed Header */
+      main.py-16 {
+        padding-top: 120px !important;
+        padding-bottom: 80px !important;
+      }
+
+      .page-subtitle {
+        color: rgba(209, 213, 219, 0.8) !important;
+        font-size: clamp(0.95rem, 1.5vw, 1.15rem) !important;
+        line-height: 1.6;
+      }
+
+      /* ── GRID CONTAINER ── */
+      #emagz-archive-container {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+        gap: clamp(16px, 3vw, 28px) !important;
+        align-items: stretch !important;
+      }
+
+      /* ══ OVERRIDE CARD ══ */
+      #emagz-archive-container > div,
+      #emagz-archive-container > a {
+        background: linear-gradient(145deg,
+          rgba(15,188,109,0.06) 0%,
+          rgba(13,17,23,0.98) 40%,
+          rgba(13,17,23,0.98) 100%
+        ) !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(15,188,109,0.12) !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
+        transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), border-color 0.3s ease, box-shadow 0.3s ease !important;
+        animation: cardFadeUp 0.55s cubic-bezier(0.23,1,0.32,1) both !important;
+        display: flex !important;
+        flex-direction: column !important;
+        position: relative !important;
+        margin: 0 !important;
+      }
+
+      /* Shimmer line atas */
+      #emagz-archive-container > div::before,
+      #emagz-archive-container > a::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 8%; right: 8%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(15,188,109,0.35), transparent);
+        z-index: 2;
+      }
+
+      #emagz-archive-container > div:hover,
+      #emagz-archive-container > a:hover {
+        transform: translateY(-5px) !important;
+        border-color: rgba(15,188,109,0.3) !important;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.55),
+                    0 0 24px rgba(15,188,109,0.08) !important;
+      }
+
+      /* Stagger Delay */
+      #emagz-archive-container > div:nth-child(1) { animation-delay: 0.05s !important; }
+      #emagz-archive-container > div:nth-child(2) { animation-delay: 0.15s !important; }
+      #emagz-archive-container > div:nth-child(3) { animation-delay: 0.25s !important; }
+      #emagz-archive-container > div:nth-child(4) { animation-delay: 0.35s !important; }
+
+      /* ── COVER MAJALAH ── */
+      #emagz-archive-container img {
+        width: 100% !important;
+        aspect-ratio: 3 / 4 !important; 
+        object-fit: cover !important;
+        filter: brightness(0.85) saturate(1.05) !important;
+        transition: transform 0.5s ease, filter 0.3s ease !important;
+      }
+      
+      #emagz-archive-container > div:hover img,
+      #emagz-archive-container > a:hover img {
+        transform: scale(1.04) !important;
+        filter: brightness(0.95) saturate(1.1) !important;
+      }
+
+      /* ── BODY KONTEN ── */
+      #emagz-archive-container .p-4,
+      #emagz-archive-container .p-5,
+      #emagz-archive-container .p-6 {
+        background: transparent !important;
+        padding: 16px 20px 20px !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+
+      /* Judul Majalah */
+      #emagz-archive-container h3 {
+        font-size: clamp(1.05rem, 1.5vw, 1.2rem) !important;
+        font-weight: 800 !important;
+        color: rgba(255,255,255,0.95) !important;
+        line-height: 1.3 !important;
+        margin: 0 0 4px 0 !important;
+      }
+
+      /* Teks Deskripsi (jika ada) */
+      #emagz-archive-container p.text-gray-300,
+      #emagz-archive-container p.text-gray-400 {
+        color: rgba(156,163,175,0.7) !important;
+        font-size: 0.85rem !important;
+        line-height: 1.6 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+      }
+
+      /* ── TOMBOL BACA / DOWNLOAD ── */
+      #emagz-archive-container a.bg-green-500,
+      #emagz-archive-container a.bg-green-600,
+      #emagz-archive-container a.bg-blue-500,
+      #emagz-archive-container button {
+        background: #16a34a !important;
+        color: white !important;
+        border-radius: 50px !important;
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        padding: 10px 20px !important;
+        box-shadow: 0 0 16px rgba(15,188,109,0.2) !important;
+        transition: all 0.25s ease !important;
+        text-align: center !important;
+        margin-top: auto !important; 
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 6px !important;
+        text-decoration: none !important;
+      }
+
+      #emagz-archive-container a.bg-green-500:hover,
+      #emagz-archive-container a.bg-green-600:hover,
+      #emagz-archive-container a.bg-blue-500:hover,
+      #emagz-archive-container button:hover {
+        background: #15803d !important;
+        box-shadow: 0 0 24px rgba(15,188,109,0.4) !important;
+        transform: translateY(-2px) !important;
+      }
+
+      @keyframes cardFadeUp {
+        from { opacity: 0; transform: translateY(28px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ════════════════════════════════════
+         MOBILE OVERRIDE (≤ 768px)
+      ════════════════════════════════════ */
+      @media screen and (max-width: 768px) {
+        main.py-16 {
+          padding-top: 110px !important; 
+          padding-bottom: 40px !important;
+        }
+        
+        .gradient-text {
+          font-size: clamp(2rem, 8vw, 2.6rem) !important;
+        }
+        
+        /* Ubah jadi 1 Kolom */
+        #emagz-archive-container {
+          grid-template-columns: 1fr !important; 
+          gap: 20px !important;
+        }
+
+        #emagz-archive-container > div,
+        #emagz-archive-container > a {
+          max-width: 340px !important; 
+          margin: 0 auto !important;   
+          width: 100% !important;
+        }
+        
+        #emagz-archive-container img {
+          aspect-ratio: 3 / 4 !important;
+        }
+
+        #emagz-archive-container h3 {
+          font-size: 1.1rem !important;
+        }
+      }
+      
+      /* TABLET OVERRIDE */
+      @media screen and (min-width: 480px) and (max-width: 768px) {
+        #emagz-archive-container {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+        #emagz-archive-container > div,
+        #emagz-archive-container > a {
+          max-width: 100% !important;
+        }
+      }
+    </style>
   </head>
-  <body>
+  
+  <body class="min-h-screen">
     <div id="header-placeholder"></div>
 
-    <main class="py-16 md:py-24 text-white">
+    <main class="py-16 md:py-24 text-white fade-in">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-4xl font-extrabold text-center mb-10 border-b-2 border-green-500 pb-3">E-Magazine</h1>
+        
+        <h1 class="gradient-text font-bold text-center mb-4">E-Magazine</h1>
+        <p class="page-subtitle text-center mb-12 max-w-2xl mx-auto">Kumpulan karya, buletin, dan majalah elektronik resmi HMTE Unsoed.</p>
 
         <div id="emagz-archive-container" class="mt-10">
           <p class="text-center text-gray-400">Memuat arsip E-Magz...</p>

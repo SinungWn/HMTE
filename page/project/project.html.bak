@@ -324,6 +324,7 @@
     <div id="footer-placeholder"></div>
 
     <script src="../../js/loader.js"></script>
+    <script src="../../js/data/project.js"></script>
     <script src="../../js/pages/project.js"></script>
 
     <script>

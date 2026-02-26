@@ -1,21 +1,232 @@
-<section class="py-16">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-8">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-white relative inline-block">
-        Program Kerja
-        <span class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-green-500 rounded-full"></span>
-      </h2>
-      <p class="text-gray-400 mt-4 text-sm md:text-base">Ragam proyek dan kegiatan yang sedang, akan, dan telah kami laksanakan.</p>
-    </div>
-    <div id="home-proker-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+<style>
+  .proker-section {
+    position: relative;
+    padding: clamp(36px, 7vh, 80px) 0;
+    overflow: hidden;
+  }
+  .proker-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: min(600px, 100%); height: 280px;
+    background: radial-gradient(ellipse, rgba(15,188,109,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
-    <div class="mt-10 text-center">
-      <a
-        href="/page/project/project.html"
-        class="inline-block px-8 py-3 bg-gray-800 text-white font-semibold rounded-full border border-gray-600 hover:bg-green-600 hover:border-green-500 hover:text-white transition-all duration-300 shadow-lg"
-      >
-        Lihat Program Kerja Lainnya <i class="fas fa-arrow-right ml-2"></i>
+  .proker-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 0 clamp(16px, 5vw, 48px);
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  .proker-header {
+    text-align: center;
+    margin-bottom: clamp(24px, 4vh, 44px);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .proker-header.is-visible { opacity: 1; transform: translateY(0); }
+
+  .proker-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.68rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: #0fbc6d; font-weight: 700;
+  }
+  .proker-eyebrow::before, .proker-eyebrow::after {
+    content: ''; display: block; width: 20px; height: 1px;
+    background: #0fbc6d; opacity: 0.6;
+  }
+  .proker-title {
+    font-size: clamp(1.75rem, 5vw, 3.2rem); font-weight: 900;
+    color: #fff; letter-spacing: -0.04em; line-height: 1; margin: 0;
+  }
+  .proker-title em { font-style: normal; color: #0fbc6d; }
+  .proker-subtitle {
+    font-size: clamp(0.8rem, 2vw, 0.92rem);
+    color: rgba(156,163,175,0.6); margin: 0; line-height: 1.6;
+    max-width: 520px; text-align: center;
+  }
+
+  /* ── GRID: flex wrap + center agar otomatis center kalau card sedikit ── */
+  .proker-grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(12px, 2vw, 20px);
+  }
+
+  /* Tiap card: min 220px, max 260px, tapi fleksibel */
+  .proker-grid > * {
+    flex: 1 1 220px;
+    max-width: 260px;
+    min-width: 200px;
+  }
+
+  .proker-footer {
+    margin-top: clamp(20px, 3vh, 36px); display: flex; justify-content: center;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+  }
+  .proker-footer.is-visible { opacity: 1; transform: translateY(0); }
+  .proker-cta {
+    display: inline-flex; align-items: center; gap: 10px; padding: 11px 28px;
+    border: 1px solid rgba(255,255,255,0.13); border-radius: 50px;
+    color: rgba(255,255,255,0.7); font-size: 0.85rem; font-weight: 600;
+    text-decoration: none; letter-spacing: 0.02em; transition: all 0.25s ease;
+  }
+  .proker-cta:hover { border-color: rgba(15,188,109,0.4); color: #0fbc6d; background: rgba(15,188,109,0.05); }
+
+  /* ══ MOBILE ≤ 479px: 2 kolom penuh ══ */
+  @media (max-width: 479px) {
+    .proker-grid > * {
+      flex: 1 1 calc(50% - 12px);
+      max-width: calc(50% - 6px);
+      min-width: 0;
+    }
+  }
+
+  /* ══ TABLET 480–768px: 2–3 kolom ══ */
+  @media (min-width: 480px) and (max-width: 768px) {
+    .proker-grid > * {
+      flex: 1 1 calc(33.33% - 14px);
+      max-width: calc(33.33% - 10px);
+      min-width: 160px;
+    }
+  }
+
+  /* ══ OVERRIDE: kartu yang di-generate project.js (Tailwind classes) ══ */
+  #home-proker-container > div,
+  #home-proker-container > a {
+    position: relative;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    background: linear-gradient(145deg,
+      rgba(15,188,109,0.07) 0%,
+      rgba(13,17,23,0.98) 35%,
+      rgba(13,17,23,0.98) 65%,
+      rgba(15,188,109,0.04) 100%
+    ) !important;
+    border: 1px solid rgba(15,188,109,0.1) !important;
+    border-top: 4px solid rgba(15,188,109,0.35) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.45) !important;
+    text-decoration: none;
+    /* Batasi lebar agar tidak melar saat hanya 1 card */
+    flex: 1 1 220px !important;
+    max-width: 280px !important;
+    min-width: 200px !important;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+    opacity: 0;
+    transform: translateY(28px);
+    animation: prokerCardIn 0.55s cubic-bezier(0.23,1,0.32,1) forwards;
+  }
+
+  /* Perbaiki tinggi gambar dari h-72 Tailwind — paksa pakai aspect ratio */
+  #home-proker-container .h-72 {
+    height: auto !important;
+    aspect-ratio: 3 / 4 !important;
+  }
+  #home-proker-container > div:nth-child(1),
+  #home-proker-container > a:nth-child(1) { animation-delay: 0.05s; }
+  #home-proker-container > div:nth-child(2),
+  #home-proker-container > a:nth-child(2) { animation-delay: 0.13s; }
+  #home-proker-container > div:nth-child(3),
+  #home-proker-container > a:nth-child(3) { animation-delay: 0.21s; }
+
+  @keyframes prokerCardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Garis aksen tipis di atas card */
+  #home-proker-container > div::before,
+  #home-proker-container > a::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(15,188,109,0.4), transparent);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  #home-proker-container > div:hover,
+  #home-proker-container > a:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(15,188,109,0.28) !important;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.55), 0 0 24px rgba(15,188,109,0.08) !important;
+  }
+
+  /* Hapus background bawaan Tailwind dari dalam kartu */
+  #home-proker-container .bg-gray-800,
+  #home-proker-container .bg-gray-900 {
+    background: transparent !important;
+  }
+
+  /* Teks & warna di dalam kartu */
+  #home-proker-container h3       { color: rgba(255,255,255,0.92) !important; }
+  #home-proker-container p        { color: rgba(156,163,175,0.75) !important; }
+  #home-proker-container .text-green-400 { color: #0fbc6d !important; }
+  #home-proker-container .text-cyan-400  { color: #22d3ee !important; }
+  #home-proker-container .text-yellow-400 { color: #facc15 !important; }
+
+  /* ══ MOBILE OVERRIDE ≤ 600px: 1 kolom, center, tidak melar ══ */
+  @media (max-width: 600px) {
+    /* Grid jadi kolom tunggal, center */
+    #home-proker-container.proker-grid {
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+
+    /* Tiap card: lebar tetap, tidak melar */
+    #home-proker-container > div,
+    #home-proker-container > a {
+      flex: none !important;
+      width: min(300px, 90vw) !important;
+      max-width: min(300px, 90vw) !important;
+      min-width: unset !important;
+    }
+
+    /* Tinggi gambar proporsional di mobile */
+    #home-proker-container .h-72 {
+      height: auto !important;
+      aspect-ratio: 4 / 3 !important;
+    }
+  }
+</style>
+
+<section class="proker-section">
+  <div class="proker-inner">
+
+    <div class="proker-header">
+      <span class="proker-eyebrow">Aktivitas Himpunan</span>
+      <h2 class="proker-title">Program <em>Kerja</em></h2>
+      <p class="proker-subtitle">Ragam proyek dan kegiatan yang sedang, akan, dan telah kami laksanakan.</p>
+    </div>
+
+    <div id="home-proker-container" class="proker-grid">
+      <!-- Diisi oleh renderProjects() dari project.js -->
+    </div>
+
+    <div class="proker-footer">
+      <a href="/page/project/project.html" class="proker-cta">
+        Lihat Program Kerja Lainnya <i class="fas fa-arrow-right"></i>
       </a>
     </div>
+
   </div>
 </section>
+
+<script>
+(function () {
+  function initProkerAnim() {
+    const targets = document.querySelectorAll('.proker-header, .proker-footer');
+    if (!targets.length) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    targets.forEach((el) => { el.classList.remove('is-visible'); obs.observe(el); });
+  }
+  window.__components = window.__components || {};
+  window.__components['proker'] = { init: initProkerAnim };
+})();
+</script>

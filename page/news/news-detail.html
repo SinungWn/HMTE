@@ -11,6 +11,156 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/satoshi.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+      /* ══════════════════════════════════════
+         NEWS DETAIL — PREMIUM DARK + MOBILE FIX
+      ══════════════════════════════════════ */
+
+      body {
+        background-color: #0d1117 !important;
+      }
+
+      /* ── BACK BUTTON ── */
+      .group.inline-flex {
+        margin-bottom: 8px !important;
+      }
+
+      .group.inline-flex .rounded-full {
+        background: rgba(255,255,255,0.05) !important;
+        border-color: rgba(255,255,255,0.08) !important;
+      }
+
+      /* ── CATEGORY BADGE ── */
+      #detail-category {
+        background: rgba(15,188,109,0.12) !important;
+        color: #0fbc6d !important;
+        border-color: rgba(15,188,109,0.25) !important;
+        font-size: 0.65rem !important;
+        letter-spacing: 0.15em !important;
+      }
+
+      /* ── JUDUL ARTIKEL ── */
+      #detail-title {
+        font-size: clamp(1.6rem, 5vw, 3.8rem) !important;
+        line-height: 1.15 !important;
+        letter-spacing: -0.03em !important;
+        font-weight: 900 !important;
+      }
+
+      /* ── META INFO (tanggal, author) ── */
+      article header .flex.flex-wrap {
+        gap: 12px !important;
+        padding-bottom: 20px !important;
+        border-color: rgba(255,255,255,0.06) !important;
+      }
+
+      /* ── IMAGE CONTAINER ── */
+      .rounded-3xl.overflow-hidden {
+        background: rgba(0,0,0,0.4) !important;
+        border-color: rgba(255,255,255,0.06) !important;
+        border-radius: 20px !important;
+        padding: 0 !important;
+        min-height: unset !important;
+        overflow: hidden !important;
+      }
+
+      #detail-image {
+        width: 100% !important;
+        height: auto !important;
+        max-height: 600px !important;
+        object-fit: contain !important;
+        border-radius: 0 !important;
+        display: block !important;
+      }
+
+      /* ── PROSE / KONTEN ── */
+      #detail-content {
+        color: rgba(209,213,219,0.85) !important;
+        line-height: 1.8 !important;
+      }
+
+      #detail-content p {
+        font-size: clamp(0.92rem, 1.2vw, 1.1rem) !important;
+        margin-bottom: 1.25rem !important;
+      }
+
+      #detail-content h3 {
+        font-size: clamp(1.1rem, 2vw, 1.5rem) !important;
+        color: #fff !important;
+        font-weight: 800 !important;
+        margin-bottom: 0.75rem !important;
+        letter-spacing: -0.02em !important;
+      }
+
+      /* ══════════════════════════════
+         MOBILE (≤ 768px)
+      ══════════════════════════════ */
+      @media screen and (max-width: 768px) {
+        /* Padding container */
+        .container.mx-auto.px-4 {
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+        }
+
+        article.container {
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+          padding-bottom: 48px !important;
+        }
+
+        /* Back button */
+        .group.inline-flex {
+          font-size: 0.82rem !important;
+        }
+
+        /* Header artikel */
+        article header {
+          margin-bottom: 20px !important;
+        }
+
+        #detail-title {
+          font-size: clamp(1.4rem, 6.5vw, 2rem) !important;
+          margin-bottom: 16px !important;
+        }
+
+        /* Meta row: stack vertical di HP kecil */
+        article header .flex.flex-wrap {
+          flex-direction: column !important;
+          align-items: flex-start !important;
+          gap: 6px !important;
+        }
+
+        article header .hidden.md\:block { display: none !important; }
+
+        /* Image container */
+        .rounded-3xl.overflow-hidden {
+          border-radius: 14px !important;
+          margin-bottom: 24px !important;
+        }
+
+        #detail-image {
+          max-height: 280px !important;
+          object-fit: cover !important;
+          width: 100% !important;
+        }
+
+        /* Content prose */
+        #detail-content p {
+          font-size: 0.92rem !important;
+        }
+
+        #detail-content h3 {
+          font-size: 1.1rem !important;
+        }
+
+        /* Max width full di mobile */
+        .max-w-5xl,
+        .max-w-4xl {
+          max-width: 100% !important;
+        }
+      }
+    </style>
   </head>
 
   <body class="text-white min-h-screen flex flex-col font-satoshi">

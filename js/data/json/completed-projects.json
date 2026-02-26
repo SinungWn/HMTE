@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "title": "Upgrading 1",
+      "date": "2025-07-10",
+      "description": "Acara upgrading 1 yang dilaksanakan oleh Internal HMTE 2025.",
+      "link": "page/project/docs/reuni-akbar-2025.html",
+      "image": "img/Project/upgrading1.JPG",
+      "releaseDescription": "loreeeem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "title": "Upgrading 2",
+      "date": "2025-09-01",
+      "description": "Acara Upgrading 2 yang dilaksanakan oleh Internal HMTE 2025.",
+      "link": "page/project/docs/or-2025.html",
+      "image": "img/Project/upgrading2.JPG",
+      "releaseDescription": "loreeeem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "title": "Electrical for Society di Panti Asuhan",
+      "date": "2025-11-22",
+      "description": "Acara dari teknik elektro yang menghadirkan volunteer untuk acara Bakti Sosial.",
+      "link": "page/project/docs/or-2025.html",
+      "image": "img/Project/EFS-pan.JPG",
+      "releaseDescription": "loreeeem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
+  ]
+}

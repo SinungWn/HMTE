@@ -1,0 +1,58 @@
+{
+  "items": [
+    {
+      "id": "graduation-feb25",
+      "date": "Feb 22, 2025",
+      "category": "Graduation",
+      "title": "Electrical Graduation",
+      "preview": "HMTE Unsoed kembali melaksanakan Electrical Graduation periode Februari 2025, mengawal 16 wisudawan dan wisudawati dari angkatan 2020 dan 2021.",
+      "imgSrc": "../img/news/NewsCover-Graduation.webp",
+      "content": "<p class=\"mb-4\">Pada hari yang cerah, 22 Februari 2025, Himpunan Mahasiswa Teknik Elektro (HMTE) dengan bangga kembali menggelar 'Electrical Graduation' untuk periode Februari.</p><p class=\"mb-4\">Acara ini berhasil mengawal 16 wisudawan dan wisudawati hebat dari angkatan 2020 dan 2021.</p><p>Selamat kepada para lulusan! Masa depan listrik ada di tangan Anda.</p>"
+    },
+    {
+      "id": "efs-mar25",
+      "date": "Mar 12, 2025",
+      "category": "Humas",
+      "title": "Electrical for Society",
+      "preview": "Himpunan Mahasiswa Teknik Elektro (HMTE) telah berhasil melaksanakan program kerja unggulannya, Electrical for Society (EFS).",
+      "imgSrc": "../img/news/NewsCover-EFS.webp",
+      "content": "<p class=\"mb-4\">Program Electrical for Society (EFS) tahun ini sukses besar! Kegiatan yang berfokus pada pengabdian masyarakat ini dilaksanakan di Desa Sukamaju.</p><p>Kegiatan ini ditutup dengan sesi diskusi interaktif.</p>"
+    },
+    {
+      "id": "sosialisasippkm-nov25",
+      "date": "Nov 11, 2025",
+      "category": "Humas",
+      "title": "Sosialisasi PPKM dan PKM",
+      "preview": "Sebagai salah satu rangkaian program kerja PKM Center sosialisasi dilakukan untuk membekali KBTE sebelum mengikuti Program Kreativitas Mahasiswa.",
+      "imgSrc": "../img/news/NewsCover-SosPKM.png",
+      "content": "<p class=\"mb-4\">Pada tanggal 11 November 2025, HMTE Unsoed mengadakan sosialisasi PKM dan PPKM di Aula Teknik Elektro.</p>"
+    },
+    {
+      "id": "Kulum-4",
+      "date": "Nov 21, 2025",
+      "category": "Ristek",
+      "title": "Kuliah Umum Seri 4",
+      "preview": "Kuliah Umum Seri 4 menghadirkan pemaparan mengenai penerapan machine learning dalam kendali prostetik.",
+      "imgSrc": "../img/news/NewsCover-Kulum4.png",
+      "content": "<p class=\"mb-4\">Pada tanggal 21 November 2025, HMTE Unsoed menyelenggarakan Kuliah Umum Seri 4 dengan topik 'Machine Learning for Prosthetic Limb Control'.</p>"
+    },
+    {
+      "id": "Kulum-3",
+      "date": "Nov 20, 2025",
+      "category": "Ristek",
+      "title": "Kuliah Umum Seri 3",
+      "preview": "Kuliah Umum Seri 3 diselenggarakan untuk memperluas wawasan akademik mahasiswa melalui pemaparan materi tematik.",
+      "imgSrc": "../img/news/NewsCover-Kulum3.jpg",
+      "content": "<p class=\"mb-4\">Pada tanggal 20 November 2025, HMTE Unsoed menyelenggarakan Kuliah Umum Seri 3 di Aula Teknik Elektro.</p>"
+    },
+    {
+      "id": "Sarasehan-25",
+      "date": "Nov 19, 2025",
+      "category": "Internal",
+      "title": "Sarasehan Internal",
+      "preview": "Sarasehan Internal HMTE 2025 menjadi forum dialog antara mahasiswa, dosen, dan alumni.",
+      "imgSrc": "../img/news/NewsCover-Sarasehan2025.jpg",
+      "content": "<p class=\"mb-4\">Pada bulan November 2025, HMTE Unsoed menyelenggarakan Sarasehan Internal dengan tema 'Empowering Voices, Enhancing Quality'.</p>"
+    }
+  ]
+}

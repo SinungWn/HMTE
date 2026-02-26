@@ -17,6 +17,382 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    <style>
+      /* ══════════════════════════════════════════
+         EVENT PAGE — PREMIUM DARK OVERRIDE
+         Override Tailwind class dari event.js generator
+      ══════════════════════════════════════════ */
+
+      /* ── PAGE HEADER ── */
+      .gradient-text {
+        background: linear-gradient(135deg, #fff 0%, #0fbc6d 60%, #22c55e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: clamp(2rem, 7vw, 4rem) !important;
+        
+        /* TAMBAHKAN DUA BARIS INI UNTUK MENCEGAH HURUF TERPOTONG */
+        line-height: 1.3 !important; 
+        padding-bottom: 0.1em !important; 
+      }
+      /* Jarak Aman Fixed Header */
+      section.py-16 {
+        padding-top: 120px !important;
+        padding-bottom: 64px !important;
+      }
+
+      /* Section subheadings */
+      h2.text-3xl {
+        font-size: clamp(1.2rem, 3vw, 1.8rem) !important;
+        border-color: rgba(15,188,109,0.2) !important;
+        padding-bottom: 12px !important;
+        margin-bottom: 20px !important;
+      }
+
+      /* ════════════════════════════════
+         AREA 1: EVENT UTAMA (#current-event-register)
+         JS inject: div.flex.flex-col.rounded-xl.border-2.border-green-500.max-w-sm
+      ════════════════════════════════ */
+      #current-event-register > div {
+        background: linear-gradient(145deg,
+          rgba(15,188,109,0.08) 0%,
+          rgba(13,17,23,0.98) 40%,
+          rgba(13,17,23,0.98) 100%
+        ) !important;
+        border: 2px solid rgba(15,188,109,0.4) !important;
+        border-radius: 20px !important;
+        overflow: hidden !important;
+        box-shadow: 0 0 40px rgba(15,188,109,0.08),
+                    0 8px 32px rgba(0,0,0,0.5) !important;
+        max-width: 340px !important;
+        width: 100% !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+        animation: cardFadeUp 0.6s cubic-bezier(0.23,1,0.32,1) both !important;
+      }
+
+      #current-event-register > div:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 0 60px rgba(15,188,109,0.12),
+                    0 16px 48px rgba(0,0,0,0.6) !important;
+      }
+
+      /* Poster image area — jaga aspect ratio 9/12 */
+      #current-event-register .relative[style*="aspect-ratio"] {
+        width: 100% !important;
+        aspect-ratio: 9 / 12 !important;
+        background: #000 !important;
+        overflow: hidden !important;
+      }
+
+      #current-event-register img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        transition: transform 0.5s ease !important;
+      }
+
+      #current-event-register > div:hover img {
+        transform: scale(1.03) !important;
+      }
+
+      /* Badge "EVENT TERDEKAT" */
+      #current-event-register .bg-green-600.text-white.text-xs {
+        background: rgba(15,188,109,0.9) !important;
+        backdrop-filter: blur(8px) !important;
+        font-size: 0.6rem !important;
+        letter-spacing: 0.12em !important;
+        padding: 5px 12px !important;
+        border-radius: 0 0 10px 0 !important;
+      }
+
+      /* Body card utama */
+      #current-event-register .p-5 {
+        background: transparent !important;
+        padding: 16px !important;
+      }
+
+      #current-event-register h3 {
+        font-size: clamp(0.95rem, 1.5vw, 1.15rem) !important;
+        font-weight: 800 !important;
+        color: #fff !important;
+        line-height: 1.3 !important;
+      }
+
+      #current-event-register .text-gray-400 {
+        color: rgba(156,163,175,0.6) !important;
+        font-size: 0.82rem !important;
+      }
+
+      #current-event-register .text-gray-300 {
+        color: rgba(209,213,219,0.8) !important;
+        font-size: 0.82rem !important;
+      }
+
+      #current-event-register .text-cyan-400 {
+        color: #0fbc6d !important;
+      }
+
+      /* Tombol daftar */
+      #current-event-register a.bg-green-600,
+      #current-event-register .bg-green-600 {
+        background: #16a34a !important;
+        border-radius: 10px !important;
+        font-size: 0.85rem !important;
+        padding: 10px 16px !important;
+        box-shadow: 0 0 20px rgba(15,188,109,0.25) !important;
+        transition: all 0.25s ease !important;
+        text-align: center !important;
+        display: block !important;
+      }
+
+      /* ════════════════════════════════
+         AREA 2: EVENT LAINNYA (#featured-events-list)
+         JS inject: div.flex.flex-col.rounded-xl.max-w-xs.bg-gray-900
+      ════════════════════════════════ */
+      #featured-events-list > div {
+        background: linear-gradient(145deg,
+          rgba(15,188,109,0.06) 0%,
+          rgba(13,17,23,0.98) 40%,
+          rgba(13,17,23,0.98) 100%
+        ) !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        border: 1px solid rgba(15,188,109,0.12) !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.4) !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        transition: transform 0.3s ease, border-color 0.3s ease !important;
+        animation: cardFadeUp 0.55s cubic-bezier(0.23,1,0.32,1) both !important;
+        position: relative !important;
+      }
+
+      #featured-events-list > div::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 8%; right: 8%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(15,188,109,0.3), transparent);
+        z-index: 2;
+      }
+
+      #featured-events-list > div:hover {
+        transform: translateY(-4px) !important;
+        border-color: rgba(15,188,109,0.28) !important;
+      }
+
+      /* Stagger */
+      #featured-events-list > div:nth-child(1) { animation-delay: 0.1s; }
+      #featured-events-list > div:nth-child(2) { animation-delay: 0.2s; }
+      #featured-events-list > div:nth-child(3) { animation-delay: 0.3s; }
+      #featured-events-list > div:nth-child(4) { animation-delay: 0.4s; }
+      #featured-events-list > div:nth-child(5) { animation-delay: 0.5s; }
+
+      /* Poster image */
+      #featured-events-list [style*="aspect-ratio"] {
+        width: 100% !important;
+        aspect-ratio: 9 / 12 !important;
+        overflow: hidden !important;
+        background: #000 !important;
+      }
+
+      #featured-events-list img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        transition: transform 0.5s ease !important;
+      }
+
+      #featured-events-list > div:hover img {
+        transform: scale(1.04) !important;
+      }
+
+      /* Body */
+      #featured-events-list .p-4 {
+        background: transparent !important;
+        padding: 14px !important;
+      }
+
+      #featured-events-list h3 {
+        font-size: clamp(0.82rem, 1.1vw, 0.95rem) !important;
+        font-weight: 800 !important;
+        color: #fff !important;
+        line-height: 1.3 !important;
+      }
+
+      #featured-events-list .text-gray-300,
+      #featured-events-list .text-gray-400 {
+        font-size: 0.75rem !important;
+        color: rgba(156,163,175,0.6) !important;
+      }
+
+      #featured-events-list .text-cyan-400,
+      #featured-events-list .far,
+      #featured-events-list .fas {
+        color: #0fbc6d !important;
+      }
+
+      #featured-events-list a.bg-green-600,
+      #featured-events-list .bg-green-600 {
+        background: #16a34a !important;
+        border-radius: 8px !important;
+        font-size: 0.78rem !important;
+        padding: 8px 12px !important;
+        display: block !important;
+        text-align: center !important;
+      }
+
+      /* ════════════════════════════════
+         AREA 3: ARSIP (#div-tiga-events)
+         JS inject: grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4
+      ════════════════════════════════ */
+      #div-tiga-events h2 {
+        font-size: clamp(1.2rem, 3vw, 1.8rem) !important;
+        border-color: rgba(255,255,255,0.06) !important;
+      }
+
+      #div-tiga-events .grid > div {
+        background: linear-gradient(145deg,
+          rgba(15,188,109,0.04) 0%,
+          rgba(13,17,23,0.95) 100%
+        ) !important;
+        border-radius: 14px !important;
+        border: 1px solid rgba(255,255,255,0.06) !important;
+        overflow: hidden !important;
+        transition: transform 0.3s ease !important;
+        animation: cardFadeUp 0.55s cubic-bezier(0.23,1,0.32,1) both !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+      }
+
+      #div-tiga-events .grid > div:hover {
+        transform: translateY(-3px) !important;
+        border-color: rgba(15,188,109,0.15) !important;
+      }
+
+      #div-tiga-events [style*="aspect-ratio"] {
+        width: 100% !important;
+        aspect-ratio: 9 / 12 !important;
+        overflow: hidden !important;
+      }
+
+      #div-tiga-events img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+      }
+
+      #div-tiga-events .p-4 {
+        background: transparent !important;
+        padding: 12px !important;
+      }
+
+      #div-tiga-events h3 {
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        color: rgba(255,255,255,0.8) !important;
+      }
+
+      /* Tombol Lihat Arsip Lebih Lama */
+      #div-tiga-events button.bg-gray-800 {
+        background: rgba(255,255,255,0.04) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 50px !important;
+        color: rgba(255,255,255,0.6) !important;
+        padding: 10px 28px !important;
+        transition: all 0.25s ease !important;
+        font-size: 0.85rem !important;
+      }
+
+      /* ── ANIMASI ── */
+      @keyframes cardFadeUp {
+        from { opacity: 0; transform: translateY(28px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ══════════════════════════════
+         MOBILE (≤ 768px)
+      ══════════════════════════════ */
+      @media screen and (max-width: 768px) {
+        /* Header Title - Mengikuti style news.html */
+        .gradient-text {
+          font-size: clamp(1.8rem, 8vw, 2.6rem) !important;
+        }
+
+        /* FIXED HEADER CLEARANCE UNTUK MOBILE */
+        section.py-16 {
+          padding-top: 110px !important;
+          padding-bottom: 40px !important;
+        }
+
+        .mx-auto.px-6 {
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+        }
+
+        /* Event utama — full width di mobile */
+        #current-event-register {
+          margin-bottom: 36px !important;
+        }
+
+        #current-event-register > div {
+          max-width: 100% !important;
+          border-radius: 16px !important;
+        }
+
+        /* Featured list — 1 Kolom agar tidak gepeng di mobile */
+        #featured-events-list {
+          grid-template-columns: 1fr !important;
+          gap: 16px !important;
+          margin-bottom: 36px !important;
+        }
+
+        #featured-events-list h3 {
+          font-size: 1.05rem !important;
+          -webkit-line-clamp: 2 !important;
+          display: -webkit-box !important;
+          -webkit-box-orient: vertical !important;
+          overflow: hidden !important;
+        }
+
+        /* Tampilkan detail lokasi dan waktu secara utuh */
+        #featured-events-list .space-y-2 {
+          display: block !important; 
+        }
+
+        #featured-events-list .p-4 {
+          padding: 14px !important;
+        }
+
+        /* Arsip — 1 kolom di mobile */
+        #div-tiga-events .grid {
+          grid-template-columns: 1fr !important;
+          gap: 14px !important;
+        }
+
+        #div-tiga-events h3 {
+          font-size: 0.95rem !important;
+        }
+
+        #div-tiga-events .p-4 {
+          padding: 12px !important;
+        }
+
+        /* Section headings */
+        h2.text-3xl {
+          font-size: 1.25rem !important;
+        }
+      }
+
+      /* Tablet (Layar Sedang): 2 kolom untuk Featured & Arsip */
+      @media screen and (min-width: 480px) and (max-width: 768px) {
+        #featured-events-list,
+        #div-tiga-events .grid {
+          grid-template-columns: 1fr 1fr !important;
+        }
+      }
+    </style>
   </head>
 
   <body class="min-h-screen">
@@ -25,7 +401,7 @@
     <main>
       <section class="py-16 fade-in">
         <div class="mx-auto px-6 max-w-7xl">
-          <h1 class="text-5xl md:text-6xl font-bold gradient-text text-center mb-4 pb-2">Agenda HMTE</h1>
+          <h1 class="text-5xl md:text-6xl font-bold gradient-text text-center mb-4">Agenda HMTE</h1>
           <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto text-center mb-10">Jadwal event terbaru, workshop, dan seminar yang sedang berlangsung.</p>
 
           <div id="current-event-register" class="mb-16 w-full flex justify-center">

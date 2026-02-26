@@ -17,6 +17,270 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    <style>
+      /* ══════════════════════════════════════
+         NEWS PAGE — PREMIUM DARK OVERRIDE
+         Override Tailwind class lama dari JS generator
+      ══════════════════════════════════════ */
+
+      /* ── PAGE HEADER ── */
+      .gradient-text {
+        background: linear-gradient(135deg, #fff 0%, #0fbc6d 60%, #22c55e 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: clamp(2rem, 7vw, 4rem) !important;
+      }
+
+      /* Jarak aman untuk Desktop agar tidak menabrak header */
+      section.py-16 {
+        padding-top: 120px !important; 
+      }
+
+      /* ── GRID CONTAINER ── */
+      #all-news-container {
+        gap: clamp(12px, 2vw, 24px) !important;
+      }
+
+      /* ══ OVERRIDE CARD dari JS generator ══
+         Target: .bg-gray-800.rounded-xl (class yg di-inject JS)
+      */
+      #all-news-container > div {
+        background: linear-gradient(145deg,
+          rgba(15,188,109,0.07) 0%,
+          rgba(13,17,23,0.98) 35%,
+          rgba(13,17,23,0.98) 65%,
+          rgba(15,188,109,0.04) 100%
+        ) !important;
+        border: 1px solid rgba(15,188,109,0.12) !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.45) !important;
+        position: relative !important;
+        cursor: pointer !important;
+        transition: transform 0.3s cubic-bezier(0.23,1,0.32,1),
+                    border-color 0.3s ease,
+                    box-shadow 0.3s ease !important;
+        display: flex !important;
+        flex-direction: column !important;
+        /* Animasi masuk */
+        animation: cardFadeUp 0.55s cubic-bezier(0.23,1,0.32,1) both;
+      }
+
+      /* Shimmer line atas */
+      #all-news-container > div::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 8%; right: 8%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(15,188,109,0.35), transparent);
+        z-index: 2;
+      }
+
+      #all-news-container > div:hover {
+        transform: translateY(-5px) !important;
+        border-color: rgba(15,188,109,0.3) !important;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.55),
+                    0 0 24px rgba(15,188,109,0.08) !important;
+      }
+
+      /* Stagger delay */
+      #all-news-container > div:nth-child(1) { animation-delay: 0.05s; }
+      #all-news-container > div:nth-child(2) { animation-delay: 0.12s; }
+      #all-news-container > div:nth-child(3) { animation-delay: 0.19s; }
+      #all-news-container > div:nth-child(4) { animation-delay: 0.26s; }
+      #all-news-container > div:nth-child(5) { animation-delay: 0.33s; }
+      #all-news-container > div:nth-child(6) { animation-delay: 0.40s; }
+      #all-news-container > div:nth-child(7) { animation-delay: 0.47s; }
+      #all-news-container > div:nth-child(8) { animation-delay: 0.54s; }
+
+      @keyframes cardFadeUp {
+        from { opacity: 0; transform: translateY(28px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── GAMBAR CARD ── */
+      #all-news-container img {
+        width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        height: auto !important;
+        object-fit: cover !important;
+        display: block !important;
+        filter: brightness(0.85) saturate(1.05) !important;
+        transition: transform 0.5s cubic-bezier(0.23,1,0.32,1),
+                    filter 0.3s ease !important;
+      }
+
+      #all-news-container > div:hover img {
+        transform: scale(1.04) !important;
+        filter: brightness(0.95) saturate(1.1) !important;
+      }
+
+      /* ── KONTEN CARD ── */
+      #all-news-container .p-4 {
+        background: transparent !important;
+        padding: 14px 16px 16px !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+      }
+
+      /* Category tag */
+      #all-news-container .text-green-400 {
+        font-size: 0.6rem !important;
+        letter-spacing: 0.1em !important;
+        text-transform: uppercase !important;
+        color: #0fbc6d !important;
+        font-weight: 700 !important;
+        padding: 2px 8px !important;
+        background: rgba(15,188,109,0.1) !important;
+        border: 1px solid rgba(15,188,109,0.2) !important;
+        border-radius: 20px !important;
+        display: inline !important;          /* ← kunci: bukan block/flex */
+        width: fit-content !important;
+        white-space: nowrap !important;
+        margin-bottom: 4px !important;
+      }
+
+      /* Wrapper p yang membungkus tag — pastikan tidak stretch */
+      #all-news-container .p-4 > p:first-child {
+        display: flex !important;
+        width: fit-content !important;
+        margin-bottom: 4px !important;
+      }
+
+      /* Judul card */
+      #all-news-container h3 {
+        font-size: clamp(0.85rem, 1.1vw, 1rem) !important;
+        font-weight: 800 !important;
+        color: rgba(255,255,255,0.9) !important;
+        line-height: 1.35 !important;
+        letter-spacing: -0.01em !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        margin-bottom: 4px !important;
+        transition: color 0.2s ease !important;
+      }
+
+      #all-news-container > div:hover h3 { color: #fff !important; }
+
+      /* Preview text */
+      #all-news-container .text-gray-400 {
+        font-size: clamp(0.75rem, 0.85vw, 0.82rem) !important;
+        color: rgba(156,163,175,0.55) !important;
+        line-height: 1.6 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+      }
+
+      /* Tanggal */
+      #all-news-container .text-xs.text-gray-400 {
+        font-size: 0.65rem !important;
+        color: rgba(156,163,175,0.4) !important;
+        margin-top: auto !important;
+        padding-top: 6px !important;
+        border-top: 1px solid rgba(255,255,255,0.05) !important;
+        -webkit-line-clamp: unset !important;
+        display: block !important;
+      }
+
+      /* ── PAGINATION ── */
+      #news-pagination-container {
+        gap: 8px !important;
+        flex-wrap: wrap !important;
+      }
+
+      #news-pagination-container button {
+        min-width: 36px !important;
+        height: 36px !important;
+        padding: 0 12px !important;
+        border-radius: 8px !important;
+        font-size: 0.82rem !important;
+        font-weight: 600 !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+        background: rgba(255,255,255,0.04) !important;
+        color: rgba(255,255,255,0.6) !important;
+        transition: all 0.2s ease !important;
+      }
+
+      #news-pagination-container button:hover:not(:disabled) {
+        background: rgba(15,188,109,0.12) !important;
+        border-color: rgba(15,188,109,0.35) !important;
+        color: #0fbc6d !important;
+      }
+
+      /* Active page */
+      #news-pagination-container button.bg-green-500 {
+        background: #0fbc6d !important;
+        border-color: #0fbc6d !important;
+        color: #fff !important;
+        box-shadow: 0 0 16px rgba(15,188,109,0.3) !important;
+      }
+
+      #news-pagination-container button:disabled {
+        opacity: 0.3 !important;
+        cursor: not-allowed !important;
+      }
+
+      /* ══════════════════════════════
+         MOBILE OVERRIDE (≤ 768px)
+      ══════════════════════════════ */
+      @media screen and (max-width: 768px) {
+        .gradient-text {
+          font-size: clamp(1.8rem, 8vw, 2.6rem) !important;
+        }
+
+        /* PERBAIKAN DI SINI: Padding atas diperbesar agar lepas dari navbar */
+        section.py-16 {
+          padding-top: 110px !important;
+          padding-bottom: 40px !important;
+        }
+
+        section .px-6 {
+          padding-left: 16px !important;
+          padding-right: 16px !important;
+        }
+
+        /* 1 kolom di HP */
+        #all-news-container {
+          grid-template-columns: 1fr !important;
+          gap: 14px !important;
+        }
+
+        #all-news-container img {
+          aspect-ratio: 16 / 9 !important;
+        }
+
+        #all-news-container h3 {
+          font-size: 0.95rem !important;
+        }
+
+        /* Pagination lebih kecil */
+        #news-pagination-container {
+          gap: 6px !important;
+        }
+
+        #news-pagination-container button {
+          min-width: 32px !important;
+          height: 32px !important;
+          padding: 0 8px !important;
+          font-size: 0.75rem !important;
+        }
+      }
+
+      /* Tablet: 2 kolom */
+      @media screen and (min-width: 480px) and (max-width: 768px) {
+        #all-news-container {
+          grid-template-columns: 1fr 1fr !important;
+        }
+      }
+    </style>
   </head>
 
   <body>

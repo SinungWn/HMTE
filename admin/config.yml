@@ -1,0 +1,122 @@
+# =============================================================
+#  DECAP CMS — KONFIGURASI UTAMA — HMTE UNSOED
+#  Dokumentasi: https://decapcms.org/docs/configuration-options/
+# =============================================================
+
+# ── BACKEND ──────────────────────────────────────────────────
+backend:
+  name: github
+  repo: YOUR_GITHUB_USERNAME/YOUR_REPO_NAME   # ← GANTI INI
+  branch: main
+  base_url: https://YOUR_NETLIFY_SITE.netlify.app  # ← GANTI INI (OAuth proxy)
+
+# ── MEDIA ────────────────────────────────────────────────────
+media_folder: "img/uploads"
+public_folder: "/img/uploads"
+
+locale: id
+
+# =============================================================
+#  COLLECTIONS
+# =============================================================
+collections:
+
+  # ── 1. PROGRAM KERJA ───────────────────────────────────────
+  - name: "projects"
+    label: "Program Kerja"
+    files:
+
+      - name: "ongoing"
+        label: "Proker Berjalan"
+        file: "js/data/json/ongoing-projects.json"
+        fields:
+          - label: "Daftar Proker"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Judul",            name: title,       widget: string }
+              - { label: "Deskripsi",        name: description, widget: text }
+              - { label: "PIC / Divisi",     name: pic,         widget: string,   required: false }
+              - { label: "Status / Progres", name: status,      widget: string,   hint: "Contoh: 60% atau Tahap Perencanaan" }
+              - { label: "Gambar",           name: image,       widget: image,    required: false }
+              - { label: "Tanggal Mulai",    name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "DD MMMM YYYY", time_format: false, required: false }
+              - { label: "Link Dokumentasi", name: link,        widget: string,   required: false }
+
+      - name: "upcoming"
+        label: "Proker Mendatang"
+        file: "js/data/json/upcoming-projects.json"
+        fields:
+          - label: "Daftar Proker"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Judul",         name: title,       widget: string }
+              - { label: "Deskripsi",     name: description, widget: text }
+              - { label: "Gambar",        name: image,       widget: image,    required: false }
+              - { label: "Tanggal",       name: date,        widget: datetime, format: "YYYY-MM-DD", date_format: "DD MMMM YYYY", time_format: false, required: false }
+              - { label: "Link",          name: link,        widget: string,   required: false }
+
+      - name: "completed"
+        label: "Proker Selesai"
+        file: "js/data/json/completed-projects.json"
+        fields:
+          - label: "Daftar Proker"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Judul",              name: title,              widget: string }
+              - { label: "Deskripsi",          name: description,        widget: text }
+              - { label: "Gambar",             name: image,              widget: image,    required: false }
+              - { label: "Tanggal Selesai",    name: date,               widget: datetime, format: "YYYY-MM-DD", date_format: "DD MMMM YYYY", time_format: false }
+              - { label: "Link Dokumentasi",   name: link,               widget: string,   required: false }
+              - { label: "Konten Rilis",       name: releaseDescription, widget: text,     required: false }
+
+  # ── 2. BERITA ──────────────────────────────────────────────
+  - name: "news"
+    label: "Berita"
+    files:
+      - name: "all_news"
+        label: "Semua Berita"
+        file: "js/data/json/news.json"
+        fields:
+          - label: "Daftar Berita"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID / Slug",    name: id,       widget: string, hint: "URL-friendly, contoh: seminar-ai-2025" }
+              - { label: "Judul",        name: title,    widget: string }
+              - { label: "Tanggal",      name: date,     widget: string, hint: "Format: Mar 12, 2025" }
+              - { label: "Kategori",     name: category, widget: select, options: ["Graduation","Humas","Ristek","Internal","Lainnya"] }
+              - { label: "Preview",      name: preview,  widget: text }
+              - { label: "Konten",       name: content,  widget: markdown }
+              - { label: "Gambar Cover", name: imgSrc,   widget: image, required: false }
+
+  # ── 3. EVENT ──────────────────────────────────────────────
+  - name: "events"
+    label: "Event"
+    files:
+      - name: "all_events"
+        label: "Semua Event"
+        file: "js/data/json/events.json"
+        fields:
+          - label: "Daftar Event"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "ID",               name: id,               widget: number }
+              - { label: "Nama Event",       name: title,            widget: string }
+              - { label: "Deskripsi",        name: description,      widget: text }
+              - { label: "Tanggal",          name: date,             widget: datetime, format: "YYYY-MM-DD", date_format: "DD MMMM YYYY", time_format: false }
+              - { label: "Waktu / Jadwal",   name: time,             widget: string,   hint: "Contoh: Pendaftaran 13 Juli - 27 Juli" }
+              - { label: "Lokasi",           name: location,         widget: string }
+              - { label: "Link Google Maps", name: locationLink,     widget: string,   required: false }
+              - { label: "Gambar / Poster",  name: imgSrc,           widget: image,    required: false }
+              - { label: "Link Pendaftaran", name: registrationLink, widget: string,   required: false }
+              - { label: "Warna Badge",      name: color,            widget: select,   options: ["green","blue","yellow"], default: "green" }
+              - { label: "Tampil di Beranda",name: isFeatured,       widget: boolean,  default: false }
+              - { label: "Konten Detail",    name: content,          widget: markdown, required: false }

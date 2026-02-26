@@ -1,55 +1,255 @@
-<footer class="text-white block border-t border-gray-600">
-  <div class="max-w-7xl mx-auto px-10 lg:px-20 py-8 grid grid-cols-1 md:grid-cols-3 justify-items-center text-left md:text-left">
-    <!-- Bagian 1: Identitas & Deskripsi -->
-    <div class="max-w-sm">
-      <div class="flex items-center mb-4 justify-center md:justify-start space-x-2">
-        <img src="/img/logohmte.webp" alt="Logo HMTE" class="w-14 h-14 rounded-full object-cover" />
+<style>
+  /* ── ROOT ── */
+  .footer-root {
+    color: #fff;
+    /* FIX: background eksplisit agar konsisten di semua halaman */
+    background: rgba(10, 14, 20, 0.85);
+    border-top: 1px solid rgba(15,188,109,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .footer-root::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: min(700px, 100%); height: 180px;
+    background: radial-gradient(ellipse, rgba(15,188,109,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── MAIN GRID (Desktop: 3 kolom) ── */
+  .footer-grid {
+    max-width: 1100px; margin: 0 auto;
+    padding: clamp(36px, 6vh, 64px) clamp(24px, 5vw, 48px) clamp(24px, 4vh, 40px);
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: clamp(28px, 5vw, 48px);
+    align-items: start;
+  }
+
+  /* ── BRAND ── */
+  .footer-brand { display: flex; flex-direction: column; gap: 14px; }
+
+  .footer-brand-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .footer-brand-logo img {
+    width: 42px; height: 42px; border-radius: 50%; object-fit: cover;
+    border: 1px solid rgba(15,188,109,0.3); flex-shrink: 0;
+  }
+  .footer-brand-name { font-size: 1.1rem; font-weight: 800; color: #fff; line-height: 1.2; }
+  .footer-brand-sub  { font-size: 0.72rem; color: rgba(156,163,175,0.6); margin-top: 2px; }
+
+  .footer-brand-desc {
+    font-size: 0.8rem; color: rgba(156,163,175,0.65);
+    line-height: 1.7; max-width: 280px;
+  }
+
+  .footer-socials { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-social-btn {
+    width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8rem; text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .footer-social-btn:hover {
+    background: rgba(15,188,109,0.12);
+    border-color: rgba(15,188,109,0.35);
+    color: #0fbc6d;
+  }
+
+  /* ── COLUMNS ── */
+  .footer-col { display: flex; flex-direction: column; gap: 14px; }
+
+  .footer-col-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.75rem; font-weight: 800;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #0fbc6d;
+  }
+  .footer-col-title i { font-size: 0.7rem; }
+  .footer-col-title::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, rgba(15,188,109,0.3), transparent);
+  }
+
+  .footer-col ul {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .footer-col ul li a {
+    font-size: 0.82rem; color: rgba(156,163,175,0.75);
+    text-decoration: none; display: block; padding: 4px 0;
+    transition: color 0.2s, padding-left 0.2s;
+  }
+  .footer-col ul li a:hover { color: #0fbc6d; padding-left: 4px; }
+
+  .footer-contact-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.82rem; color: rgba(156,163,175,0.75); line-height: 1.5;
+  }
+  .footer-contact-item i {
+    color: #0fbc6d; font-size: 0.75rem;
+    margin-top: 3px; flex-shrink: 0; width: 14px; text-align: center;
+  }
+
+  /* ── BOTTOM BAR ── */
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 18px clamp(24px, 5vw, 48px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 4px; text-align: center;
+    /* TIDAK ada background — diwarisi dari .footer-root */
+  }
+  .footer-copy {
+    font-size: 0.78rem; color: rgba(156,163,175,0.5);
+  }
+  .footer-copy span { color: rgba(15,188,109,0.7); font-weight: 700; }
+  .footer-badge {
+    font-size: 0.68rem; color: rgba(156,163,175,0.3);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* ══ TABLET 641–960px: 2 kolom ══ */
+  @media (min-width: 641px) and (max-width: 960px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer-brand-desc { max-width: 100%; }
+  }
+
+  /* ══════════════════════════════════════════════════════
+     MOBILE ≤ 640px
+     Layout: Brand (kiri) | Kontak (kanan) sejajar
+              © copyright di bawah, full width
+  ══════════════════════════════════════════════════════ */
+  @media (max-width: 640px) {
+
+    .footer-root {
+      display: block !important;
+      width: 100% !important;
+      /* background diwarisi dari rule utama di atas */
+    }
+
+    .footer-tautan-col { display: none !important; }
+
+    .footer-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+    }
+
+    /* Brand — Kolom Kiri */
+    .footer-brand {
+      grid-column: 1 / 2 !important;
+      padding: 24px 12px 24px 16px !important;
+      border-bottom: 1px solid rgba(15,188,109,0.1) !important;
+      border-right: 1px solid rgba(15,188,109,0.08) !important;
+    }
+
+    /* Kontak — Kolom Kanan */
+    .footer-col:not(.footer-tautan-col) {
+      grid-column: 2 / 3 !important;
+      padding: 24px 16px 24px 12px !important;
+      border-bottom: 1px solid rgba(15,188,109,0.1) !important;
+    }
+
+    .footer-brand-logo img  { width: 32px !important; height: 32px !important; }
+    .footer-brand-name      { font-size: 0.85rem !important; }
+    .footer-brand-sub       { font-size: 0.6rem !important; }
+    .footer-brand-desc      { display: none !important; }
+    .footer-social-btn      { width: 28px !important; height: 28px !important; }
+
+    .footer-col-title       { font-size: 0.68rem !important; letter-spacing: 0.08em !important; }
+    .footer-contact-item    { font-size: 0.72rem !important; gap: 7px !important; }
+    .footer-contact-item i  { font-size: 0.68rem !important; }
+
+    /* Bottom bar — full width di bawah, TANPA background sendiri */
+    .footer-bottom {
+      display: block !important;
+      width: 100% !important;
+      padding: 16px !important;
+      text-align: center !important;
+      border-top: 1px solid rgba(15,188,109,0.1) !important;
+      background: unset !important; /* reset semua background override */
+    }
+
+    .footer-copy {
+      font-size: 0.7rem !important;
+      display: block !important;
+      width: 100% !important;
+    }
+  }
+</style>
+
+<footer class="footer-root">
+  <div class="footer-grid">
+
+    <!-- Brand -->
+    <div class="footer-brand">
+      <a href="/" class="footer-brand-logo">
+        <img src="/img/logohmte.webp" alt="Logo HMTE" />
         <div>
-          <h1 class="text-2xl font-bold mt-3">HMTE</h1>
-          <p class="text-sm text-gray-300">Himpunan Mahasiswa Teknik Elektro</p>
+          <div class="footer-brand-name">HMTE</div>
+          <div class="footer-brand-sub">Himpunan Mahasiswa Teknik Elektro · UNSOED</div>
+        </div>
+      </a>
+      <p class="footer-brand-desc">
+        Mewujudkan komunitas Teknik Elektro yang solid, berintegritas, dan berkontribusi nyata dalam kemajuan teknologi nasional.
+      </p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="footer-social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="footer-social-btn" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="footer-social-btn" aria-label="Website"><i class="fas fa-globe"></i></a>
+      </div>
+    </div>
+
+    <!-- Tautan (disembunyikan di mobile via CSS) -->
+    <div class="footer-col footer-tautan-col">
+      <span class="footer-col-title"><i class="fas fa-link"></i> Tautan</span>
+      <ul>
+        <li><a href="/kepengurusan.html">Profil Kabinet</a></li>
+        <li><a href="/page/news/news.html">Berita</a></li>
+        <li><a href="/page/event/event.html">Event</a></li>
+        <li><a href="/page/emagz/emagz.html">Emagz</a></li>
+        <li><a href="/page/project/project.html">Proker</a></li>
+      </ul>
+    </div>
+
+    <!-- Kontak -->
+    <div class="footer-col">
+      <span class="footer-col-title"><i class="fas fa-envelope"></i> Kontak</span>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="footer-contact-item">
+          <i class="fas fa-envelope"></i>
+          <span><a href="mailto:hmtehmte@gmail.com" style="color:inherit;text-decoration:none;">hmtehmte@gmail.com</a></span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+62 21 1234 5678</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fab fa-whatsapp"></i>
+          <span>+62 812 3456 7890</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Fakultas Teknik, Universitas Jenderal Soedirman, Purwokerto</span>
         </div>
       </div>
-      <p class="text-gray-400 text-sm leading-relaxed md:text-left lg:text-left text-center">Mewujudkan komunitas Teknik Elektro yang solid, berintegritas, dan berkontribusi nyata dalam kemajuan teknologi nasional.</p>
-      <div class="flex justify-center md:justify-start lg:text-left text-center space-x-3 mt-5">
-        <a href="#" class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
-          <i class="fab fa-linkedin-in text-sm text-white group-hover:text-[#00ff88]"></i>
-        </a>
-        <a href="#" class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
-          <i class="fab fa-instagram text-base text-white group-hover:text-[#00ff88]"></i>
-        </a>
-        <a href="#" class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
-          <i class="fab fa-twitter text-base text-white group-hover:text-[#00ff88]"></i>
-        </a>
-        <a href="#" class="group w-9 h-9 flex items-center justify-center rounded-md border-gray-600 bg-gray-800 hover:bg-gray-700 transition duration-200">
-          <i class="fas fa-globe text-base text-white group-hover:text-[#00ff88]"></i>
-        </a>
-      </div>
     </div>
 
-    <!-- Bagian 2: Tautan Cepat -->
-    <div class="md:mt-0">
-      <h5 class="text-green-400 font-semibold text-lg mb-4 flex items-center justify-center md:justify-start"><i class="fas fa-link mr-2"></i> Tautan Cepat</h5>
-      <ul class="space-y-2 text-sm text-gray-300">
-        <li><a href="/kepengurusan.html" class="hover:text-[#00ff88] transition">Profil Kabinet</a></li>
-        <li><a href="/page/news/news.html" class="hover:text-[#00ff88] transition">Berita</a></li>
-        <li><a href="/page/event/event.html" class="hover:text-[#00ff88] transition">Event</a></li>
-        <li><a href="/page/emagz/emagz.html" class="hover:text-[#00ff88] transition">Emagz</a></li>
-      </ul>
-    </div>
-
-    <!-- Bagian 3: Kontak -->
-    <div class="md:mt-0">
-      <h5 class="text-green-400 font-semibold text-lg mb-4 flex items-center justify-center md:justify-start"><i class="fas fa-envelope mr-2"></i> Kontak</h5>
-      <ul class="space-y-2 text-sm text-gray-300">
-        <li class="flex items-center justify-center md:justify-start"><i class="fas fa-envelope mr-2"></i> hmtehmte@gmial.com</li>
-        <li class="flex items-center justify-center md:justify-start"><i class="fas fa-phone mr-2"></i> +62 21 1234 5678</li>
-        <li class="flex items-center justify-center md:justify-start"><i class="fas fa-comment mr-2"></i> +62 812 3456 7890</li>
-      </ul>
-    </div>
   </div>
 
-  <!-- Copyright -->
-  <div class="border-t border-gray-700 mt-2 mx-32">
-    <div class="w-[80%] mx-auto px-4 py-4 text-sm text-center text-gray-400">© 2025 HMTE. Semua hak cipta dilindungi.</div>
+  <!-- Bottom Bar -->
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 <span>HMTE UNSOED. </span>Semua hak cipta dilindungi.</p>
   </div>
 </footer>

@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 * {
@@ -201,31 +202,9 @@ body {
 /* ------------------ MAIN END ------------------ */
 
 /* ------------------ HOME START ------------------ */
-#home {
-  display: flex;
-  justify-content: space-between;
-  min-height: 90vh;
-  min-width: 75vw;
-  align-items: center;
-  flex-wrap: wrap;
-}
-#home div {
-  max-width: 550px;
-}
-.heading1 {
-  /* font-family: "Satoshi-Bold", sans-serif; */
-  font-size: 3.8em;
-  width: fit-content;
-}
-.heading2 {
-  font-size: 3em;
-}
-.paragraph {
-  font-size: 1.3em;
-}
+/* #home layout diatur di sections/hero.html */
 #home img {
-  /* max-width: 275px; */
-  max-width: 400px;
+  max-width: 100%;
 }
 /* ------------------ HOME END ------------------ */
 
@@ -292,7 +271,8 @@ a {
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  width: 75vw;
+  width: 100%;
+  max-width: 75vw;
   margin: 30px 0px;
 }
 .emagz .emagz-slide {
@@ -341,6 +321,7 @@ a {
 .video-container iframe {
   width: 350px;
   height: 196.875px;
+  max-width: 100%;
 }
 /* ------------------ POTEK END ------------------ */
 
@@ -694,6 +675,8 @@ footer {
     align-items: center;
     text-align: center;
     flex-wrap: wrap;
+    width: 100% !important;
+    max-width: 100% !important;
     gap: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -889,37 +872,7 @@ img {
 }
 
 /* ========== HOME SECTION - CENTERED ========== */
-#home {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  min-height: 90vh;
-  width: 90%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-#home div {
-  flex: 1;
-  min-width: 300px;
-  max-width: 550px;
-  text-align: center !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-}
-
-#home img {
-  flex: 1;
-  width: 100% !important;
-  max-width: 400px !important;
-  height: auto !important;
-  object-fit: contain !important;
-  margin: 0 auto !important;
-}
+/* #home layout sekarang diatur sepenuhnya di sections/hero.html */
 
 .heading1 {
   font-size: clamp(2rem, 5vw, 3.8em) !important;
@@ -1137,17 +1090,6 @@ img {
   section .fade-in {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-  }
-}
-
-/* ========== EXTRA SMALL MOBILE (max-width: 400px) ========== */
-@media screen and (max-width: 400px) {
-  .heading1 {
-    font-size: 1.5rem !important;
-  }
-
-  #home img {
-    max-width: 220px !important;
   }
 }
 

@@ -1,59 +1,219 @@
-<!-- TIMELINE KEGIATAN -->
-<section class="py-16 fade-in">
-  <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-8">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-white relative inline-block">
-        Timeline Kegiatan
-        <span class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-green-500 rounded-full"></span>
-      </h2>
-      <p class="text-gray-400 mt-4 text-sm md:text-base">Jadwal kegiatan dan program kerja terdekat.</p>
+<style>
+  .timeline-section {
+    position: relative;
+    padding: clamp(40px, 6vh, 80px) 0;
+    overflow: hidden;
+  }
+
+  .timeline-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(15,188,109,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .timeline-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(16px, 4vw, 48px);
+  }
+
+  .timeline-header {
+    text-align: center;
+    margin-bottom: clamp(28px, 4vh, 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .timeline-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #0fbc6d;
+    font-weight: 700;
+  }
+  .timeline-eyebrow::before, .timeline-eyebrow::after {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: #0fbc6d;
+    opacity: 0.6;
+  }
+
+  .timeline-title {
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin: 0;
+  }
+  .timeline-title em { font-style: normal; color: #0fbc6d; }
+
+  .timeline-subtitle {
+    font-size: clamp(0.82rem, 1.2vw, 0.92rem);
+    color: rgba(156,163,175,0.6);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* ── CALENDAR CARD ── */
+  .tl-calendar-card {
+    background: linear-gradient(145deg,
+      rgba(15,188,109,0.06) 0%,
+      rgba(13,17,23,0.98) 40%,
+      rgba(13,17,23,0.98) 60%,
+      rgba(15,188,109,0.03) 100%
+    );
+    border: 1px solid rgba(15,188,109,0.1);
+    border-radius: 20px;
+    padding: clamp(16px, 2vw, 32px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+    position: relative;
+  }
+
+  .tl-calendar-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(15,188,109,0.3), transparent);
+  }
+
+  /* ── CALENDAR INNER ── */
+  .tl-calendar-inner {
+    background: rgba(7,10,16,0.85);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 14px;
+    padding: clamp(12px, 1.5vw, 24px);
+  }
+
+  /* ── NAV BUTTONS ── */
+  .tl-month-btn {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(15,188,109,0.08);
+    border: 1px solid rgba(15,188,109,0.2);
+    border-radius: 10px;
+    color: #0fbc6d;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .tl-month-btn:hover {
+    background: rgba(15,188,109,0.18);
+    border-color: rgba(15,188,109,0.4);
+  }
+
+  #month-year-display {
+    font-size: clamp(0.95rem, 1.5vw, 1.25rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  #event-details {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: rgba(7,10,16,0.85);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    color: rgba(156,163,175,0.55);
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  /* ── UPCOMING CARD ── */
+  .tl-upcoming-card {
+    background: rgba(12,16,24,0.98);
+    border: 1px solid rgba(15,188,109,0.1);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    position: sticky;
+    top: 24px;
+    position: relative;
+  }
+
+  .tl-upcoming-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(15,188,109,0.3), transparent);
+    border-radius: 0;
+  }
+
+  .tl-upcoming-title {
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tl-upcoming-title i {
+    color: #0fbc6d;
+  }
+</style>
+
+<section class="timeline-section fade-in">
+  <div class="timeline-inner">
+
+    <div class="timeline-header">
+      <span class="timeline-eyebrow">Jadwal HMTE</span>
+      <h2 class="timeline-title">Timeline <em>Kegiatan</em></h2>
+      <p class="timeline-subtitle">Jadwal kegiatan dan program kerja terdekat.</p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Calendar Container -->
-      <div class="lg:col-span-2 bg-gray-800 rounded-lg p-4 sm:p-6">
-        <!-- Month/Year Navigation -->
-        <div class="flex items-center justify-between mb-6 gap-2">
-          <button onclick="changeMonth(-1)" class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition text-sm font-semibold">← Prev</button>
-          <h3 id="month-year-display" class="text-xl sm:text-2xl font-bold text-white text-center flex-1">November 2025</h3>
-          <button onclick="changeMonth(1)" class="px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition text-sm font-semibold">Next →</button>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+
+      <!-- Kalender -->
+      <div class="lg:col-span-2 tl-calendar-card">
+        <div class="flex items-center justify-between mb-5">
+          <button onclick="changeMonth(-1)" class="tl-month-btn">←</button>
+          <h3 id="month-year-display">November 2025</h3>
+          <button onclick="changeMonth(1)" class="tl-month-btn">→</button>
         </div>
 
-        <!-- Calendar Grid -->
-        <div class="bg-gray-900 rounded-lg p-3 sm:p-4">
-          <!-- Day headers -->
-          <div class="grid grid-cols-7 gap-1 sm:gap-2 mb-4">
-            <div class="text-center text-cyan-400 font-semibold text-xs sm:text-sm">Min</div>
-            <div class="text-center text-cyan-400 font-semibold text-xs sm:text-sm">Sen</div>
-            <div class="text-center text-cyan-400 font-semibold text-xs sm:text-sm">Sel</div>
-            <div class="text-center text-cyan-400 font-semibold text-xs sm:text-sm">Rab</div>
-            <div class="text-center text-cyan-400 font-semibold text-xs sm:text-sm">Kam</div>
-            <div class="text-center text-cyan-400 font-semibold text-xs sm:text-sm">Jum</div>
-            <div class="text-center text-cyan-400 font-semibold text-xs sm:text-sm">Sab</div>
+        <div class="tl-calendar-inner">
+          <div class="grid grid-cols-7 gap-1 md:gap-2 text-center mb-3">
+            <div style="color:#0fbc6d; font-weight:700; font-size:0.72rem;">Min</div>
+            <div style="color:#0fbc6d; font-weight:700; font-size:0.72rem;">Sen</div>
+            <div style="color:#0fbc6d; font-weight:700; font-size:0.72rem;">Sel</div>
+            <div style="color:#0fbc6d; font-weight:700; font-size:0.72rem;">Rab</div>
+            <div style="color:#0fbc6d; font-weight:700; font-size:0.72rem;">Kam</div>
+            <div style="color:#0fbc6d; font-weight:700; font-size:0.72rem;">Jum</div>
+            <div style="color:#0fbc6d; font-weight:700; font-size:0.72rem;">Sab</div>
           </div>
-
-          <!-- Calendar dates - akan di-render oleh JavaScript -->
-          <div id="calendar-grid" class="grid grid-cols-7 gap-1 sm:gap-2">
-            <!-- Dates will be rendered here -->
-          </div>
+          <div id="calendar-grid" class="grid grid-cols-7 gap-1 md:gap-2"></div>
         </div>
 
-        <!-- Event Details -->
-        <div id="event-details" class="mt-4 sm:mt-6">
-          <div class="bg-gray-900 rounded-lg p-4 text-center text-gray-400 text-sm">Klik tanggal untuk melihat detail kegiatan</div>
-        </div>
+        <div id="event-details">Klik tanggal untuk melihat detail kegiatan</div>
       </div>
 
-      <!-- Upcoming Events Sidebar -->
+      <!-- Upcoming Events -->
       <div class="lg:col-span-1">
-        <div class="bg-gray-800 rounded-lg p-4 sm:p-6 sticky top-24">
-          <h3 class="text-white font-bold text-lg mb-4">Kegiatan Mendatang</h3>
-          <div id="upcoming-events" class="space-y-3">
-            <!-- Upcoming events will be rendered here -->
-            <p class="text-gray-400 text-sm">Memuat kegiatan...</p>
+        <div class="tl-upcoming-card">
+          <h3 class="tl-upcoming-title">
+            <i class="ri-calendar-todo-line"></i> Kegiatan Mendatang
+          </h3>
+          <div id="upcoming-events" class="space-y-4">
+            <p style="color: rgba(156,163,175,0.45); font-size:0.82rem;" class="animate-pulse">Memuat kegiatan...</p>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>

@@ -1,0 +1,413 @@
+/* ============================================================
+   HMTE UNSOED — MOBILE PREMIUM v2
+   Pasang di folder css/ lalu link di index.html setelah style.css
+   ============================================================ */
+
+/* ========== GLOBAL (semua ukuran layar) ========== */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+
+/* Hapus SEMUA glow/shadow dari span underline judul section */
+section h2 span,
+h2 > span[class*="absolute"] {
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* Subtle noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ========== HERO — FIX LAYOUT & SPACING ========== */
+#home {
+  flex-direction: column-reverse !important;
+  min-height: auto !important;
+  padding: 28px 20px 36px !important;
+  gap: 14px !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient glow */
+#home::before {
+  content: '';
+  position: absolute;
+  top: -20px; left: 50%;
+  transform: translateX(-50%);
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(15,188,109,0.14) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: heroGlow 5s ease-in-out infinite;
+}
+
+@keyframes heroGlow {
+  0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;   transform: translateX(-50%) scale(1.1); }
+}
+
+/* Logo — kecil dan di atas */
+#home img {
+  width: 130px !important;
+  max-width: 130px !important;
+  height: auto !important;
+  filter: drop-shadow(0 0 16px rgba(15,188,109,0.4)) drop-shadow(0 0 32px rgba(15,188,109,0.12)) !important;
+  animation: floatLogo 5s ease-in-out infinite;
+  margin: 0 auto !important;
+}
+
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-7px); }
+}
+
+/* Wrapper logo */
+#home > div:last-child {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+/* Teks hero */
+#home > div:first-child {
+  width: 100% !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+#home h1 {
+  font-size: 1.7rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.025em !important;
+  margin-bottom: 0 !important;
+}
+
+#home p {
+  font-size: 0.87rem !important;
+  color: rgba(156,163,175,0.8) !important;
+  line-height: 1.65 !important;
+  max-width: 300px;
+  margin-bottom: 0 !important;
+}
+
+/* Tombol Tentang Kami */
+#home a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  margin-top: 6px !important;
+  padding: 10px 22px !important;
+  background: linear-gradient(135deg, rgba(15,188,109,0.18), rgba(15,188,109,0.07)) !important;
+  border: 1px solid rgba(15,188,109,0.45) !important;
+  border-radius: 50px !important;
+  color: rgba(255,255,255,0.9) !important;
+  font-size: 0.83rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  box-shadow: 0 0 18px rgba(15,188,109,0.1), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+#home a:active {
+  transform: scale(0.96) !important;
+  background: rgba(15,188,109,0.28) !important;
+}
+
+/* ========== MOBILE STYLES ========== */
+@media screen and (max-width: 768px) {
+
+  section {
+    padding-top: 36px !important;
+    padding-bottom: 36px !important;
+  }
+
+  section .text-center.mb-8,
+  section .text-center.mb-10,
+  section .text-center.mb-12 {
+    margin-bottom: 24px !important;
+  }
+
+  section h2 {
+    font-size: 1.55rem !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.2;
+  }
+
+  section p.text-gray-400 {
+    font-size: 0.83rem !important;
+    color: rgba(156,163,175,0.65) !important;
+    margin-top: 18px !important;
+  }
+
+  /* ═══ BERITA TERBARU ═══ */
+  #latest-news-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  #latest-news-container > div {
+    border-radius: 16px !important;
+    border: 1px solid rgba(15,188,109,0.1) !important;
+    background: linear-gradient(135deg,
+      rgba(15,188,109,0.07) 0%,
+      rgba(13,17,23,0.98) 35%,
+      rgba(13,17,23,0.98) 65%,
+      rgba(15,188,109,0.04) 100%
+    ) !important;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+    overflow: hidden !important;
+    position: relative !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  #latest-news-container > div::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(15,188,109,0.3), transparent);
+  }
+
+  #latest-news-container > div:active {
+    transform: scale(0.985) !important;
+  }
+
+  #latest-news-container img {
+    height: 170px !important;
+    object-fit: cover !important;
+    width: 100% !important;
+    filter: brightness(0.88) saturate(1.1) !important;
+  }
+
+  /* ═══ ACARA ON-GOING ═══ */
+  #home-ongoing-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  #home-ongoing-container > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(15,188,109,0.1) !important;
+    background: linear-gradient(135deg,
+      rgba(15,188,109,0.07) 0%,
+      rgba(13,17,23,0.98) 40%,
+      rgba(13,17,23,0.98) 60%,
+      rgba(15,188,109,0.04) 100%
+    ) !important;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.45) !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  #home-ongoing-container > div::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(15,188,109,0.25), transparent);
+  }
+
+  /* ═══ TIMELINE ═══ */
+  /* Calendar card */
+  .lg\:col-span-2 {
+    border-radius: 16px !important;
+    background: rgba(12,16,24,0.98) !important;
+    border: 1px solid rgba(15,188,109,0.1) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5) !important;
+    padding: 16px !important;
+  }
+
+  /* Inner calendar */
+  .bg-gray-900\/50 {
+    background: rgba(7,10,16,0.9) !important;
+    border: 1px solid rgba(255,255,255,0.04) !important;
+    border-radius: 12px !important;
+  }
+
+  /* Prev/Next button */
+  button[onclick*="changeMonth"] {
+    background: rgba(15,188,109,0.1) !important;
+    border: 1px solid rgba(15,188,109,0.25) !important;
+    color: #0fbc6d !important;
+    border-radius: 10px !important;
+    width: 34px !important; height: 34px !important;
+    font-size: 1rem !important;
+    transition: background 0.2s ease !important;
+  }
+
+  button[onclick*="changeMonth"]:active {
+    background: rgba(15,188,109,0.22) !important;
+  }
+
+  #month-year-display {
+    font-size: 1rem !important;
+  }
+
+  #event-details {
+    border-radius: 10px !important;
+    font-size: 0.78rem !important;
+    background: rgba(7,10,16,0.9) !important;
+    border: 1px solid rgba(255,255,255,0.05) !important;
+  }
+
+  /* Upcoming events */
+  .bg-gray-800.rounded-2xl {
+    background: rgba(12,16,24,0.98) !important;
+    border: 1px solid rgba(15,188,109,0.1) !important;
+    border-radius: 16px !important;
+  }
+
+  /* ═══ PROGRAM KERJA ═══ */
+  #home-proker-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 14px !important;
+  }
+
+  #home-proker-container > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(15,188,109,0.1) !important;
+    background: linear-gradient(135deg,
+      rgba(15,188,109,0.07) 0%,
+      rgba(13,17,23,0.98) 40%,
+      rgba(13,17,23,0.98) 60%,
+      rgba(15,188,109,0.04) 100%
+    ) !important;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.45) !important;
+    overflow: hidden !important;
+    position: relative !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  #home-proker-container > div::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 8%; right: 8%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(15,188,109,0.25), transparent);
+  }
+
+  #home-proker-container > div:active {
+    transform: scale(0.98) !important;
+  }
+
+  /* ═══ EMAGZ ═══ */
+  #emagz-cards-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 16px !important;
+    padding: 0 !important;
+  }
+
+  #emagz-cards-container > a,
+  #emagz-cards-container > div {
+    width: 100% !important;
+    max-width: 300px !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(15,188,109,0.12) !important;
+    background: linear-gradient(160deg, rgba(15,188,109,0.08) 0%, rgba(13,17,23,0.98) 45%) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.45) !important;
+    overflow: hidden !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  #emagz-cards-container > a:active,
+  #emagz-cards-container > div:active {
+    transform: scale(0.97) !important;
+  }
+
+  /* ═══ PODCAST ═══ */
+  .aspect-video {
+    border-radius: 14px !important;
+    border: 1px solid rgba(15,188,109,0.15) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
+    overflow: hidden !important;
+  }
+
+  /* ═══ NAVBAR ═══ */
+  #header {
+    background: rgba(8,10,14,0.95) !important;
+    backdrop-filter: blur(22px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(160%) !important;
+    border-bottom: 1px solid rgba(15,188,109,0.08) !important;
+    box-shadow: 0 6px 28px rgba(0,0,0,0.45) !important;
+  }
+
+  #nav_list {
+    background: rgba(7,9,13,0.97) !important;
+    border-bottom: 1px solid rgba(15,188,109,0.08) !important;
+  }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    background: linear-gradient(180deg, rgba(7,9,13,1) 0%, rgba(5,7,10,1) 100%) !important;
+    border-top: 1px solid rgba(15,188,109,0.1) !important;
+    padding: 36px 20px 24px !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: -45px; left: 50%;
+    transform: translateX(-50%);
+    width: 220px; height: 90px;
+    background: radial-gradient(ellipse, rgba(15,188,109,0.09) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  footer p, footer li, footer a:not([class*="bg-green"]) {
+    color: rgba(156,163,175,0.48) !important;
+    font-size: 0.82rem !important;
+  }
+
+  footer h1, footer h2, footer h3, footer h5 {
+    color: rgba(255,255,255,0.82) !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 0.07em !important;
+  }
+
+  /* ═══ CTA BUTTONS ═══ */
+  section a.rounded-full:not(#home a) {
+    font-size: 0.82rem !important;
+    padding: 10px 22px !important;
+    border-radius: 50px !important;
+  }
+
+  /* ═══ FADE IN ═══ */
+  .fade-in {
+    transition: opacity 0.7s cubic-bezier(0.23,1,0.32,1), transform 0.7s cubic-bezier(0.23,1,0.32,1) !important;
+    transform: translateY(22px) !important;
+  }
+
+  .fade-in.visible {
+    transform: translateY(0) !important;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 2px; }
+  ::-webkit-scrollbar-track { background: #07090d; }
+  ::-webkit-scrollbar-thumb { background: rgba(15,188,109,0.3); border-radius: 2px; }
+}

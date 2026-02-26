@@ -1,124 +1,107 @@
 // js/pages/project.js
+// Versi CMS: data di-fetch dari JSON, bukan variabel global.
+// Semua logika render TIDAK BERUBAH.
 
-// === HELPER & DATA PROCESSING ===
+const JSON_PATHS = {
+  ongoing:   "/js/data/json/ongoing-projects.json",
+  upcoming:  "/js/data/json/upcoming-projects.json",
+  completed: "/js/data/json/completed-projects.json",
+};
+const FALLBACK_IMAGE = "/img/logohmte.png";
 
-function getQueryParam(param) {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(param);
+async function fetchProjectData(category) {
+  try {
+    const res = await fetch(JSON_PATHS[category]);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    return (json.items || []).map((p) => ({
+      ...p,
+      category,
+      image: p.image || FALLBACK_IMAGE,
+    }));
+  } catch (e) {
+    console.warn(`[project.js] Gagal fetch ${category}:`, e.message);
+    return [];
+  }
 }
 
-function getAllProjects() {
-  const all = [];
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const fallbackImage = "/img/logohmte.png";
+async function getAllProjects() {
+  const [ongoing, upcoming, completed] = await Promise.all([
+    fetchProjectData("ongoing"),
+    fetchProjectData("upcoming"),
+    fetchProjectData("completed"),
+  ]);
+  const withMeta = (arr, categoryLabel, statusFn, contentFn) =>
+    arr.map((p) => ({ ...p, categoryLabel, statusText: statusFn(p), content: contentFn(p) }));
 
-  if (typeof ongoingProjects !== "undefined") {
-    ongoingProjects.forEach((project) => {
-      all.push({
-        ...project,
-        category: "ongoing",
-        categoryLabel: "Sedang Berjalan",
-        statusText: `Progres: ${project.status}`,
-        image: project.image || fallbackImage,
-        content: project.description,
-      });
-    });
-  }
-
-  if (typeof upcomingProjects !== "undefined") {
-    upcomingProjects.forEach((project) => {
-      all.push({
-        ...project,
-        category: "upcoming",
-        categoryLabel: "Akan Datang",
-        statusText: "Segera Hadir",
-        image: project.image || fallbackImage,
-        content: project.description,
-      });
-    });
-  }
-
-  if (typeof completedProjects !== "undefined") {
-    completedProjects.forEach((project) => {
-      const content = project.release || project.description;
-      all.push({
-        ...project,
-        category: "completed",
-        categoryLabel: "Arsip Kegiatan",
-        statusText: "Selesai",
-        image: project.image || fallbackImage,
-        content: content,
-      });
-    });
-  }
-
+  const all = [
+    ...withMeta(ongoing,   "Sedang Berjalan", (p) => `Progres: ${p.status}`, (p) => p.description),
+    ...withMeta(upcoming,  "Akan Datang",     ()  => "Segera Hadir",           (p) => p.description),
+    ...withMeta(completed, "Arsip Kegiatan",  ()  => "Selesai",                (p) => p.releaseDescription || p.description),
+  ];
   return all.map((p, i) => ({ ...p, id: i + 1 }));
 }
 
-// === LOGIKA HALAMAN DETAIL ===
+async function loadProjectSections() {
+  const all      = await getAllProjects();
+  const ongoing  = all.filter((p) => p.category === "ongoing");
+  const upcoming = all.filter((p) => p.category === "upcoming").sort((a, b) => new Date(a.date) - new Date(b.date));
+  const completed = all.filter((p) => p.category === "completed").sort((a, b) => new Date(b.date) - new Date(a.date));
+  renderOngoingProjects(ongoing.slice(0, 3));
+  renderUpcomingProjects(upcoming);
+  renderCompletedProjects(completed);
+}
 
-function loadProjectDetailPage() {
-  const eventId = getQueryParam("id");
-  const allProjects = getAllProjects();
-  const project = allProjects.find((p) => p.id == eventId);
+async function loadProjectDetailPage() {
+  const id  = new URLSearchParams(window.location.search).get("id");
+  const all = await getAllProjects();
+  const project = all.find((p) => p.id == id);
 
-  const titleEl = document.getElementById("detail-title");
-  const contentEl = document.getElementById("detail-content");
-  const dateEl = document.getElementById("detail-date");
+  const titleEl       = document.getElementById("detail-title");
+  const contentEl     = document.getElementById("detail-content");
+  const dateEl        = document.getElementById("detail-date");
   const categoryBadge = document.getElementById("detail-category-badge");
-  const statusBadge = document.getElementById("detail-status-badge");
-  const imgContainer = document.getElementById("detail-image-container");
-  const docSection = document.getElementById("documentation-section");
-  const docLink = document.getElementById("documentation-link");
+  const statusBadge   = document.getElementById("detail-status-badge");
+  const imgContainer  = document.getElementById("detail-image-container");
+  const docSection    = document.getElementById("documentation-section");
+  const docLink       = document.getElementById("documentation-link");
 
   if (!project) {
-    if (titleEl) titleEl.textContent = "Proyek Tidak Ditemukan";
-    if (contentEl) contentEl.innerHTML = '<p class="text-red-400 text-center py-10">Maaf, proyek yang Anda cari tidak tersedia.</p>';
+    if (titleEl)      titleEl.textContent = "Proyek Tidak Ditemukan";
+    if (contentEl)    contentEl.innerHTML = '<p class="text-red-400 text-center py-10">Maaf, proyek tidak tersedia.</p>';
     if (imgContainer) imgContainer.style.display = "none";
-    if (docSection) docSection.style.display = "none";
+    if (docSection)   docSection.style.display   = "none";
     return;
   }
 
-  // 1. Metadata Header
   document.getElementById("page-title").textContent = `${project.title} - Detail`;
-  titleEl.textContent = project.title;
-  statusBadge.textContent = project.statusText;
-  categoryBadge.textContent = project.categoryLabel;
+  titleEl.textContent        = project.title;
+  statusBadge.textContent    = project.statusText;
+  categoryBadge.textContent  = project.categoryLabel;
 
-  // Styling Badge
-  if (project.category === "completed") {
-    categoryBadge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-green-900/50 text-green-400 border border-green-800";
-  } else if (project.category === "ongoing") {
-    categoryBadge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/50 text-blue-400 border border-blue-800";
-  } else {
-    categoryBadge.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-yellow-900/50 text-yellow-400 border border-yellow-800";
-  }
+  const badgeMap = {
+    completed: "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-green-900/50 text-green-400 border border-green-800",
+    ongoing:   "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-900/50 text-blue-400 border border-blue-800",
+    upcoming:  "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-yellow-900/50 text-yellow-400 border border-yellow-800",
+  };
+  categoryBadge.className = badgeMap[project.category] || badgeMap.upcoming;
 
-  // Tanggal
   if (project.date) {
-    const dateObj = new Date(project.date);
-    dateEl.textContent = isNaN(dateObj.getTime()) ? "Tanggal belum ditentukan" : dateObj.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+    const d = new Date(project.date);
+    dateEl.textContent = isNaN(d.getTime()) ? "Tanggal belum ditentukan"
+      : d.toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
   } else {
     dateEl.textContent = "-";
   }
 
-  // 2. Render Gambar
-  const imgSrc = project.image.startsWith("/") ? project.image : `/${project.image.replace(/^\//, "")}`;
-
+  const imgSrc = project.image.startsWith("/") ? project.image : `/${project.image}`;
   if (imgContainer) {
-    imgContainer.innerHTML = `
-      <img src="${imgSrc}" 
-           alt="${project.title}" 
-           class="w-full h-auto rounded-lg shadow-lg"
-           onerror="this.onerror=null;this.src='/img/logohmte.png';" />
-    `;
+    imgContainer.innerHTML = `<img src="${imgSrc}" alt="${project.title}"
+      class="w-full h-auto rounded-lg shadow-lg"
+      onerror="this.onerror=null;this.src='/img/logohmte.png';" />`;
   }
-
-  // 3. Konten
   contentEl.innerHTML = project.content;
 
-  // 4. Link Dokumentasi
   if (project.link && docSection && docLink) {
     docLink.href = project.link;
     docSection.classList.remove("hidden");
@@ -127,122 +110,61 @@ function loadProjectDetailPage() {
   }
 }
 
-// === LOGIKA HALAMAN LIST ===
-
-function loadProjectSections() {
-  const allProjects = getAllProjects();
-  const ongoing = allProjects.filter((p) => p.category === "ongoing");
-  const upcoming = allProjects.filter((p) => p.category === "upcoming").sort((a, b) => new Date(a.date) - new Date(b.date));
-  const completed = allProjects.filter((p) => p.category === "completed").sort((a, b) => new Date(b.date) - new Date(a.date));
-
-  renderOngoingProjects(ongoing.slice(0, 3));
-  renderUpcomingProjects(upcoming);
-  renderCompletedProjects(completed);
-}
-
+// ── Render Functions (tidak berubah) ─────────────────────────────────────────
 function renderOngoingProjects(projects) {
   const container = document.getElementById("ongoing-projects-container");
   if (!container) return;
-  if (projects.length === 0) {
-    container.innerHTML = '<p class="text-gray-400">Tidak ada proyek yang sedang berjalan saat ini.</p>';
-    return;
-  }
-
-  const projectsHTML = projects
-    .map((project) => {
-      const imagePath = project.image.startsWith("/") ? project.image : `/${project.image}`;
-      // FIX: Tambahkan link detail (Absolut)
-      const detailLink = `/page/project/project-detail.html?id=${project.id}`;
-
-      // FIX: Ubah div menjadi a href, tambah class group dan hover effects
-      return `
-            <a href="${detailLink}" class="group project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden border-t-4 border-green-500 cursor-pointer transition-transform transform hover:scale-[1.02]">
-                <div class="block relative h-72 overflow-hidden"> 
-                    <img src="${imagePath}" alt="${project.title}" class="w-full h-full object-cover transition duration-300 group-hover:scale-110" onerror="this.onerror=null;this.src='/img/logohmte.png';">
-                    <div class="absolute top-0 left-0 bg-gray-900 bg-opacity-70 text-xs text-white px-3 py-1 m-2 rounded-full font-bold">ONGOING</div>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition">${project.title}</h3>
-                    <p class="text-gray-400 text-sm mb-3 flex-grow line-clamp-3">${project.description}</p>
-                    <p class="text-gray-500 text-xs mt-auto">${project.statusText}</p>
-                </div>
-            </a>`;
-    })
-    .join("");
-  container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${projectsHTML}</div>`;
+  if (projects.length === 0) { container.innerHTML = '<p class="text-gray-400">Tidak ada proyek yang sedang berjalan saat ini.</p>'; return; }
+  container.innerHTML = `<div class="cards-grid">${projects.map((p) => {
+    const img  = p.image.startsWith("/") ? p.image : `/${p.image}`;
+    const link = `/page/project/project-detail.html?id=${p.id}`;
+    return `<a href="${link}" class="project-card border-t-green group">
+      <div class="card-img-wrap"><img src="${img}" alt="${p.title}" onerror="this.onerror=null;this.src='/img/logohmte.png';"><span class="card-badge">ONGOING</span></div>
+      <div class="p-5 flex flex-col flex-grow">
+        <h3 class="card-title text-base font-bold text-white mb-2 group-hover:text-green-400 transition">${p.title}</h3>
+        <p class="card-desc text-gray-400 text-sm mb-3">${p.description}</p>
+        <p class="text-gray-500 text-xs mt-auto">${p.statusText}</p>
+      </div></a>`;
+  }).join("")}</div>`;
 }
 
 function renderUpcomingProjects(projects) {
   const container = document.getElementById("upcoming-projects-container");
   if (!container) return;
-  if (projects.length === 0) {
-    container.innerHTML = '<p class="text-gray-400">Tidak ada proyek yang dijadwalkan.</p>';
-    return;
-  }
-
-  const projectsHTML = projects
-    .map((project) => {
-      const imagePath = project.image.startsWith("/") ? project.image : `/${project.image}`;
-      // FIX: Tambahkan link detail
-      const detailLink = `/page/project/project-detail.html?id=${project.id}`;
-
-      return `
-            <a href="${detailLink}" class="group project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden border-t-4 border-yellow-500 cursor-pointer transition-transform transform hover:scale-[1.02]">
-                <div class="block relative h-72 overflow-hidden"> 
-                    <img src="${imagePath}" alt="${project.title}" class="w-full h-full object-cover transition duration-300 group-hover:scale-110" onerror="this.onerror=null;this.src='/img/logohmte.png';">
-                    <div class="absolute top-0 left-0 bg-gray-900 bg-opacity-70 text-xs text-white px-3 py-1 m-2 rounded-full font-bold">UPCOMING</div>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition">${project.title}</h3>
-                    <p class="text-gray-400 text-sm mb-3 flex-grow line-clamp-3">${project.description}</p>
-                    <p class="text-yellow-400 text-xs mt-auto">${project.statusText}</p>
-                </div>
-            </a>`;
-    })
-    .join("");
-  container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${projectsHTML}</div>`;
+  if (projects.length === 0) { container.innerHTML = '<p class="text-gray-400">Tidak ada proyek yang dijadwalkan.</p>'; return; }
+  container.innerHTML = `<div class="cards-grid">${projects.map((p) => {
+    const img  = p.image.startsWith("/") ? p.image : `/${p.image}`;
+    const link = `/page/project/project-detail.html?id=${p.id}`;
+    return `<a href="${link}" class="project-card border-t-yellow group">
+      <div class="card-img-wrap"><img src="${img}" alt="${p.title}" onerror="this.onerror=null;this.src='/img/logohmte.png';"><span class="card-badge">UPCOMING</span></div>
+      <div class="p-5 flex flex-col flex-grow">
+        <h3 class="card-title text-base font-bold text-white mb-2 group-hover:text-yellow-400 transition">${p.title}</h3>
+        <p class="card-desc text-gray-400 text-sm mb-3">${p.description}</p>
+        <p class="text-yellow-400 text-xs mt-auto">${p.statusText}</p>
+      </div></a>`;
+  }).join("")}</div>`;
 }
 
 function renderCompletedProjects(projects) {
   const container = document.getElementById("completed-projects-container");
   if (!container) return;
-  if (projects.length === 0) {
-    container.innerHTML = '<p class="text-gray-400">Belum ada proyek selesai.</p>';
-    return;
-  }
-
-  const projectsHTML = projects
-    .map((project) => {
-      // FIX: Gunakan jalur absolut untuk detail link
-      const detailLink = `/page/project/project-detail.html?id=${project.id}`;
-      const imagePath = project.image.startsWith("/") ? project.image : `/${project.image}`;
-
-      return `
-            <a href="${detailLink}" class="group project-card flex flex-col bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform transform hover:scale-[1.02] border-t-4 border-cyan-500 cursor-pointer">
-                <div class="block relative h-72 overflow-hidden"> 
-                    <img src="${imagePath}" alt="${project.title}" class="w-full h-full object-cover transition duration-300 ease-in-out group-hover:opacity-80" onerror="this.onerror=null;this.src='/img/logohmte.png';">
-                    <div class="absolute top-0 left-0 bg-gray-900 bg-opacity-70 text-xs text-white px-3 py-1 m-2 rounded-full font-bold">COMPLETED</div>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition line-clamp-2">${project.title}</h3>
-                    <p class="text-gray-400 text-sm mb-3 flex-grow line-clamp-3">${project.description}</p>
-                    <p class="text-gray-500 text-xs mt-auto mb-2">${project.statusText}</p>
-                    <span class="text-cyan-400 mt-auto text-sm font-semibold group-hover:underline">Lihat Detail →</span>
-                </div>
-            </a>`;
-    })
-    .join("");
-  container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">${projectsHTML}</div>`;
+  if (projects.length === 0) { container.innerHTML = '<p class="text-gray-400">Belum ada proyek selesai.</p>'; return; }
+  container.innerHTML = `<div class="cards-grid">${projects.map((p) => {
+    const img  = p.image.startsWith("/") ? p.image : `/${p.image}`;
+    const link = `/page/project/project-detail.html?id=${p.id}`;
+    return `<a href="${link}" class="project-card border-t-cyan group">
+      <div class="card-img-wrap"><img src="${img}" alt="${p.title}" onerror="this.onerror=null;this.src='/img/logohmte.png';"><span class="card-badge">COMPLETED</span></div>
+      <div class="p-5 flex flex-col flex-grow">
+        <h3 class="card-title text-base font-bold text-white mb-2 group-hover:text-cyan-400 transition">${p.title}</h3>
+        <p class="card-desc text-gray-400 text-sm mb-3">${p.description}</p>
+        <p class="text-gray-500 text-xs mt-auto mb-2">${p.statusText}</p>
+        <span class="text-cyan-400 text-sm font-semibold group-hover:underline mt-auto">Lihat Detail →</span>
+      </div></a>`;
+  }).join("")}</div>`;
 }
 
-// === EXECUTION LOGIC ===
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
-  if (path.includes("project-detail.html")) {
-    loadProjectDetailPage();
-  } else if (path.includes("project.html")) {
-    if (typeof loadProjectSections === "function") {
-      setTimeout(loadProjectSections, 100);
-    }
-  }
+  if (path.includes("project-detail.html")) loadProjectDetailPage();
+  else if (path.includes("project.html"))   loadProjectSections();
 });

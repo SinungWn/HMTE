@@ -1,0 +1,223 @@
+# =============================================================================
+#  DECAP CMS — KONFIGURASI UTAMA
+#  File ini HARUS ada di path: /admin/config.yml
+#  Dokumentasi: https://decapcms.org/docs/configuration-options/
+# =============================================================================
+
+# ── BACKEND ──────────────────────────────────────────────────────────────────
+# Gunakan GitHub sebagai backend.
+# Setiap perubahan yang disimpan di CMS = commit langsung ke repo GitHub.
+backend:
+  name: github
+  repo: USERNAME/NAMA_REPO       # ← GANTI dengan milik Anda, contoh: hmte-unsoed/website
+  branch: main                   # Branch yang aktif
+  base_url: https://NAMA_REPO.vercel.app  # ← GANTI: URL deploy Vercel Anda (untuk OAuth callback)
+
+# ── MEDIA & PUBLIC FOLDER ────────────────────────────────────────────────────
+# Folder tempat gambar yang diupload lewat CMS akan disimpan di repo.
+media_folder: "img/uploads"
+# URL publik untuk mengakses gambar tersebut dari browser.
+public_folder: "/img/uploads"
+
+# ── LOCALE ───────────────────────────────────────────────────────────────────
+locale: id
+
+# =============================================================================
+#  COLLECTIONS
+#  Setiap collection = satu "jenis konten".
+#  Karena format data kita adalah JSON (satu file array),
+#  kita gunakan format `file` bukan `folder`.
+# =============================================================================
+collections:
+
+  # ── 1. PROYEK (Projects) ───────────────────────────────────────────────────
+  - name: "projects"
+    label: "Program Kerja"
+    label_singular: "Proker"
+    # `files` = satu collection bisa punya beberapa file JSON terpisah.
+    # Kita pisah per kategori agar fetch di frontend lebih efisien.
+    files:
+
+      - name: "ongoing"
+        label: "Proker Berjalan"
+        file: "js/data/json/ongoing-projects.json"
+        fields:
+          - label: "Daftar Proker"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Judul",       name: title,       widget: string }
+              - { label: "Deskripsi",   name: description, widget: text }
+              - label: "Gambar"
+                name: image
+                widget: image
+                required: false
+                hint: "Upload gambar atau biarkan kosong untuk menggunakan logo HMTE."
+              - label: "Status / Progres"
+                name: status
+                widget: string
+                hint: "Contoh: 60% atau Tahap Perencanaan"
+              - label: "Tanggal Mulai"
+                name: date
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: "DD MMMM YYYY"
+                time_format: false
+                required: false
+              - label: "Link Dokumentasi"
+                name: link
+                widget: string
+                required: false
+                hint: "URL ke Drive, GitHub, dll."
+
+      - name: "upcoming"
+        label: "Proker Mendatang"
+        file: "js/data/json/upcoming-projects.json"
+        fields:
+          - label: "Daftar Proker"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Judul",       name: title,       widget: string }
+              - { label: "Deskripsi",   name: description, widget: text }
+              - label: "Gambar"
+                name: image
+                widget: image
+                required: false
+              - label: "Tanggal Rencana"
+                name: date
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: "DD MMMM YYYY"
+                time_format: false
+                required: false
+              - label: "Link"
+                name: link
+                widget: string
+                required: false
+
+      - name: "completed"
+        label: "Proker Selesai"
+        file: "js/data/json/completed-projects.json"
+        fields:
+          - label: "Daftar Proker"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Judul",       name: title,       widget: string }
+              - { label: "Deskripsi",   name: description, widget: text }
+              - label: "Gambar"
+                name: image
+                widget: image
+                required: false
+              - label: "Tanggal Selesai"
+                name: date
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: "DD MMMM YYYY"
+                time_format: false
+              - label: "Link Rilis / Dokumentasi"
+                name: release
+                widget: string
+                required: false
+              - label: "Deskripsi Rilis"
+                name: releaseDescription
+                widget: text
+                required: false
+
+  # ── 2. BERITA (News) ────────────────────────────────────────────────────────
+  - name: "news"
+    label: "Berita"
+    label_singular: "Berita"
+    files:
+      - name: "all_news"
+        label: "Semua Berita"
+        file: "js/data/json/news.json"
+        fields:
+          - label: "Daftar Berita"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Judul",       name: title,       widget: string }
+              - { label: "Slug / ID",   name: slug,        widget: string,
+                  hint: "URL-friendly, contoh: seminar-ai-2025 (huruf kecil, pakai strip)" }
+              - { label: "Ringkasan",   name: summary,     widget: text }
+              - label: "Konten Lengkap"
+                name: content
+                widget: markdown
+                hint: "Mendukung format Markdown."
+              - label: "Gambar Thumbnail"
+                name: image
+                widget: image
+                required: false
+              - label: "Tanggal Terbit"
+                name: date
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: "DD MMMM YYYY"
+                time_format: false
+              - label: "Kategori"
+                name: category
+                widget: select
+                options:
+                  - { label: "Kegiatan",   value: "kegiatan" }
+                  - { label: "Prestasi",   value: "prestasi" }
+                  - { label: "Pengumuman", value: "pengumuman" }
+                  - { label: "Lainnya",    value: "lainnya" }
+              - label: "Penulis"
+                name: author
+                widget: string
+                required: false
+
+  # ── 3. EVENT ────────────────────────────────────────────────────────────────
+  - name: "events"
+    label: "Event"
+    label_singular: "Event"
+    files:
+      - name: "all_events"
+        label: "Semua Event"
+        file: "js/data/json/events.json"
+        fields:
+          - label: "Daftar Event"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Nama Event",     name: title,       widget: string }
+              - { label: "Deskripsi",      name: description, widget: text }
+              - label: "Gambar / Poster"
+                name: image
+                widget: image
+                required: false
+              - label: "Tanggal Mulai"
+                name: dateStart
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: "DD MMMM YYYY"
+                time_format: false
+              - label: "Tanggal Selesai"
+                name: dateEnd
+                widget: datetime
+                format: "YYYY-MM-DD"
+                date_format: "DD MMMM YYYY"
+                time_format: false
+                required: false
+              - label: "Lokasi"
+                name: location
+                widget: string
+                required: false
+              - label: "Link Pendaftaran"
+                name: registrationLink
+                widget: string
+                required: false
+              - label: "Status"
+                name: status
+                widget: select
+                options:
+                  - { label: "Akan Datang", value: "upcoming" }
+                  - { label: "Berlangsung", value: "ongoing" }
+                  - { label: "Selesai",     value: "completed" }

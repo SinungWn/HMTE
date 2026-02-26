@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "date": "2025-09-20",
+      "title": "Line Tracer Soedirman",
+      "description": "Perlombaan Robot Line Tracer yang dilaksanakan di Fakultas Teknik Unsoed",
+      "time": "Pendaftaran 13 Juli - 27 Juli",
+      "location": "Gedung C Fakultas Teknik Unsoed",
+      "color": "green",
+      "isFeatured": true,
+      "registrationLink": "https://forms.gle/linkgformworkshop",
+      "imgSrc": "img/Event/lts.jpg",
+      "locationLink": "https://maps.app.goo.gl/link-ke-aula-teknik",
+      "content": "<h3>Detail LTS</h3><p>Lomba Line Tracer ini bertujuan berkompetisi dengan keterampilan dalam implementasi Sensor Tracing pada robot.</p>"
+    },
+    {
+      "id": 2,
+      "date": "2025-11-30",
+      "title": "Electrical Fun Run",
+      "description": "Kegiatan Fun Run yang dilaksanakan oleh Dies Natalis Teknik Elektro 2025",
+      "time": "Pendaftaran 16 Oktober - 31 Oktober",
+      "location": "Gedung C Fakultas Teknik",
+      "color": "blue",
+      "isFeatured": true,
+      "registrationLink": "https://forms.gle/linkgformseminar",
+      "imgSrc": "/img/Event/funrun.jpg",
+      "locationLink": "https://maps.app.goo.gl/link-ke-convention-center",
+      "content": "<h3>Detail Fun Run</h3><p>Kegiatan ini dilaksanakan di sekitar Fakultas Teknik.</p>"
+    },
+    {
+      "id": 3,
+      "date": "2025-12-12",
+      "title": "Musyawarah Anggota",
+      "description": "Kegiatan Musyawarah Anggota HMTE 2025",
+      "time": "Pelaksanaan Tanggal 12, 13, 14, 20, dan 22 Desember",
+      "location": "Gedung F Fakultas Teknik dan Balai Desa",
+      "color": "blue",
+      "isFeatured": true,
+      "registrationLink": "https://forms.gle/linkgformseminar",
+      "imgSrc": "/img/Event/musyang.jpg",
+      "locationLink": "https://maps.app.goo.gl/link-ke-convention-center",
+      "content": "<h3>Detail Musyang</h3><p></p>"
+    }
+  ]
+}

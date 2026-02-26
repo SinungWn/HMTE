@@ -1,0 +1,12 @@
+{
+  "items": [
+    {
+      "title": "Contoh Proker Berjalan",
+      "description": "Deskripsi singkat tentang proker ini. Akan ditampilkan di card.",
+      "image": "/img/uploads/contoh-proker.jpg",
+      "status": "40%",
+      "date": "2025-02-01",
+      "link": ""
+    }
+  ]
+}

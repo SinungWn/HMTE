@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel – HMTE UNSOED</title>
+    <!--
+      Decap CMS — versi CDN terbaru.
+      Tidak perlu Node.js atau build step apapun.
+      Pastikan file ini ada di path: /admin/index.html
+    -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <!--
+      Body HARUS kosong.
+      Decap CMS akan me-mount UI-nya sendiri ke dalam body ini secara otomatis
+      setelah skrip di atas selesai dijalankan.
+    -->
+  </body>
+</html>
